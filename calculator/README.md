@@ -5,7 +5,7 @@ uses HTML, CSS and JS
 <br>
 tutorial i used:
 <br>
-https://www.youtube.com/watch?v=sBJmRD7kNTk&t=1s&pp=ygURcHl0aG9uIGNhbGN1bGF0b3I%3D
+https://www.youtube.com/watch?v=sBJmRD7kNTk
 <br>
 <br>
 an image of the calculator:
