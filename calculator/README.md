@@ -2,9 +2,11 @@
 a calculator from a tutorial, i added some other doodads though<br>
 uses HTML, CSS and JS
 <br>
+<br>
 tutorial i used:
 <br>
 https://www.youtube.com/watch?v=sBJmRD7kNTk&t=1s&pp=ygURcHl0aG9uIGNhbGN1bGF0b3I%3D
+<br>
 <br>
 an image of the calculator:
 <br>
