@@ -4,7 +4,7 @@
     // Angles
     var angleA = 1;
     var angleB = 1;
-
+    // Settings
     const rotationIncrementA = 0.07;
     const rotationIncrementB = 0.03;
     const frameInterval = 50;
