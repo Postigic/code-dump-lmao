@@ -28,7 +28,8 @@ def bin_str_input():
 
 def error_check_choice():
     while True:
-        check_type = input("Select an error-checking method: ")
+        check_type = input(
+            "Select an error-checking method (parity, checksum, fcs, crc): ")
         if check_type.lower() not in {"parity", "checksum", "fcs", "crc"}:
             print("Invalid error-checking method.")
             continue
