@@ -1,5 +1,5 @@
 # rotating ASCII donut
-rotating ASCII donut made from tutorial, the math behind it is pretty cool but i don't understand
+rotating ASCII donut made from tutorial, the math and logic behind it is pretty cool but i don't understand
 <br>
 <br>
 made with HTML, CSS, JS
