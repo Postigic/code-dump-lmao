@@ -5,7 +5,9 @@ rotating ASCII donut made from tutorial, the math and logic behind it is pretty 
 made with HTML, CSS, JS
 <br>
 <br>
-tutorial used: https://www.youtube.com/watch?v=gBdXDs6Xo0E
+tutorial used:
+<br>
+https://www.youtube.com/watch?v=gBdXDs6Xo0E
 <br>
 <br>
 image of the donut:
