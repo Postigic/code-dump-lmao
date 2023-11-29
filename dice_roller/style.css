@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap");
+
+* {
+    font-family: "Fira Sans", sans-serif;
+}
+
+#container {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+button {
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: #3949ab;
+    color: #eee;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5c6bc0;
+}
+
+button:active {
+    background-color: #747fbd;
+}
+
+input {
+    font-size: 2rem;
+    width: 150px;
+    text-align: center;
+    font-weight: 500;
+}
+
+#diceResult {
+    margin: 25px;
+}
+
+#diceImages img {
+    width: 150px;
+    margin: 5px;
+}
