@@ -5,7 +5,9 @@ wikipedia searcher from tutorial, pretty cool i guess
 made with HTML, CSS and JS
 <br>
 <br>
-tutorial used: https://www.youtube.com/watch?v=v1t3STcPRqI
+tutorial used:
+<br>
+https://www.youtube.com/watch?v=v1t3STcPRqI
 <br>
 <br>
 image of it:
