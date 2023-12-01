@@ -2,6 +2,11 @@
 
 * {
     font-family: "Fira Sans", sans-serif;
+    color: #eee;
+}
+
+body {
+    background-color: #12181b;
 }
 
 .cell {
@@ -11,6 +16,16 @@
     box-shadow: 0 0 0 2px;
     line-height: 75px;
     font-size: 50px;
+    cursor: pointer;
+}
+
+.button {
+    background-color: #ff3860;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    margin-left: 1em;
     cursor: pointer;
 }
 
