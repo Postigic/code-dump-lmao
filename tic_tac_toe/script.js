@@ -81,9 +81,9 @@ function changePlayer() {
 }
 
 function computerMove() {
-    const computerMove = randomMove();
-    if (computerMove !== -1) {
-        const cell = cells[computerMove];
+    const move = randomMove();
+    if (move !== -1) {
+        const cell = cells[move];
         const cellIndex = cell.getAttribute("cellIndex");
         updateCell(cell, cellIndex);
     }
