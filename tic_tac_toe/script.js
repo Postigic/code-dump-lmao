@@ -1,6 +1,7 @@
 const cells = document.querySelectorAll(".cell");
 const statusInfo = document.querySelector("#statusInfo");
 const restartBtn = document.querySelector("#restartBtn");
+const enableComputer = document.querySelector("#enableComputer");
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -12,6 +13,7 @@ const winConditions = [
     [2, 4, 6],
 ];
 
+let computerEnabled = false;
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
@@ -21,7 +23,28 @@ initialiseGame();
 function initialiseGame() {
     cells.forEach((cell) => cell.addEventListener("click", cellClicked));
     restartBtn.addEventListener("click", restartGame);
+    enableComputer.addEventListener("click", toggleComputer);
     statusInfo.textContent = `${currentPlayer}'s turn`;
+    running = true;
+}
+
+function toggleComputer() {
+    if (!computerEnabled) {
+        computerEnabled = true;
+        enableComputer.textContent = "Play with Friend";
+        restartGame();
+    } else {
+        computerEnabled = false;
+        enableComputer.textContent = "Play with Computer";
+        restartGame();
+    }
+}
+
+function restartGame() {
+    currentPlayer = "X";
+    options = ["", "", "", "", "", "", "", "", ""];
+    statusInfo.textContent = `${currentPlayer}'s turn`;
+    cells.forEach((cell) => (cell.textContent = ""));
     running = true;
 }
 
@@ -34,6 +57,17 @@ function cellClicked() {
 
     updateCell(this, cellIndex);
     checkWinner();
+
+    if (running && currentPlayer === "O" && computerEnabled) {
+        cells.forEach((cell) => cell.removeEventListener("click", cellClicked));
+        setTimeout(() => {
+            computerMove();
+            checkWinner();
+            cells.forEach((cell) =>
+                cell.addEventListener("click", cellClicked)
+            );
+        }, 420);
+    }
 }
 
 function updateCell(cell, index) {
@@ -44,6 +78,32 @@ function updateCell(cell, index) {
 function changePlayer() {
     currentPlayer = currentPlayer == "X" ? "O" : "X";
     statusInfo.textContent = `${currentPlayer}'s turn`;
+}
+
+function computerMove() {
+    const computerMove = randomMove();
+    if (computerMove !== -1) {
+        const cell = cells[computerMove];
+        const cellIndex = cell.getAttribute("cellIndex");
+        updateCell(cell, cellIndex);
+    }
+}
+
+function randomMove() {
+    let availableMoves = [];
+
+    for (let i = 0; i < options.length; i++) {
+        if (options[i] === "") {
+            availableMoves.push(i);
+        }
+    }
+
+    if (availableMoves.length === 0) {
+        return -1;
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableMoves.length);
+    return availableMoves[randomIndex];
 }
 
 function checkWinner() {
@@ -73,12 +133,4 @@ function checkWinner() {
     } else {
         changePlayer();
     }
-}
-
-function restartGame() {
-    currentPlayer = "X";
-    options = ["", "", "", "", "", "", "", "", ""];
-    statusInfo.textContent = `${currentPlayer}'s turn`;
-    cells.forEach((cell) => (cell.textContent = ""));
-    running = true;
 }
