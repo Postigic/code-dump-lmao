@@ -63,7 +63,7 @@ def main():
             data_size, initial_unit, conversion_factor)
 
         print(f"Bytes Result: {bytes_result:.6f} {conversion_unit}")
-        print(f"Bits Result: {bits_result:.6f} bits")
+        print(f"Bits Result: {bits_result:.6f} b")
 
 
 if __name__ == "__main__":
