@@ -7,7 +7,7 @@ made with HTML, CSS and JS
 <br>
 tutorial i used:
 <br>
-https://www.youtube.com/watch?v=PXilNmL9U80&list=WL
+https://www.youtube.com/watch?v=PXilNmL9U80
 <br>
 <br>
 image of the dice roller:
