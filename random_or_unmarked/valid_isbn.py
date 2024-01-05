@@ -16,6 +16,9 @@ def is_valid(isbn):
     return total % 11 == 0
 
 
-is_valid("3-598-21507-X")
+print(is_valid("3-598-21507-X"))
 # 10, 14, 0, 20, 5, 12, 56, 72, 45, 30
 # 264
+print(is_valid("359821507X"))
+print(is_valid("3598215078X"))
+print(is_valid("5-698-52517-X"))
