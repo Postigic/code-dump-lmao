@@ -27,7 +27,7 @@ def get_conversion_factor(prompt, valid_factors):
             print("Invalid conversion factor. Enter a valid conversion factor.")
 
 
-def calculate_bytes(data_size, initial_unit, conversion_unit, conversion_factor):
+def calculate_conversion(data_size, initial_unit, conversion_unit, conversion_factor):
     units = {
         "B": 1,
         "KB": conversion_factor,
@@ -41,7 +41,7 @@ def calculate_bytes(data_size, initial_unit, conversion_unit, conversion_factor)
 
 
 def calculate_bits(data_size, unit, conversion_factor):
-    bytes_size = calculate_bytes(data_size, unit, "B", conversion_factor)
+    bytes_size = calculate_conversion(data_size, unit, "B", conversion_factor)
     return bytes_size * 8
 
 
@@ -57,12 +57,12 @@ def main():
         conversion_factor = get_conversion_factor(
             "Enter conversion factor (1000 or 1024): ", valid_factors)
 
-        bytes_result = calculate_bytes(
+        result = calculate_conversion(
             data_size, initial_unit, conversion_unit, conversion_factor)
         bits_result = calculate_bits(
             data_size, initial_unit, conversion_factor)
 
-        print(f"Bytes Result: {bytes_result:.6f} {conversion_unit}")
+        print(f"Result: {result:.6f} {conversion_unit}")
         print(f"Bits Result: {bits_result:.6f} b")
 
 
