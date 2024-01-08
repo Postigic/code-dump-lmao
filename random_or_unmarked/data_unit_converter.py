@@ -29,9 +29,9 @@ def calculate_conversion(data_size, initial_unit, conversion_unit):
         "PB": 1000 ** 5,
         "PIB": 1024 ** 5
     }
-    initial_bytes = units[initial_unit]
+    initial = units[initial_unit]
     conversion = units[conversion_unit]
-    return data_size * initial_bytes / conversion
+    return data_size * initial / conversion
 
 
 def calculate_bits(data_size, unit):
