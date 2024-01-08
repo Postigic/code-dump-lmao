@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <title>Data Unit Converter</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Data Unit Converter</h2>
+            <div class="wrapper">
+                <div class="input-boxes">
+                    <input
+                        id="data-size"
+                        type="number"
+                        placeholder="Enter Data"
+                    />
+                    <input
+                        id="initial-unit"
+                        type="text"
+                        placeholder="Enter Initial Unit"
+                    />
+                    <input
+                        id="conversion-unit"
+                        type="text"
+                        placeholder="Enter Conversion Unit"
+                    />
+                </div>
+
+                <button class="convert-btn">Convert</button>
+
+                <div id="result" class="output-boxes">
+                    <input type="text" placeholder="Result" disabled />
+                    <span class="material-symbols-rounded">copy_all</span>
+                </div>
+
+                <div id="bits-result" class="output-boxes">
+                    <input type="text" placeholder="Bits Result" disabled />
+                    <span class="material-symbols-rounded">copy_all</span>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

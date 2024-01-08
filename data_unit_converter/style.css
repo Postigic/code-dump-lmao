@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Fira Sans", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #ff9d1d;
+}
+
+.container {
+    width: 500px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+    font-weight: 600;
+    padding: 1rem 1.75rem;
+    border-bottom: 1px solid #d4dbe5;
+}
+
+.wrapper {
+    margin: 1.25rem 1.75rem;
+}
+
+.wrapper .input-boxes input {
+    width: 100%;
+    height: 53px;
+    color: #000;
+    background: none;
+    font-size: 1.06rem;
+    font-weight: 500;
+    border-radius: 4px;
+    letter-spacing: 1.4px;
+    border: 1px solid #aaa;
+    padding: 0 2.85rem 0 1rem;
+    margin-bottom: 10px;
+}
+
+.wrapper .convert-btn {
+    width: 100%;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #2e2e2e;
+    font-size: 1.06rem;
+    padding: 0.94rem 0;
+    border-radius: 5px;
+    text-transform: uppercase;
+    margin: 0.94rem 0 1.3rem;
+}
+
+.wrapper .output-boxes {
+    position: relative;
+}
+
+.wrapper .output-boxes input {
+    width: 100%;
+    height: 53px;
+    color: #000;
+    background: #eee;
+    font-size: 1.06rem;
+    font-weight: 500;
+    border-radius: 4px;
+    letter-spacing: 1.4px;
+    border: 1px solid #aaa;
+    padding: 0 2.85rem 0 1rem;
+    margin-bottom: 10px;
+}
+
+.wrapper .output-boxes span {
+    position: absolute;
+    right: 13px;
+    cursor: pointer;
+    line-height: 53px;
+    color: #707070;
+}
+
+.wrapper .output-boxes span:hover {
+    color: #43a047 !important;
+}
