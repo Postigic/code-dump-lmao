@@ -7,4 +7,4 @@ made with HTML, CSS and JS
 <br>
 image of the data unit converter:
 <br>
-![image](https://github.com/Postigic/code-dump-lmao/assets/143212308/6c4cc553-2843-48f4-bac9-bb24bd12f3ef)
+![image](https://github.com/Postigic/code-dump-lmao/assets/143212308/714f8aad-a0d0-4c4a-b225-85c531ddf21d)
