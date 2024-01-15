@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Fira Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #ff9d1d;
+    background: #2d385c;
 }
 
 .container {
@@ -56,8 +56,19 @@ body {
     font-size: 1.06rem;
     padding: 0.94rem 0;
     border-radius: 5px;
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
+    transition: all 0.3s ease;
     margin: 0.94rem 0 1.3rem;
+}
+
+.wrapper .convert-btn:hover {
+    background: #252525;
+    transition: all 0.3s ease;
+    transform: translateY(-3px);
+    box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.2);
 }
 
 .wrapper .output-boxes {
