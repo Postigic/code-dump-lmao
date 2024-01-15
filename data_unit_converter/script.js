@@ -43,8 +43,8 @@ const convertUnit = () => {
         (dataSize * units[initialUnit]) / units[conversionUnit];
     const bitsResult = ((dataSize * units[initialUnit]) / units["B"]) * 8;
 
-    result.value = `${conversionResult.toFixed(6)} ${conversionUnit}`;
-    bitResult.value = `${bitsResult.toFixed(6)} b`;
+    result.value = `${conversionResult} ${conversionUnit}`;
+    bitResult.value = `${bitsResult} b`;
 };
 
 const copyResult = (result, icon) => {
