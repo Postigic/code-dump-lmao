@@ -13,26 +13,30 @@
     <body>
         <div class="container">
             <h2>Data Unit Converter</h2>
-            <div class="wrapper">
-                <div class="input-boxes">
-                    <input
-                        id="data-size"
-                        type="number"
-                        placeholder="Enter Data"
-                    />
-                    <input
-                        id="initial-unit"
-                        type="text"
-                        placeholder="Enter Initial Unit"
-                    />
-                    <input
-                        id="conversion-unit"
-                        type="text"
-                        placeholder="Enter Conversion Unit"
-                    />
-                </div>
+            <section class="wrapper">
+                <form id="data-converter-form">
+                    <div class="input-boxes">
+                        <input
+                            id="data-size"
+                            type="number"
+                            placeholder="Enter Data Size"
+                        />
 
-                <button class="convert-btn">Convert</button>
+                        <input
+                            id="initial-unit"
+                            type="text"
+                            placeholder="Enter Initial Unit"
+                        />
+
+                        <input
+                            id="conversion-unit"
+                            type="text"
+                            placeholder="Enter Conversion Unit"
+                        />
+                    </div>
+
+                    <button class="convert-btn" type="button">Convert</button>
+                </form>
 
                 <div id="result" class="output-boxes">
                     <input type="text" placeholder="Result" disabled />
@@ -43,7 +47,7 @@
                     <input type="text" placeholder="Bits Result" disabled />
                     <span class="material-symbols-rounded">copy_all</span>
                 </div>
-            </div>
+            </section>
         </div>
 
         <script src="script.js"></script>
