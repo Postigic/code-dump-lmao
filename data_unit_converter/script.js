@@ -26,15 +26,16 @@ const convertUnit = () => {
     const initialUnit = initialInput.value.trim().toUpperCase();
     const conversionUnit = conversionInput.value.trim().toUpperCase();
 
-    if (dataSize < 0 || isNaN(dataSize)) {
-        dataSize = 0;
-        dataInput.value = 0;
+    if (dataSize < 1 || isNaN(dataSize)) {
+        dataInput.value = "";
+        return;
     }
     if (!units.hasOwnProperty(initialUnit)) {
-        initialInput.value = "Invalid initial unit!";
+        initialInput.value = "";
+        return;
     }
     if (!units.hasOwnProperty(conversionUnit)) {
-        conversionInput.value = "Invalid conversion unit!";
+        conversionInput.value = "";
         return;
     }
 
@@ -42,14 +43,14 @@ const convertUnit = () => {
         (dataSize * units[initialUnit]) / units[conversionUnit];
     const bitsResult = ((dataSize * units[initialUnit]) / units["B"]) * 8;
 
-    result.value = conversionResult;
-    bitResult.value = bitsResult;
+    result.value = `${conversionResult.toFixed(6)} ${conversionUnit}`;
+    bitResult.value = `${bitsResult.toFixed(6)} b`;
 };
 
 const copyResult = (result, icon) => {
     navigator.clipboard.writeText(result.value);
     icon.innerText = "check";
-    icon.style.color = "#4285F4";
+    icon.style.color = "#43a047";
     setTimeout(() => {
         icon.innerText = "copy_all";
         icon.style.color = "#707070";
