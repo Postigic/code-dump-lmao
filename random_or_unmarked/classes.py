@@ -13,7 +13,7 @@ class Student:
         print(f"Age: {self.age}")
         print(f"Gender: {self.gender}")
         print(f"School: {self.school}")
-        print(f"Co-Cirricular Activities: {self.cca}")
+        print(f"Co-Curricular Activities: {self.cca}")
         print(
             f"Marks: {', '.join([f'{subject}: {mark}' for subject, mark in self.marks.items()])}")
         print(f"Overall Marks: {self.overall_marks()}")
@@ -21,6 +21,9 @@ class Student:
         print(f"Email: {self.email()}")
         print(f"Phone Number: {self.phone_number}")
         print("\n-------------------------------\n\n")
+
+    def generate_student_ID():
+        pass
 
     def email(self):
         return f"{self.name.lower().replace(' ', '_')}@gmail.com"
@@ -42,6 +45,12 @@ class Student:
             return "E"
         else:
             return "F"
+
+    def calculate_ranking():
+        pass
+
+    def analyse_performance():
+        pass
 
 
 s1 = Student("Leona", "Palmer", 20, "Female", "Victoria Junior College", "Badminton", {
