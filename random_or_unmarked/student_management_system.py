@@ -10,94 +10,11 @@ CO_CURRICULAR_ACTIVITIES = ["Volleyball", "Media", "Infocomm", "Track and Field"
                             "Malay Dance", "Modern Dance", "Police National Cadet Corps", "Chinese Drama", "Chinese Orchestra", "Singapore Youth Flying Club"]
 
 
-class Student:
-    all_students = []
-
-    def __init__(self, first_name, last_name, age, gender, school, cca, marks, phone_number):
-        self.name = f"{first_name} {last_name}"
-        self.age = age
-        self.gender = gender
-        self.school = school
-        self.cca = cca
-        self.marks = marks
-        self.overall_marks = round(sum(marks.values()) / len(marks))
-        self.phone_number = phone_number
-        Student.all_students.append(self)
-
-    def print_details(self):
-        print(f"Student ID: {self.generate_student_ID()}")
-        print(f"Name: {self.name}")
-        print(f"Age: {self.age}")
-        print(f"Gender: {self.gender}")
-        print(f"School: {self.school}")
-        print(f"Co-Curricular Activities: {self.cca}")
-        print(f"Marks: {self.marks_str()}")
-        print(
-            f"Performance (Best to Worst): {self.display_subject_descending()}")
-        print(f"Overall Marks: {self.overall_marks}")
-        print(f"Overall Grade: {self.calculate_overall_grade()}")
-        print(f"Ranking: {self.calculate_ranking()}")
-        print(f"Email: {self.email()}")
-        print(f"Phone Number: {self.phone_number}")
-        print("\n-------------------------------\n")
-
-    def generate_student_ID(self):
-        string = (self.name + self.school).lower()
-        letter_positions = [(ord(char) - 96) -
-                            2 for char in string if char.isalpha()]
-        letter_positions = [(pos + 25) if pos <
-                            1 else pos for pos in letter_positions]
-        return ''.join(str(pos) for pos in letter_positions)[:8]
-
-    def email(self):
-        return f"{self.name.lower().replace(' ', '_')}@gmail.com"
-
-    def marks_str(self):
-        return ', '.join([f"{subject}: {mark}" for subject, mark in self.marks.items()])
-
-    def display_subject_descending(self):
-        sorted_subjects = sorted(
-            self.marks.keys(), key=lambda x: self.marks[x], reverse=True)
-        return ', '.join(sorted_subjects)
-
-    def calculate_overall_grade(self):
-        if self.overall_marks >= 70:
-            return "A"
-        elif self.overall_marks >= 60:
-            return "B"
-        elif self.overall_marks >= 50:
-            return "C"
-        elif self.overall_marks >= 45:
-            return "D"
-        elif self.overall_marks >= 40:
-            return "E"
-        else:
-            return "F"
-
-    def calculate_ranking(self):
-        sorted_students = sorted(
-            Student.all_students, key=lambda x: x.overall_marks, reverse=True)
-        return sorted_students.index(self) + 1
-
-
-s1 = Student("Leona", "Palmer", 20, "Female", "Victoria Junior College", "Badminton", {
-             "English": 90, "Mother Tongue": 82, "Maths": 88, "Pure Physics": 89, "Pure Chemistry": 95, "Geography/Social Studies": 87, "Additional Mathematics": 76, "Computing": 88}, "86972149")
-
-s2 = Student("Bobby", "Gardner", 21, "Male", "Millenia Institute", "Infocomm", {
-             "English": 67, "Mother Tongue": 73, "Maths": 75, "Biology/Chemistry": 87, "History/Social Studies": 66, "Design and Technology": 76, "Principles of Accounting": 78}, "N/A")
-
-s3 = Student("Jack", "Goodwin", 22, "Male", "Jurong Pioneers College", "Hockey", {
-             "English": 68, "Mother Tongue": 45, "Maths": 87, "Physics/Chemistry": 89, "Literature/Social Studies": 67, "Nutrition and Food Science": 76, "Principles of Accounting": 67}, "91081566")
-
-s4 = Student("Carla", "Hicks", 23, "Female", "Catholic Junior College", "Volleyball", {
-             "English": 65, "Mother Tongue": 88, "Maths": 77, "Physics/Biology": 88, "Pure History": 76, "Art": 69, "Design and Technology": 67}, "99718770")
-
-
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 #
 # INTERFACE FUNCTIONS
 #
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 
 
 def main():
@@ -182,11 +99,88 @@ def view_student_details():
               end="\n\n-------------------------------\n\n")
 
 
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
+#
+# MAIN CODE
+#
+# -------------------------------------------------------------------------------------------------------------------- #
+
+
+class Student:
+    all_students = []
+
+    def __init__(self, first_name, last_name, age, gender, school, cca, marks, phone_number):
+        self.name = f"{first_name} {last_name}"
+        self.age = age
+        self.gender = gender
+        self.school = school
+        self.cca = cca
+        self.marks = marks
+        self.overall_marks = round(sum(marks.values()) / len(marks))
+        self.phone_number = phone_number
+        Student.all_students.append(self)
+
+    def print_details(self):
+        print(f"Student ID: {self.generate_student_ID()}")
+        print(f"Name: {self.name}")
+        print(f"Age: {self.age}")
+        print(f"Gender: {self.gender}")
+        print(f"School: {self.school}")
+        print(f"Co-Curricular Activities: {self.cca}")
+        print(f"Marks: {self.marks_str()}")
+        print(
+            f"Performance (Best to Worst): {self.display_subject_descending()}")
+        print(f"Overall Marks: {self.overall_marks}")
+        print(f"Overall Grade: {self.calculate_overall_grade()}")
+        print(f"Ranking: {self.calculate_ranking()}")
+        print(f"Email: {self.email()}")
+        print(f"Phone Number: {self.phone_number}")
+        print("\n-------------------------------\n")
+
+    def generate_student_ID(self):
+        string = (self.name + self.school).lower()
+        letter_positions = [(ord(char) - 96) -
+                            2 for char in string if char.isalpha()]
+        letter_positions = [(pos + 25) if pos <
+                            1 else pos for pos in letter_positions]
+        return ''.join(str(pos) for pos in letter_positions)[:8]
+
+    def email(self):
+        return f"{self.name.lower().replace(' ', '_')}@gmail.com"
+
+    def marks_str(self):
+        return ', '.join([f"{subject}: {mark}" for subject, mark in self.marks.items()])
+
+    def display_subject_descending(self):
+        sorted_subjects = sorted(
+            self.marks.keys(), key=lambda x: self.marks[x], reverse=True)
+        return ', '.join(sorted_subjects)
+
+    def calculate_overall_grade(self):
+        if self.overall_marks >= 70:
+            return "A"
+        elif self.overall_marks >= 60:
+            return "B"
+        elif self.overall_marks >= 50:
+            return "C"
+        elif self.overall_marks >= 45:
+            return "D"
+        elif self.overall_marks >= 40:
+            return "E"
+        else:
+            return "F"
+
+    def calculate_ranking(self):
+        sorted_students = sorted(
+            Student.all_students, key=lambda x: x.overall_marks, reverse=True)
+        return sorted_students.index(self) + 1
+
+
+# -------------------------------------------------------------------------------------------------------------------- #
 #
 # RANDOM STUDENT DETAILS GENERATION
 #
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 
 
 def generate_random_student():
@@ -255,11 +249,11 @@ def generate_random_phone_number():
     return f"{random.randint(6000, 9999)}{random.randint(1000, 9999)}"
 
 
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 #
 # ERROR CHECKING FUNCTIONS
 #
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 
 
 def has_number(string):
@@ -331,10 +325,18 @@ def verify_phone_number(prompt):
         return user_input
 
 
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 #
-# --------------------------------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------------------------------- #
 
 
 if __name__ == "__main__":
+    s1 = Student("Leona", "Palmer", 20, "Female", "Victoria Junior College", "Badminton", {
+        "English": 90, "Mother Tongue": 82, "Maths": 88, "Pure Physics": 89, "Pure Chemistry": 95, "Geography/Social Studies": 87, "Additional Mathematics": 76, "Computing": 88}, "86972149")
+    s2 = Student("Bobby", "Gardner", 21, "Male", "Millenia Institute", "Infocomm", {
+        "English": 67, "Mother Tongue": 73, "Maths": 75, "Biology/Chemistry": 87, "History/Social Studies": 66, "Design and Technology": 76, "Principles of Accounting": 78}, "N/A")
+    s3 = Student("Jack", "Goodwin", 22, "Male", "Jurong Pioneers College", "Hockey", {
+        "English": 68, "Mother Tongue": 45, "Maths": 87, "Physics/Chemistry": 89, "Literature/Social Studies": 67, "Nutrition and Food Science": 76, "Principles of Accounting": 67}, "91081566")
+    s4 = Student("Carla", "Hicks", 23, "Female", "Catholic Junior College", "Volleyball", {
+        "English": 65, "Mother Tongue": 88, "Maths": 77, "Physics/Biology": 88, "Pure History": 76, "Art": 69, "Design and Technology": 67}, "99718770")
     main()
