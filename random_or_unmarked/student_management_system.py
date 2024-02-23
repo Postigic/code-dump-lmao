@@ -110,6 +110,7 @@ def add_student():
         print("\n-------------------------------\n")
 
         if choice == "1":
+            get_student_details()
             break
         elif choice == "2":
             generate_random_student()
@@ -120,6 +121,7 @@ def add_student():
         else:
             print("Invalid choice. Please try again.")
 
+def get_student_details():
     first_name = verify_string("Enter first name: ")
     last_name = verify_string("Enter last name: ")
     age = verify_integer("Enter age: ")
@@ -142,7 +144,8 @@ def add_student():
 
 
 def generate_random_student():
-    pass
+    print("Student added successfully!",
+          end="\n\n-------------------------------\n\n")
 
 
 def view_student_details():
