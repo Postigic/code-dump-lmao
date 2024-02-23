@@ -93,6 +93,13 @@ s4 = Student("Carla", "Hicks", 23, "Female", "Catholic Junior College", "Volleyb
              "English": 65, "Mother Tongue": 88, "Maths": 77, "Physics/Biology": 88, "Pure History": 76, "Art": 69, "Design and Technology": 67}, "99718770")
 
 
+# --------------------------------------------------------------------------------------------------------------------#
+#
+# INTERFACE FUNCTIONS
+#
+# --------------------------------------------------------------------------------------------------------------------#
+
+
 def main():
     while True:
         print("Welcome to the Student Management System!",
@@ -141,7 +148,7 @@ def add_student():
 def get_student_details():
     first_name = verify_string("Enter first name: ")
     last_name = verify_string("Enter last name: ")
-    age = verify_integer("Enter age: ")
+    age = verify_age("Enter age: ")
     gender = verify_gender("Enter gender (M or F): ")
     school = verify_string("Enter school: ")
     cca = verify_string("Enter co-curricular activity: ")
@@ -150,7 +157,7 @@ def get_student_details():
         "Enter the number of subjects (7 or 8): ")
     for _ in range(num_subjects):
         subject = verify_string("Enter subject name: ")
-        mark = verify_integer(f"Enter {subject} mark: ")
+        mark = verify_mark(f"Enter {subject} mark: ")
         marks[subject] = mark
     phone_number = verify_phone_number("Enter phone number (XXXXXXXX): ")
     print("\n-------------------------------\n")
@@ -175,59 +182,11 @@ def view_student_details():
               end="\n\n-------------------------------\n\n")
 
 
-def has_number(string):
-    for char in string:
-        if char.isdigit():
-            return True
-    return False
-
-
-def verify_string(prompt):
-    while True:
-        user_input = input(prompt)
-        if user_input.strip() == "" or has_number(user_input):
-            print("Invalid input.")
-            continue
-        return user_input
-
-
-def verify_integer(prompt):
-    while True:
-        try:
-            user_input = int(input(prompt))
-            if user_input >= 0:
-                return user_input
-            print("Input must be a positive integer. Please try again.")
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-
-
-def verify_gender(prompt):
-    while True:
-        user_input = input(prompt)
-        if user_input in ["M", "F"]:
-            return user_input
-        print("Invalid gender. Please enter 'M' or 'F'.")
-
-
-def verify_num_of_subjects(prompt):
-    while True:
-        try:
-            user_input = int(input(prompt))
-            if 7 <= user_input <= 8:
-                return int(user_input)
-            print("Invalid input. Please enter a valid number of subjects.")
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-
-
-def verify_phone_number(prompt):
-    while True:
-        user_input = input(prompt)
-        if user_input.strip() == "" or (not user_input.isdigit() and user_input != "N/A"):
-            print("Invalid input. Please enter a valid phone number.")
-            continue
-        return user_input
+# --------------------------------------------------------------------------------------------------------------------#
+#
+# RANDOM STUDENT DETAILS GENERATION
+#
+# --------------------------------------------------------------------------------------------------------------------#
 
 
 def generate_random_student():
@@ -294,6 +253,87 @@ def generate_coursework_non_coursework_marks():
 
 def generate_random_phone_number():
     return f"{random.randint(6000, 9999)}{random.randint(1000, 9999)}"
+
+
+# --------------------------------------------------------------------------------------------------------------------#
+#
+# ERROR CHECKING FUNCTIONS
+#
+# --------------------------------------------------------------------------------------------------------------------#
+
+
+def has_number(string):
+    for char in string:
+        if char.isdigit():
+            return True
+    return False
+
+
+def verify_string(prompt):
+    while True:
+        user_input = input(prompt)
+        if user_input.strip() == "" or has_number(user_input):
+            print("Invalid input.")
+            continue
+        return user_input
+
+
+def verify_age(prompt):
+    while True:
+        try:
+            user_input = int(input(prompt))
+            if user_input < 17 or user_input >= 50:
+                print("Student must be at least 17 years old and below 50.")
+                continue
+            return user_input
+        except ValueError:
+            print("Invalid input. Please enter a valid age.")
+
+
+def verify_gender(prompt):
+    while True:
+        user_input = input(prompt)
+        if user_input in ["M", "F"]:
+            return user_input
+        print("Invalid gender. Please enter 'M' or 'F'.")
+
+
+def verify_num_of_subjects(prompt):
+    while True:
+        try:
+            user_input = int(input(prompt))
+            if user_input not in [7, 8]:
+                print("Invalid input. Please enter a valid number of subjects.")
+                continue
+            return int(user_input)
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
+
+def verify_mark(prompt):
+    while True:
+        try:
+            user_input = int(input(prompt))
+            if user_input < 0 or user_input > 100:
+                print("Invalid mark. Please enter a valid mark.")
+                continue
+            return user_input
+        except ValueError:
+            print("Invalid input. Please enter a valid mark.")
+
+
+def verify_phone_number(prompt):
+    while True:
+        user_input = input(prompt)
+        if user_input.strip() == "" or (not user_input.isdigit() and user_input != "N/A"):
+            print("Invalid input. Please enter a valid phone number.")
+            continue
+        return user_input
+
+
+# --------------------------------------------------------------------------------------------------------------------#
+#
+# --------------------------------------------------------------------------------------------------------------------#
 
 
 if __name__ == "__main__":
