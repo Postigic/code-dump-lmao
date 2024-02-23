@@ -1,3 +1,15 @@
+import random
+
+FIRST_NAMES = ["Rowan", "Riley", "Avery", "Logan", "Quinn", "Jordan", "River", "Cameron", "Angel", "Carter", "Ryan", "Dylan", "Noah", "Ezra", "Emery", "Hunter", "Kai", "August", "Nova",
+               "Parker", "Arbor", "Ash", "Charlie", "Drew", "Ellis", "Everest", "Jett", "Lowen", "Moss", "Oakley", "Onyx", "Phoenix", "Ridley", "Remy", "Robin", "Royal", "Sage", "Scout", "Tatum", "Wren", "Monroe"]
+LAST_NAMES = ["Vaughn", "Rios", "Smith", "Johnson", "Williams", "Jones", "Brown",
+              "Davis", "Miller", "Sanders", "Kelly", "Boone", "Francis", "Martin", "Tyler", "Potter", "Hicks", "Goodwin", "Gardner", "Palmer"]
+SCHOOLS = ["Victoria Junior College", "Millenia Institute", "Jurong Pioneers College", "Catholic Junior College",
+           "Temasek Junior College", "River Valley High School", "Hwa Chong Institution", "Raffles Institution", "Dunman High School"]
+CO_CURRICULAR_ACTIVITIES = ["Volleyball", "Media", "Infocomm", "Track and Field", "Badminton", "Table Tennis", "Hockey", "Floorball", "Basketball", "Soccer", "Choir", "Band", "Chinese Dance",
+                            "Malay Dance", "Modern Dance", "Police National Cadet Corps", "Chinese Drama", "Chinese Orchestra", "Singapore Youth Flying Club"]
+
+
 class Student:
     all_students = []
 
@@ -69,13 +81,16 @@ class Student:
 
 
 s1 = Student("Leona", "Palmer", 20, "Female", "Victoria Junior College", "Badminton", {
-             "English": 90, "Maths": 88, "Science": 95, "Geography": 81, "Social Studies": 87, "Mother Tongue": 82}, "86972149")
+             "English": 90, "Mother Tongue": 82, "Maths": 88, "Pure Physics": 89, "Pure Chemistry": 95, "Geography/Social Studies": 87, "Additional Mathematics": 76, "Computing": 88}, "86972149")
+
 s2 = Student("Bobby", "Gardner", 21, "Male", "Millenia Institute", "Infocomm", {
-             "English": 67, "Maths": 75, "Science": 87, "History": 76, "Social Studies": 64, "Mother Tongue": 73}, "N/A")
-s3 = Student("Jack", "Goodwin", 22, "Male", "Jurong Pioneers College", "Robotics", {
-             "English": 68, "Maths": 87, "Science": 89, "Literature": 67, "Social Studies": 67, "Mother Tongue": 45}, "91081566")
-s4 = Student("Carla", "Hicks", 23, "Female", "Catholic College", "Volleyball", {
-             "English": 65, "Maths": 77, "Science": 78, "History": 89, "Social Studies": 67, "Mother Tongue": 88}, "99718770")
+             "English": 67, "Mother Tongue": 73, "Maths": 75, "Biology/Chemistry": 87, "History/Social Studies": 66, "Design and Technology": 76, "Principles of Accounting": 78}, "N/A")
+
+s3 = Student("Jack", "Goodwin", 22, "Male", "Jurong Pioneers College", "Hockey", {
+             "English": 68, "Mother Tongue": 45, "Maths": 87, "Physics/Chemistry": 89, "Literature/Social Studies": 67, "Nutrition and Food Science": 76, "Principles of Accounting": 67}, "91081566")
+
+s4 = Student("Carla", "Hicks", 23, "Female", "Catholic Junior College", "Volleyball", {
+             "English": 65, "Mother Tongue": 88, "Maths": 77, "Physics/Biology": 88, "Pure History": 76, "Art": 69, "Design and Technology": 67}, "99718770")
 
 
 def main():
@@ -94,6 +109,7 @@ def main():
         elif choice == "2":
             view_student_details()
         elif choice == "3":
+            print("Thanks for using the Student Management System!")
             print("Exiting...")
             break
         else:
@@ -121,20 +137,22 @@ def add_student():
         else:
             print("Invalid choice. Please try again.")
 
+
 def get_student_details():
     first_name = verify_string("Enter first name: ")
     last_name = verify_string("Enter last name: ")
     age = verify_integer("Enter age: ")
-    gender = verify_gender("Enter gender (M, F): ")
+    gender = verify_gender("Enter gender (M or F): ")
     school = verify_string("Enter school: ")
     cca = verify_string("Enter co-curricular activity: ")
     marks = {}
-    num_subjects = verify_num_of_subjects("Enter the number of subjects: ")
+    num_subjects = verify_num_of_subjects(
+        "Enter the number of subjects (7 or 8): ")
     for _ in range(num_subjects):
         subject = verify_string("Enter subject name: ")
         mark = verify_integer(f"Enter {subject} mark: ")
         marks[subject] = mark
-    phone_number = verify_phone_number("Enter phone number: ")
+    phone_number = verify_phone_number("Enter phone number (XXXXXXXX): ")
     print("\n-------------------------------\n")
 
     new_student = Student(first_name, last_name, age,
@@ -143,14 +161,12 @@ def get_student_details():
           end="\n\n-------------------------------\n\n")
 
 
-def generate_random_student():
-    print("Student added successfully!",
-          end="\n\n-------------------------------\n\n")
-
-
 def view_student_details():
-    student_index = int(input("Enter student index (1, 2, ...): "))
+    student_index = int(
+        input("Enter student index (1, 2, ..., -1 to go back): "))
     print("\n-------------------------------\n")
+    if student_index == -1:
+        main()
     if 1 <= student_index <= len(Student.all_students):
         student = Student.all_students[student_index - 1]
         student.print_details()
@@ -198,7 +214,7 @@ def verify_num_of_subjects(prompt):
     while True:
         try:
             user_input = int(input(prompt))
-            if user_input >= 6:
+            if 7 <= user_input <= 8:
                 return int(user_input)
             print("Invalid input. Please enter a valid number of subjects.")
         except ValueError:
@@ -212,6 +228,72 @@ def verify_phone_number(prompt):
             print("Invalid input. Please enter a valid phone number.")
             continue
         return user_input
+
+
+def generate_random_student():
+    first_name = random.choice(FIRST_NAMES)
+    last_name = random.choice(LAST_NAMES)
+    age = random.randint(17, 25)
+    gender = random.choice(["M", "F"])
+    school = random.choice(SCHOOLS)
+    cca = random.choice(CO_CURRICULAR_ACTIVITIES)
+    marks = generate_random_marks()
+    phone_number = generate_random_phone_number()
+
+    new_student = Student(first_name, last_name, age,
+                          gender, school, cca, marks, phone_number)
+    print("Student added successfully!",
+          end="\n\n-------------------------------\n\n")
+
+
+def generate_random_marks():
+    marks = {}
+    marks["English"] = generate_subject_mark()
+    marks["Mother Tongue"] = generate_subject_mark()
+    marks["Maths"] = generate_subject_mark()
+
+    marks.update(generate_science_marks())
+    marks.update(generate_humanities_marks())
+    marks.update(generate_coursework_non_coursework_marks())
+
+    return marks
+
+
+def generate_subject_mark():
+    return random.randint(60, 100)
+
+
+def generate_science_marks():
+    COMBINED_SCIENCES = ["Physics/Chemistry",
+                         "Physics/Biology", "Biology/Chemistry"]
+    PURE_SCIENCES = ["Pure Physics", "Pure Chemistry", "Pure Biology"]
+
+    science_type = random.choice(["combined", "pure"])
+    if science_type == "combined":
+        subject = random.choice(COMBINED_SCIENCES)
+        return {subject: generate_subject_mark()}
+    else:
+        subjects = random.sample(PURE_SCIENCES, 2)
+        return {subject: generate_subject_mark() for subject in subjects}
+
+
+def generate_humanities_marks():
+    HUMANITIES = ["Geography/Social Studies", "History/Social Studies",
+                  "Literature/Social Studies", "Pure History", "Pure Literature"]
+    subject = random.choice(HUMANITIES)
+    return {subject: generate_subject_mark()}
+
+
+def generate_coursework_non_coursework_marks():
+    COURSEWORK_NON_COURSEWORK = ["Design and Technology", "Additional Mathematics",
+                                 "Principles of Accounting", "Art", "Nutrition and Food Science", "Computing"]
+    num_courses = random.choice([1, 2])
+    subjects = random.sample(COURSEWORK_NON_COURSEWORK, num_courses)
+    return {subject: generate_subject_mark() for subject in subjects}
+
+
+def generate_random_phone_number():
+    return f"{random.randint(6000, 9999)}{random.randint(1000, 9999)}"
 
 
 if __name__ == "__main__":
