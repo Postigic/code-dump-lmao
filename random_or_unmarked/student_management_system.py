@@ -230,7 +230,75 @@ def print_student_details():
 
 
 def edit_student_details():
-    ...
+    while True:
+        for i, student in enumerate(Student.all_students, start=1):
+            print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
+
+        student_index = get_valid_index(
+            "Enter student index (1, 2, ..., -1 to go back): ")
+        print("\n-------------------------------\n")
+        if student_index == -1:
+            view_student_details()
+
+        if 1 <= student_index <= len(Student.all_students):
+            student = Student.all_students[student_index - 1]
+            edit_student(student)
+        else:
+            print("Invalid student index. Please try again.",
+                  end="\n\n-------------------------------\n\n")
+            continue
+
+
+def edit_student(student):
+    print("Current Details:")
+    student.print_details()
+
+    while True:
+        print("What would you like to edit?")
+        print("1. Name")
+        print("2. Age")
+        print("3. Gender")
+        print("4. School")
+        print("5. Co-Curricular Activities")
+        print("6. Marks")
+        print("7. Phone Number")
+        print("8. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            new_name = input("Enter new name: ")
+            student.name = new_name
+            print("Name updated successfully!")
+        elif choice == "2":
+            new_age = get_valid_age("Enter new age: ")
+            student.age = new_age
+            print("Age updated successfully!")
+        elif choice == "3":
+            new_gender = get_valid_gender("Enter new gender (M or F): ")
+            student.gender = new_gender
+            print("Gender updated successfully!")
+        elif choice == "4":
+            new_school = input("Enter new school: ")
+            student.school = new_school
+            print("School updated successfully!")
+        elif choice == "5":
+            new_cca = input("Enter new co-curricular activity: ")
+            student.cca = new_cca
+            print("Co-Curricular Activities updated successfully!")
+        elif choice == "6":
+            # Implement logic to edit marks
+            print("Editing marks is not yet implemented.")
+        elif choice == "7":
+            new_phone_number = get_valid_phone_number(
+                "Enter new phone number (XXXXXXXX): ")
+            student.phone_number = new_phone_number
+            print("Phone number updated successfully!")
+        elif choice == "8":
+            print("Exiting editing mode.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 
 def delete_student_details():
@@ -247,7 +315,7 @@ def delete_student_details():
         print("\n-------------------------------\n")
         if confirmation.lower() == "y":
             deleted_student = Student.all_students.pop(student_index - 1)
-            print(f"Successfully deleted {deleted_student.name}.",
+            print(f"Successfully deleted {deleted_student.name}!",
                   end="\n\n-------------------------------\n\n")
         elif confirmation.lower() == "n":
             print("Student deletion cancelled.",
