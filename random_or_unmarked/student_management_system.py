@@ -12,95 +12,6 @@ CO_CURRICULAR_ACTIVITIES = ["Volleyball", "Media", "Infocomm", "Track and Field"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 #
-# INTERFACE FUNCTIONS
-#
-# -------------------------------------------------------------------------------------------------------------------- #
-
-
-def main():
-    while True:
-        print("Welcome to the Student Management System!",
-              end="\n\n-------------------------------\n\n")
-        print("1. Add a new student")
-        print("2. View student details")
-        print("3. Exit")
-
-        choice = input("Enter your choice: ")
-        print("\n-------------------------------\n")
-
-        if choice == "1":
-            add_student()
-        elif choice == "2":
-            view_student_details()
-        elif choice == "3":
-            print("Thanks for using the Student Management System!")
-            print("Exiting...")
-            break
-        else:
-            print("Invalid choice. Please try again.")
-
-
-def add_student():
-    while True:
-        print("1. Add a new student manually")
-        print("2. Generate a random student")
-        print("3. Go back")
-
-        choice = input("Enter your choice: ")
-        print("\n-------------------------------\n")
-
-        if choice == "1":
-            get_student_details()
-            break
-        elif choice == "2":
-            generate_random_student()
-            break
-        elif choice == "3":
-            main()
-
-        else:
-            print("Invalid choice. Please try again.")
-
-
-def get_student_details():
-    first_name = verify_string("Enter first name: ")
-    last_name = verify_string("Enter last name: ")
-    age = verify_age("Enter age: ")
-    gender = verify_gender("Enter gender (M or F): ")
-    school = verify_string("Enter school: ")
-    cca = verify_string("Enter co-curricular activity: ")
-    marks = {}
-    num_subjects = verify_num_of_subjects(
-        "Enter the number of subjects (7 or 8): ")
-    for _ in range(num_subjects):
-        subject = verify_string("Enter subject name: ")
-        mark = verify_mark(f"Enter {subject} mark: ")
-        marks[subject] = mark
-    phone_number = verify_phone_number("Enter phone number (XXXXXXXX): ")
-    print("\n-------------------------------\n")
-
-    new_student = Student(first_name, last_name, age,
-                          gender, school, cca, marks, phone_number)
-    print("Student added successfully!",
-          end="\n\n-------------------------------\n\n")
-
-
-def view_student_details():
-    student_index = int(
-        input("Enter student index (1, 2, ..., -1 to go back): "))
-    print("\n-------------------------------\n")
-    if student_index == -1:
-        main()
-    if 1 <= student_index <= len(Student.all_students):
-        student = Student.all_students[student_index - 1]
-        student.print_details()
-    else:
-        print("Invalid student index. Please try again.",
-              end="\n\n-------------------------------\n\n")
-
-
-# -------------------------------------------------------------------------------------------------------------------- #
-#
 # MAIN CODE
 #
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -143,7 +54,10 @@ class Student:
                             2 for char in string if char.isalpha()]
         letter_positions = [(pos + 25) if pos <
                             1 else pos for pos in letter_positions]
-        return ''.join(str(pos) for pos in letter_positions)[:8]
+        student_id = ''.join(str(pos) for pos in letter_positions)[:8]
+        if len(student_id) < 8:
+            student_id = student_id.zfill(8)
+        return student_id
 
     def email(self):
         return f"{self.name.lower().replace(' ', '_')}@gmail.com"
@@ -178,9 +92,107 @@ class Student:
 
 # -------------------------------------------------------------------------------------------------------------------- #
 #
-# RANDOM STUDENT DETAILS GENERATION
+# INTERFACE FUNCTIONS
 #
 # -------------------------------------------------------------------------------------------------------------------- #
+
+
+def main():
+    while True:
+        print("Welcome to the Student Management System!",
+              end="\n\n-------------------------------\n\n")
+        print("1. Add a new student")
+        print("2. View student details")
+        print("3. Exit")
+
+        choice = input("\nEnter your choice: ")
+        print("\n-------------------------------\n")
+
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            view_student_details()
+        elif choice == "3":
+            print("Thanks for using the Student Management System!")
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.",
+                  end="\n\n-------------------------------\n\n")
+
+
+def add_student():
+    while True:
+        print("1. Add a new student manually")
+        print("2. Generate a random student")
+        print("3. Go back")
+
+        choice = input("\nEnter your choice: ")
+        print("\n-------------------------------\n")
+
+        if choice == "1":
+            get_student_details()
+            break
+        elif choice == "2":
+            generate_random_student()
+            break
+        elif choice == "3":
+            main()
+
+        else:
+            print("Invalid choice. Please try again.",
+                  end="\n\n-------------------------------\n\n")
+            continue
+
+
+def view_student_details():
+    while True:
+        print("1. View a student's details")
+        print("2. Edit a student's details")
+        print("3. Delete a student's details")
+        print("4. Go back")
+
+        choice = input("\nEnter your choice: ")
+        print("\n-------------------------------\n")
+
+        if choice == "1":
+            print_student_details()
+
+        elif choice == "2":
+            edit_student_details()
+            break
+        elif choice == "3":
+            delete_student_details()
+        elif choice == "4":
+            main()
+        else:
+            print("Invalid choice. Please try again.",
+                  end="\n\n-------------------------------\n\n")
+            continue
+
+
+def get_student_details():
+    first_name = get_valid_string("Enter first name: ")
+    last_name = get_valid_string("Enter last name: ")
+    age = get_valid_age("Enter age: ")
+    gender = get_valid_gender("Enter gender (M or F): ")
+    school = get_valid_string("Enter school: ")
+    cca = get_valid_string("Enter co-curricular activity: ")
+    marks = {}
+    num_subjects = get_valid_num_of_subjects(
+        "Enter the number of subjects (7 or 8): ")
+    for _ in range(num_subjects):
+        subject = get_valid_string("Enter subject name: ")
+        subject = get_valid_unique_subject(marks, subject)
+        mark = get_valid_mark(f"Enter {subject} mark: ")
+        marks[subject] = mark
+    phone_number = get_valid_phone_number("Enter phone number (XXXXXXXX): ")
+    print("\n-------------------------------\n")
+
+    new_student = Student(first_name, last_name, age,
+                          gender, school, cca, marks, phone_number)
+    print("Student added successfully!",
+          end="\n\n-------------------------------\n\n")
 
 
 def generate_random_student():
@@ -199,8 +211,65 @@ def generate_random_student():
           end="\n\n-------------------------------\n\n")
 
 
+def print_student_details():
+    while True:
+        for i, student in enumerate(Student.all_students, start=1):
+            print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
+        student_index = get_valid_index(
+            "\nEnter student index (1, 2, ..., -1 to go back): ")
+        print("\n-------------------------------\n")
+        if student_index == -1:
+            view_student_details()
+        if 1 <= student_index <= len(Student.all_students):
+            student = Student.all_students[student_index - 1]
+            student.print_details()
+        else:
+            print("Invalid student index. Please try again.",
+                  end="\n\n-------------------------------\n\n")
+            continue
+
+
+def edit_student_details():
+    ...
+
+
+def delete_student_details():
+    for i, student in enumerate(Student.all_students, start=1):
+        print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
+    student_index = get_valid_index(
+        "\nEnter student index (1, 2, ..., -1 to go back): ")
+    print("\n-------------------------------\n")
+    if student_index == -1:
+        view_student_details()
+    if 1 <= student_index < len(Student.all_students):
+        confirmation = input(
+            "Are you sure you want to delete this student? (Y, N): ")
+        print("\n-------------------------------\n")
+        if confirmation.lower() == "y":
+            deleted_student = Student.all_students.pop(student_index - 1)
+            print(f"Successfully deleted {deleted_student.name}.",
+                  end="\n\n-------------------------------\n\n")
+        elif confirmation.lower() == "n":
+            print("Student deletion cancelled.",
+                  end="\n\n-------------------------------\n\n")
+        else:
+            print("Invalid input. Student deletion cancelled.",
+                  end="\n\n-------------------------------\n\n")
+    else:
+        print("Invalid student index. Please try again.",
+              end="\n\n-------------------------------\n\n")
+
+
+# -------------------------------------------------------------------------------------------------------------------- #
+#
+# RANDOM STUDENT DETAILS GENERATION
+#
+# -------------------------------------------------------------------------------------------------------------------- #
+
+
 def generate_random_marks():
     marks = {}
+
     marks["English"] = generate_subject_mark()
     marks["Mother Tongue"] = generate_subject_mark()
     marks["Maths"] = generate_subject_mark()
@@ -263,7 +332,7 @@ def has_number(string):
     return False
 
 
-def verify_string(prompt):
+def get_valid_string(prompt):
     while True:
         user_input = input(prompt)
         if user_input.strip() == "" or has_number(user_input):
@@ -272,7 +341,18 @@ def verify_string(prompt):
         return user_input
 
 
-def verify_age(prompt):
+def get_valid_index(prompt):
+    while True:
+        try:
+            user_input = int(input(prompt))
+            if user_input == -1:
+                return -1
+            return user_input
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
+
+def get_valid_age(prompt):
     while True:
         try:
             user_input = int(input(prompt))
@@ -284,15 +364,15 @@ def verify_age(prompt):
             print("Invalid input. Please enter a valid age.")
 
 
-def verify_gender(prompt):
+def get_valid_gender(prompt):
     while True:
-        user_input = input(prompt)
+        user_input = input(prompt).upper()
         if user_input in ["M", "F"]:
             return user_input
         print("Invalid gender. Please enter 'M' or 'F'.")
 
 
-def verify_num_of_subjects(prompt):
+def get_valid_num_of_subjects(prompt):
     while True:
         try:
             user_input = int(input(prompt))
@@ -304,7 +384,17 @@ def verify_num_of_subjects(prompt):
             print("Invalid input. Please enter a valid integer.")
 
 
-def verify_mark(prompt):
+def get_valid_unique_subject(marks, subject):
+    while True:
+        if subject.lower() in (subject.lower() for subject in marks):
+            print(
+                f"Subject '{subject}' already exists. Please enter a unique subject name.")
+            subject = input("Enter a different subject name: ")
+        else:
+            return subject
+
+
+def get_valid_mark(prompt):
     while True:
         try:
             user_input = int(input(prompt))
@@ -316,10 +406,10 @@ def verify_mark(prompt):
             print("Invalid input. Please enter a valid mark.")
 
 
-def verify_phone_number(prompt):
+def get_valid_phone_number(prompt):
     while True:
         user_input = input(prompt)
-        if user_input.strip() == "" or (not user_input.isdigit() and user_input != "N/A"):
+        if user_input != "N/A" and (len(user_input) < 8 or user_input.strip() == "" or not user_input.isdigit()):
             print("Invalid input. Please enter a valid phone number.")
             continue
         return user_input
