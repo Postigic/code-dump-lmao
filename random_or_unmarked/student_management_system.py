@@ -27,7 +27,7 @@ class Student:
         self.school = school
         self.cca = cca
         self.marks = marks
-        self.overall_marks = round(sum(marks.values()) / len(marks))
+        self.overall_marks = round(sum(self.marks.values()) / len(self.marks))
         self.phone_number = phone_number
         Student.all_students.append(self)
 
@@ -47,6 +47,11 @@ class Student:
         print(f"Email: {self.email()}")
         print(f"Phone Number: {self.phone_number}")
         print("\n-------------------------------\n")
+
+    def update_student_details(self):
+        self.overall_marks = round(sum(self.marks.values()) / len(self.marks))
+        self.grade = self.calculate_overall_grade()
+        self.ranking = self.calculate_ranking()
 
     def generate_student_ID(self):
         string = (self.name + self.school).lower()
@@ -160,7 +165,6 @@ def view_student_details():
 
         elif choice == "2":
             edit_student_details()
-            break
         elif choice == "3":
             delete_student_details()
         elif choice == "4":
@@ -233,16 +237,15 @@ def edit_student_details():
     while True:
         for i, student in enumerate(Student.all_students, start=1):
             print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-
         student_index = get_valid_index(
-            "Enter student index (1, 2, ..., -1 to go back): ")
+            "\nEnter student index (1, 2, ..., -1 to go back): ")
         print("\n-------------------------------\n")
         if student_index == -1:
             view_student_details()
-
         if 1 <= student_index <= len(Student.all_students):
             student = Student.all_students[student_index - 1]
             edit_student(student)
+            break
         else:
             print("Invalid student index. Please try again.",
                   end="\n\n-------------------------------\n\n")
@@ -250,11 +253,11 @@ def edit_student_details():
 
 
 def edit_student(student):
-    print("Current Details:")
+    print("Current Details:", end="\n\n")
     student.print_details()
 
     while True:
-        print("What would you like to edit?")
+        print("What would you like to edit?", end="\n\n")
         print("1. Name")
         print("2. Age")
         print("3. Gender")
@@ -264,41 +267,92 @@ def edit_student(student):
         print("7. Phone Number")
         print("8. Exit")
 
-        choice = input("Enter your choice: ")
+        choice = input("\nEnter your choice: ")
+        print("\n-------------------------------\n")
 
         if choice == "1":
-            new_name = input("Enter new name: ")
+            new_name = get_valid_string("Enter new name: ")
             student.name = new_name
+            print("\n-------------------------------\n")
             print("Name updated successfully!")
+
         elif choice == "2":
             new_age = get_valid_age("Enter new age: ")
             student.age = new_age
+            print("\n-------------------------------\n")
             print("Age updated successfully!")
+
         elif choice == "3":
             new_gender = get_valid_gender("Enter new gender (M or F): ")
             student.gender = new_gender
+            print("\n-------------------------------\n")
             print("Gender updated successfully!")
+
         elif choice == "4":
-            new_school = input("Enter new school: ")
+            new_school = get_valid_string("Enter new school: ")
             student.school = new_school
+            print("\n-------------------------------\n")
             print("School updated successfully!")
+
         elif choice == "5":
-            new_cca = input("Enter new co-curricular activity: ")
+            new_cca = get_valid_string("Enter new co-curricular activity: ")
             student.cca = new_cca
+            print("\n-------------------------------\n")
             print("Co-Curricular Activities updated successfully!")
+
         elif choice == "6":
-            # Implement logic to edit marks
-            print("Editing marks is not yet implemented.")
+            print(f"Current Marks: {student.marks_str()}", end="\n\n")
+            print("1. Edit subject")
+            print("2. Edit mark")
+            edit_choice = input("\nEnter your choice: ")
+            print("\n-------------------------------\n")
+
+            if edit_choice == "1":
+                subject_to_edit = input("Enter the subject you want to edit: ")
+                if subject_to_edit in student.marks:
+                    new_subject = get_valid_string(
+                        "Enter the new subject name: ")
+                    new_subject = get_valid_unique_subject(
+                        student.marks, new_subject)
+                    student.marks[new_subject] = student.marks.pop(
+                        subject_to_edit)
+                    print("\n-------------------------------\n")
+                    print(f"Subject updated successfully!")
+                else:
+                    print("\n-------------------------------\n")
+                    print(f"Subject '{subject_to_edit}' not found in marks.")
+            elif edit_choice == "2":
+                subject_to_edit = input(
+                    "Enter the subject for which you want to edit the mark: ")
+                if subject_to_edit in student.marks:
+                    new_mark = get_valid_mark(
+                        f"Enter new mark for {subject_to_edit}: ")
+                    student.marks[subject_to_edit] = new_mark
+                    student.update_student_details()
+                    print("\n-------------------------------\n")
+                    print(f"Mark for {subject_to_edit} updated successfully!")
+                else:
+                    print("\n-------------------------------\n")
+                    print(f"Subject '{subject_to_edit}' not found in marks.")
+            else:
+                print("Invalid choice. Please try again.")
+
         elif choice == "7":
             new_phone_number = get_valid_phone_number(
                 "Enter new phone number (XXXXXXXX): ")
             student.phone_number = new_phone_number
+            print("\n-------------------------------\n")
             print("Phone number updated successfully!")
+
         elif choice == "8":
-            print("Exiting editing mode.")
+            print("Exiting editing mode.",
+                  end="\n\n-------------------------------\n\n")
             break
+
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice. Please try again.",
+                  end="\n\n-------------------------------\n\n")
+        print("\n-------------------------------\n")
 
 
 def delete_student_details():
