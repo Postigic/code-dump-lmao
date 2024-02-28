@@ -1,6 +1,7 @@
 import random
+import sys
 from student_class import Student
-from input_validation import get_valid_string, get_valid_index, get_valid_age, get_valid_gender, get_valid_num_of_subjects, get_valid_unique_subject, get_valid_mark, get_valid_phone_number
+from input_validation import get_valid_string, get_valid_index, get_valid_age, get_valid_gender, get_valid_num_of_subjects, get_valid_unique_subject, get_valid_mark, get_valid_phone_number, get_valid_student_ID
 from random_generation import generate_random_marks, generate_random_phone_number
 
 FIRST_NAMES = ["Rowan", "Riley", "Avery", "Logan", "Quinn", "Jordan", "River", "Cameron", "Angel", "Carter", "Ryan", "Dylan", "Noah", "Ezra", "Emery", "Hunter", "Kai", "August", "Nova",
@@ -20,11 +21,17 @@ validation_functions = {
     "num_of_subjects": get_valid_num_of_subjects,
     "unique_subject": get_valid_unique_subject,
     "mark": get_valid_mark,
-    "phone_number": get_valid_phone_number
+    "phone_number": get_valid_phone_number,
+    "student_ID": get_valid_student_ID,
 }
 
 
 def main():
+    options = {
+        "1": add_student,
+        "2": view_student_details
+    }
+
     while True:
         print("Welcome to the Student Management System!",
               end="\n\n-------------------------------\n\n")
@@ -35,20 +42,24 @@ def main():
         choice = input("\nEnter your choice: ")
         print("\n-------------------------------\n")
 
-        if choice == "1":
-            add_student()
-        elif choice == "2":
-            view_student_details()
-        elif choice == "3":
+        if choice == "3":
             print("Thanks for using the Student Management System!")
             print("Exiting...")
-            break
+            sys.exit()
+        elif choice in options:
+            options[choice]()
         else:
             print("Invalid choice. Please try again.",
                   end="\n\n-------------------------------\n\n")
 
 
 def add_student():
+    options = {
+        "1": get_student_details,
+        "2": generate_random_student,
+        "3": main
+    }
+
     while True:
         print("1. Add a new student manually")
         print("2. Generate a random student")
@@ -57,15 +68,8 @@ def add_student():
         choice = input("\nEnter your choice: ")
         print("\n-------------------------------\n")
 
-        if choice == "1":
-            get_student_details()
-            break
-        elif choice == "2":
-            generate_random_student()
-            break
-        elif choice == "3":
-            main()
-
+        if choice in options:
+            options[choice]()
         else:
             print("Invalid choice. Please try again.",
                   end="\n\n-------------------------------\n\n")
@@ -73,6 +77,13 @@ def add_student():
 
 
 def view_student_details():
+    options = {
+        "1": print_student_details,
+        "2": edit_student_details,
+        "3": delete_student_details,
+        "4": main
+    }
+
     while True:
         print("1. View a student's details")
         print("2. Edit a student's details")
@@ -82,15 +93,8 @@ def view_student_details():
         choice = input("\nEnter your choice: ")
         print("\n-------------------------------\n")
 
-        if choice == "1":
-            print_student_details()
-
-        elif choice == "2":
-            edit_student_details()
-        elif choice == "3":
-            delete_student_details()
-        elif choice == "4":
-            main()
+        if choice in options:
+            options[choice]()
         else:
             print("Invalid choice. Please try again.",
                   end="\n\n-------------------------------\n\n")
@@ -145,37 +149,47 @@ def generate_random_student():
 
 def print_student_details():
     while True:
-        for i, student in enumerate(Student.all_students, start=1):
-            print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-        student_index = validation_functions["index"](
-            "\nEnter student index (1, 2, ..., -1 to go back): ")
+        student_dict = {student.generate_student_ID(
+        ): student for student in Student.all_students}
+
+        for i, (student_id, student) in enumerate(student_dict.items(), start=1):
+            print(f"{i}. ID: {student_id} — {student.name}")
+
+        student_id = validation_functions["student_ID"](
+            "\nEnter student ID (-1 to go back): ")
         print("\n-------------------------------\n")
-        if student_index == -1:
+
+        if student_id == -1:
             view_student_details()
-        if 1 <= student_index <= len(Student.all_students):
-            student = Student.all_students[student_index - 1]
+        elif student_id in student_dict:
+            student = student_dict[student_id]
             student.print_details()
         else:
-            print("Invalid student index. Please try again.",
+            print("Invalid student ID. Please try again.",
                   end="\n\n-------------------------------\n\n")
             continue
 
 
 def edit_student_details():
     while True:
-        for i, student in enumerate(Student.all_students, start=1):
-            print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-        student_index = validation_functions["index"](
-            "\nEnter student index (1, 2, ..., -1 to go back): ")
+        student_dict = {student.generate_student_ID(
+        ): student for student in Student.all_students}
+
+        for i, (student_id, student) in enumerate(student_dict.items(), start=1):
+            print(f"{i}. ID: {student_id} — {student.name}")
+
+        student_id = validation_functions["student_ID"](
+            "\nEnter student ID (-1 to go back): ")
         print("\n-------------------------------\n")
-        if student_index == -1:
+
+        if student_id == -1:
             view_student_details()
-        if 1 <= student_index <= len(Student.all_students):
-            student = Student.all_students[student_index - 1]
+        elif student_id in student_dict:
+            student = student_dict[student_id]
             edit_student(student)
             break
         else:
-            print("Invalid student index. Please try again.",
+            print("Invalid student ID. Please try again.",
                   end="\n\n-------------------------------\n\n")
             continue
 
@@ -183,6 +197,16 @@ def edit_student_details():
 def edit_student(student):
     print("Current Details:", end="\n\n")
     student.print_details()
+
+    options = {
+        "1": edit_name,
+        "2": edit_age,
+        "3": edit_gender,
+        "4": edit_school,
+        "5": edit_cca,
+        "6": edit_marks,
+        "7": edit_phone_number
+    }
 
     while True:
         print("What would you like to edit?", end="\n\n")
@@ -198,24 +222,12 @@ def edit_student(student):
         choice = input("\nEnter your choice: ")
         print("\n-------------------------------\n")
 
-        if choice == "1":
-            edit_name(student)
-        elif choice == "2":
-            edit_age(student)
-        elif choice == "3":
-            edit_gender(student)
-        elif choice == "4":
-            edit_school(student)
-        elif choice == "5":
-            edit_cca(student)
-        elif choice == "6":
-            edit_marks(student)
-        elif choice == "7":
-            edit_phone_number(student)
-        elif choice == "8":
+        if choice == "8":
             print("Exiting editing mode.",
                   end="\n\n-------------------------------\n\n")
             break
+        elif choice in options:
+            options[choice](student)
         else:
             print("Invalid choice. Please try again.",
                   end="\n\n-------------------------------\n\n")
@@ -320,19 +332,29 @@ def edit_phone_number(student):
 
 
 def delete_student_details():
-    for i, student in enumerate(Student.all_students, start=1):
-        print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-    student_index = validation_functions["index"](
-        "\nEnter student index (1, 2, ..., -1 to go back): ")
+    student_dict = {student.generate_student_ID(
+    ): student for student in Student.all_students}
+
+    for i, (student_id, student) in enumerate(student_dict.items(), start=1):
+        print(f"{i}. ID: {student_id} — {student.name}")
+
+    student_id = validation_functions["student_ID"](
+        "\nEnter student ID (-1 to go back): ")
     print("\n-------------------------------\n")
-    if student_index == -1:
+
+    if student_id == -1:
         view_student_details()
-    if 1 <= student_index < len(Student.all_students):
+    elif student_id in student_dict:
         confirmation = input(
             "Are you sure you want to delete this student? (Y, N): ")
         print("\n-------------------------------\n")
+
         if confirmation.lower() == "y":
-            deleted_student = Student.all_students.pop(student_index - 1)
+            for student in Student.all_students:
+                if student.generate_student_ID() == student_id:
+                    deleted_student = student
+                    Student.all_students.remove(student)
+                    break
             print(f"Successfully deleted {deleted_student.name}!",
                   end="\n\n-------------------------------\n\n")
         elif confirmation.lower() == "n":
@@ -342,7 +364,7 @@ def delete_student_details():
             print("Invalid input. Student deletion cancelled.",
                   end="\n\n-------------------------------\n\n")
     else:
-        print("Invalid student index. Please try again.",
+        print("Invalid student ID. Please try again.",
               end="\n\n-------------------------------\n\n")
 
 
