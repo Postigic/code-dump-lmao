@@ -2,50 +2,37 @@ import random
 
 
 def generate_random_marks():
-    marks = {}
+    subjects = ["English", "Mother Tongue", "Maths"]
+    subjects.extend(generate_science_subjects())
+    subjects.extend(generate_humanities_subjects())
+    subjects.extend(generate_coursework_non_coursework_subjects())
 
-    marks["English"] = generate_subject_mark()
-    marks["Mother Tongue"] = generate_subject_mark()
-    marks["Maths"] = generate_subject_mark()
-
-    marks.update(generate_science_marks())
-    marks.update(generate_humanities_marks())
-    marks.update(generate_coursework_non_coursework_marks())
-
-    return marks
+    return {subject: random.randint(60, 100) for subject in subjects}
 
 
-def generate_subject_mark():
-    return random.randint(60, 100)
-
-
-def generate_science_marks():
+def generate_science_subjects():
     COMBINED_SCIENCES = ["Physics/Chemistry",
                          "Physics/Biology", "Biology/Chemistry"]
     PURE_SCIENCES = ["Pure Physics", "Pure Chemistry", "Pure Biology"]
 
     science_type = random.choice(["combined", "pure"])
     if science_type == "combined":
-        subject = random.choice(COMBINED_SCIENCES)
-        return {subject: generate_subject_mark()}
+        return [random.choice(COMBINED_SCIENCES)]
     else:
-        subjects = random.sample(PURE_SCIENCES, 2)
-        return {subject: generate_subject_mark() for subject in subjects}
+        return random.sample(PURE_SCIENCES, 2)
 
 
-def generate_humanities_marks():
+def generate_humanities_subjects():
     HUMANITIES = ["Geography/Social Studies", "History/Social Studies",
                   "Literature/Social Studies", "Pure History", "Pure Literature"]
-    subject = random.choice(HUMANITIES)
-    return {subject: generate_subject_mark()}
+    return [random.choice(HUMANITIES)]
 
 
-def generate_coursework_non_coursework_marks():
+def generate_coursework_non_coursework_subjects():
     COURSEWORK_NON_COURSEWORK = ["Design and Technology", "Additional Mathematics",
                                  "Principles of Accounting", "Art", "Nutrition and Food Science", "Computing"]
     num_courses = random.choice([1, 2])
-    subjects = random.sample(COURSEWORK_NON_COURSEWORK, num_courses)
-    return {subject: generate_subject_mark() for subject in subjects}
+    return random.sample(COURSEWORK_NON_COURSEWORK, num_courses)
 
 
 def generate_random_phone_number():
