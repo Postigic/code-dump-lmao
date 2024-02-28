@@ -1,7 +1,7 @@
 import random
-import student_class as Student
-from student_management_system.input_validation import get_valid_string, get_valid_index, get_valid_age, get_valid_gender, get_valid_num_of_subjects, get_valid_unique_subject, get_valid_mark, get_valid_phone_number
-from student_management_system.random_generation import generate_random_marks, generate_random_phone_number
+from student_class import Student
+from input_validation import get_valid_string, get_valid_index, get_valid_age, get_valid_gender, get_valid_num_of_subjects, get_valid_unique_subject, get_valid_mark, get_valid_phone_number
+from random_generation import generate_random_marks, generate_random_phone_number
 
 FIRST_NAMES = ["Rowan", "Riley", "Avery", "Logan", "Quinn", "Jordan", "River", "Cameron", "Angel", "Carter", "Ryan", "Dylan", "Noah", "Ezra", "Emery", "Hunter", "Kai", "August", "Nova",
                "Parker", "Arbor", "Ash", "Charlie", "Drew", "Ellis", "Everest", "Jett", "Lowen", "Moss", "Oakley", "Onyx", "Phoenix", "Ridley", "Remy", "Robin", "Royal", "Sage", "Scout", "Tatum", "Wren", "Monroe"]
@@ -11,6 +11,17 @@ SCHOOLS = ["Victoria Junior College", "Millenia Institute", "Jurong Pioneers Col
            "Temasek Junior College", "River Valley High School", "Hwa Chong Institution", "Raffles Institution", "Dunman High School"]
 CO_CURRICULAR_ACTIVITIES = ["Volleyball", "Media", "Infocomm", "Track and Field", "Badminton", "Table Tennis", "Hockey", "Floorball", "Basketball", "Soccer", "Choir", "Band", "Chinese Dance",
                             "Malay Dance", "Modern Dance", "Police National Cadet Corps", "Chinese Drama", "Chinese Orchestra", "Singapore Youth Flying Club"]
+
+validation_functions = {
+    "string": get_valid_string,
+    "index": get_valid_index,
+    "age": get_valid_age,
+    "gender": get_valid_gender,
+    "num_of_subjects": get_valid_num_of_subjects,
+    "unique_subject": get_valid_unique_subject,
+    "mark": get_valid_mark,
+    "phone_number": get_valid_phone_number
+}
 
 
 def main():
@@ -87,25 +98,31 @@ def view_student_details():
 
 
 def get_student_details():
-    first_name = get_valid_string("Enter first name: ")
-    last_name = get_valid_string("Enter last name: ")
-    age = get_valid_age("Enter age: ")
-    gender = get_valid_gender("Enter gender (M or F): ")
-    school = get_valid_string("Enter school: ")
-    cca = get_valid_string("Enter co-curricular activity: ")
-    marks = {}
-    num_subjects = get_valid_num_of_subjects(
+    details = {}
+    details["first_name"] = validation_functions["string"](
+        "Enter first name: ")
+    details["last_name"] = validation_functions["string"]("Enter last name: ")
+    details["age"] = validation_functions["age"]("Enter age: ")
+    details["gender"] = validation_functions["gender"](
+        "Enter gender (M or F): ")
+    details["school"] = validation_functions["string"]("Enter school: ")
+    details["cca"] = validation_functions["string"](
+        "Enter co-curricular activity: ")
+    details["marks"] = {}
+    num_subjects = validation_functions["num_of_subjects"](
         "Enter the number of subjects (7 or 8): ")
     for _ in range(num_subjects):
-        subject = get_valid_string("Enter subject name: ")
-        subject = get_valid_unique_subject(marks, subject)
-        mark = get_valid_mark(f"Enter {subject} mark: ")
-        marks[subject] = mark
-    phone_number = get_valid_phone_number("Enter phone number (XXXXXXXX): ")
+        subject = validation_functions["string"]("Enter subject name: ")
+        subject = validation_functions["unique_subject"](
+            details["marks"], subject)
+        mark = validation_functions["mark"](f"Enter {subject} mark: ")
+        details["marks"][subject] = mark
+    details["phone_number"] = validation_functions["phone_number"](
+        "Enter phone number (XXXXXXXX): ")
     print("\n-------------------------------\n")
 
-    new_student = Student(first_name, last_name, age,
-                          gender, school, cca, marks, phone_number)
+    new_student = Student(details["first_name"], details["last_name"], details["age"],
+                          details["gender"], details["school"], details["cca"], details["marks"], details["phone_number"])
     print("Student added successfully!",
           end="\n\n-------------------------------\n\n")
 
@@ -130,7 +147,7 @@ def print_student_details():
     while True:
         for i, student in enumerate(Student.all_students, start=1):
             print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-        student_index = get_valid_index(
+        student_index = validation_functions["index"](
             "\nEnter student index (1, 2, ..., -1 to go back): ")
         print("\n-------------------------------\n")
         if student_index == -1:
@@ -148,7 +165,7 @@ def edit_student_details():
     while True:
         for i, student in enumerate(Student.all_students, start=1):
             print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-        student_index = get_valid_index(
+        student_index = validation_functions["index"](
             "\nEnter student index (1, 2, ..., -1 to go back): ")
         print("\n-------------------------------\n")
         if student_index == -1:
@@ -205,7 +222,7 @@ def edit_student(student):
 
 
 def edit_name(student):
-    new_name = get_valid_string("Enter new name: ")
+    new_name = validation_functions["string"]("Enter new name: ")
     student.name = new_name
     print("\n-------------------------------\n")
     print("Name updated successfully!",
@@ -213,7 +230,7 @@ def edit_name(student):
 
 
 def edit_age(student):
-    new_age = get_valid_age("Enter new age: ")
+    new_age = validation_functions["age"]("Enter new age: ")
     student.age = new_age
     print("\n-------------------------------\n")
     print("Age updated successfully!",
@@ -221,7 +238,7 @@ def edit_age(student):
 
 
 def edit_gender(student):
-    new_gender = get_valid_gender("Enter new gender (M or F): ")
+    new_gender = validation_functions["gender"]("Enter new gender (M or F): ")
     student.gender = new_gender
     print("\n-------------------------------\n")
     print("Gender updated successfully!",
@@ -229,7 +246,7 @@ def edit_gender(student):
 
 
 def edit_school(student):
-    new_school = get_valid_string("Enter new school: ")
+    new_school = validation_functions["string"]("Enter new school: ")
     student.school = new_school
     print("\n-------------------------------\n")
     print("School updated successfully!",
@@ -237,7 +254,8 @@ def edit_school(student):
 
 
 def edit_cca(student):
-    new_cca = get_valid_string("Enter new co-curricular activity: ")
+    new_cca = validation_functions["string"](
+        "Enter new co-curricular activity: ")
     student.cca = new_cca
     print("\n-------------------------------\n")
     print("Co-Curricular Activities updated successfully!",
@@ -262,9 +280,9 @@ def edit_marks(student):
 def edit_subject(student):
     subject_to_edit = input("Enter the subject you want to edit: ")
     if subject_to_edit in student.marks:
-        new_subject = get_valid_string(
+        new_subject = validation_functions["string"](
             "Enter the new subject name: ")
-        new_subject = get_valid_unique_subject(
+        new_subject = validation_functions["unique_subject"](
             student.marks, new_subject)
         student.marks[new_subject] = student.marks.pop(
             subject_to_edit)
@@ -281,7 +299,7 @@ def edit_mark(student):
     subject_to_edit = input(
         "Enter the subject for which you want to edit the mark: ")
     if subject_to_edit in student.marks:
-        new_mark = get_valid_mark(
+        new_mark = validation_functions["mark"](
             f"Enter new mark for {subject_to_edit}: ")
         student.marks[subject_to_edit] = new_mark
         student.update_student_details()
@@ -293,7 +311,7 @@ def edit_mark(student):
 
 
 def edit_phone_number(student):
-    new_phone_number = get_valid_phone_number(
+    new_phone_number = validation_functions["phone_number"](
         "Enter new phone number (XXXXXXXX): ")
     student.phone_number = new_phone_number
     print("\n-------------------------------\n")
@@ -304,7 +322,7 @@ def edit_phone_number(student):
 def delete_student_details():
     for i, student in enumerate(Student.all_students, start=1):
         print(f"{i}. ID: {student.generate_student_ID()} — {student.name}")
-    student_index = get_valid_index(
+    student_index = validation_functions["index"](
         "\nEnter student index (1, 2, ..., -1 to go back): ")
     print("\n-------------------------------\n")
     if student_index == -1:
