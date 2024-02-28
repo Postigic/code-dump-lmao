@@ -1,3 +1,7 @@
+import hashlib
+import bisect
+
+
 class Student:
     all_students = []
 
@@ -8,7 +12,7 @@ class Student:
         self.school = school
         self.cca = cca
         self.marks = marks
-        self.overall_marks = round(sum(self.marks.values()) / len(self.marks))
+        self.overall_marks = self.calculate_overall_marks()
         self.phone_number = phone_number
         Student.all_students.append(self)
 
@@ -30,19 +34,13 @@ class Student:
         print("\n-------------------------------\n")
 
     def update_student_details(self):
-        self.overall_marks = round(sum(self.marks.values()) / len(self.marks))
+        self.overall_marks = self.calculate_overall_marks()
         self.grade = self.calculate_overall_grade()
         self.ranking = self.calculate_ranking()
 
     def generate_student_ID(self):
         string = (self.name + self.school).lower()
-        letter_positions = [(ord(char) - 96) -
-                            2 for char in string if char.isalpha()]
-        letter_positions = [(pos + 25) if pos <
-                            1 else pos for pos in letter_positions]
-        student_id = ''.join(str(pos) for pos in letter_positions)[:8]
-        if len(student_id) < 8:
-            student_id = student_id.zfill(8)
+        student_id = hashlib.sha256(string.encode()).hexdigest()[:8]
         return student_id
 
     def email(self):
@@ -56,19 +54,14 @@ class Student:
             self.marks.keys(), key=lambda x: self.marks[x], reverse=True)
         return ', '.join(sorted_subjects)
 
+    def calculate_overall_marks(self):
+        return round(sum(self.marks.values()) / len(self.marks))
+
     def calculate_overall_grade(self):
-        if self.overall_marks >= 70:
-            return "A"
-        elif self.overall_marks >= 60:
-            return "B"
-        elif self.overall_marks >= 50:
-            return "C"
-        elif self.overall_marks >= 45:
-            return "D"
-        elif self.overall_marks >= 40:
-            return "E"
-        else:
-            return "F"
+        grade_boundaries = [0, 40, 45, 50, 60, 70]
+        grade_mapping = "FEDCBA"
+        grade_index = bisect.bisect_right(grade_boundaries, self.overall_marks)
+        return grade_mapping[grade_index - 1]
 
     def calculate_ranking(self):
         sorted_students = sorted(
