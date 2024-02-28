@@ -1,8 +1,8 @@
+import re
+
+
 def has_number(string):
-    for char in string:
-        if char.isdigit():
-            return True
-    return False
+    return bool(re.search(r"\d", string))
 
 
 def get_valid_string(prompt):
