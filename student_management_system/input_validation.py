@@ -1,15 +1,10 @@
-import re
 from student_class import Student
-
-
-def has_number(string):
-    return bool(re.search(r"\d", string))
 
 
 def get_valid_string(prompt):
     while True:
         user_input = input(prompt)
-        if user_input.strip() == "" or has_number(user_input):
+        if user_input.strip() == "" or not user_input.isalpha():
             print("Invalid input.")
             continue
         return user_input
