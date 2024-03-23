@@ -1,4 +1,4 @@
-from input_validation import get_valid_string, get_valid_index, get_valid_age, get_valid_gender, get_valid_num_of_subjects, get_valid_unique_subject, get_valid_mark, get_valid_phone_number, get_valid_student_ID
+from input_validation import *
 
 FIRST_NAMES = ["Rowan", "Riley", "Avery", "Logan", "Quinn", "Jordan", "River", "Cameron", "Angel", "Carter", "Ryan", "Dylan", "Noah", "Ezra", "Emery", "Hunter", "Kai", "August", "Nova", "Parker",
                "Arbor", "Ash", "Charlie", "Drew", "Ellis", "Everest", "Jett", "Lowen", "Moss", "Oakley", "Onyx", "Phoenix", "Ridley", "Remy", "Robin", "Royal", "Sage", "Scout", "Tatum", "Wren", "Monroe"]
