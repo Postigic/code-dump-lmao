@@ -1,8 +1,8 @@
 def get_valid_hex_string():
     while True:
-        hex_string = input(
-            "Enter hex string (e.g. 62 6F 6F 70): ").upper().replace(" ", "")
-        if all(char in "0123456789ABCDEF" for char in hex_string) and len(hex_string) == 8:
+        hex_string = input("Enter hex string (e.g. 62 6F 6F 70): ").upper()
+        stripped_hex_string = hex_string.replace(" ", "")
+        if all(char in "0123456789ABCDEF" for char in stripped_hex_string) and len(stripped_hex_string) == 8:
             return hex_string
         else:
             print("Invalid hex string. Please enter a valid hex string.")
