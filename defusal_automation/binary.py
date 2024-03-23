@@ -19,7 +19,3 @@ def binary_to_num(binary_string):
         return 9
     else:
         return 10
-
-
-if __name__ == "__main__":
-    print(binary_to_num("1011111"))
