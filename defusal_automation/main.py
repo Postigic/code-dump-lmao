@@ -22,7 +22,7 @@ def main():
     }
 
     while True:
-        print("Defusal Automation Thingy",
+        print("Defusal Automation Program",
               end="\n\n-------------------------------\n\n")
         choice = input("Select module: ").lower()
         print("\n-------------------------------\n")
