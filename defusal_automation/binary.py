@@ -1,7 +1,7 @@
 def binary_to_num(binary_string):
     if all(digit == "0" for digit in binary_string):
         return 1
-    elif binary_string[0] == "1" and binary_string[6] == "0":
+    elif binary_string[1] == "1" and binary_string[6] == "0":
         return 2
     elif binary_string[:2] == "11":
         return 3
