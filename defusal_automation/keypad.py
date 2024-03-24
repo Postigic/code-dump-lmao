@@ -39,7 +39,7 @@ def keypad_to_sequence(keypad_string):
 
     z = x - y
 
-    if z < 0:
+    if z <= 0:
         return "Top Left, Top Right, Bottom Left, Bottom Right"
     elif 0.5 <= z <= 19.5:
         return "Top Left, Top Right, Bottom Right, Bottom Left"
