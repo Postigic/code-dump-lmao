@@ -7,7 +7,7 @@ def keypad_to_sequence(keypad_string):
         x = 15
     elif 10 <= num1 <= 20:
         x = 20
-    elif 20 < num1 <= 80:
+    elif 20 < num1 < 80:
         x = 30
     else:
         x = 10
@@ -16,7 +16,7 @@ def keypad_to_sequence(keypad_string):
         x += 10
     elif 10 <= num2 <= 20:
         x *= 2
-    elif 20 < num2 <= 80:
+    elif 20 < num2 < 80:
         x *= 3
     else:
         x -= 10
@@ -25,14 +25,14 @@ def keypad_to_sequence(keypad_string):
         x *= 2
     elif 10 <= num3 <= 20:
         x *= 3
-    elif 20 < num3 <= 80:
+    elif 20 < num3 < 80:
         x -= 5
 
     if num4 < 10:
         x *= 2
     elif 10 <= num4 <= 20:
         x += 20
-    elif 20 < num4 <= 80:
+    elif 20 < num4 < 80:
         x += 50
     else:
         x *= 3
