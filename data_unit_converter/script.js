@@ -19,6 +19,8 @@ const units = {
     TIB: 1024 ** 4,
     PB: 1000 ** 5,
     PIB: 1024 ** 5,
+    EB: 1000 ** 6,
+    EIB: 1024 ** 6,
 };
 
 const convertUnit = () => {
