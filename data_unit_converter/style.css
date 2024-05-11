@@ -28,6 +28,16 @@ body {
     border-bottom: 1px solid #d4dbe5;
 }
 
+.spacer {
+    flex-grow: 0.01;
+}
+
+.units-box {
+    font-size: 1.06rem;
+    font-weight: 500;
+    padding: 0 2.85rem 0 1rem;
+}
+
 .wrapper {
     margin: 1.25rem 1.75rem;
 }
