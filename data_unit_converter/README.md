@@ -1,5 +1,5 @@
 # data unit converter
-yup i decided to make it into a website, css style isn't mine cause i'm not a ui designer :(
+yup i decided to make it into a website, css style was ripped from something else
 <br>
 <br>
 made with HTML, CSS and JS
