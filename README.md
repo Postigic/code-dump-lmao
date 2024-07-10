@@ -1,5 +1,5 @@
 # code dump lmao
-just some dump for me to put my projects in 
+it means exactly what it reads
 <br>
 <br>
 some of these are from tutorials, mostly the ones that use HTML and CSS 
