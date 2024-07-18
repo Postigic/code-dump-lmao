@@ -4,6 +4,6 @@ def gcd(a, b):
     return a
 
 
-num1 = int(input("Enter the first number: "))
-num2 = int(input("Enter the second number: "))
+num1 = float(input("Enter the first number: "))
+num2 = float(input("Enter the second number: "))
 print(gcd(num1, num2))
