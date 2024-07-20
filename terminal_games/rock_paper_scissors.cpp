@@ -34,7 +34,7 @@ char getUserChoice() {
         std::cout <<"'p' for paper\n";
         std::cout <<"'s' for scissors\n";
         std::cin >> player;
-    } while(player != 'r' && player != 'p' && player != 's');
+    } while (player != 'r' && player != 'p' && player != 's');
 
     return player;
 }
@@ -43,7 +43,7 @@ char getComputerChoice() {
     srand(time(0));
     int num = rand() % 3 + 1;
 
-    switch(num) {
+    switch (num) {
         case 1: return 'r';
 
         case 2: return 'p';
@@ -55,7 +55,7 @@ char getComputerChoice() {
 }
 
 void showChoice(char choice) {
-    switch(choice) {
+    switch (choice) {
         case 'r': std::cout << "Rock\n";
                   break;
 
@@ -68,11 +68,11 @@ void showChoice(char choice) {
 }
 
 void chooseWinner(char player, char computer) {
-    switch(player) {
-        case 'r':   if(computer == 'r') {
+    switch (player) {
+        case 'r':   if (computer == 'r') {
                         std::cout << "Draw!\n";
                     }
-                    else if(computer == 'p') {
+                    else if (computer == 'p') {
                         std::cout << "You lose!\n";
                     }
                     else {
@@ -80,10 +80,10 @@ void chooseWinner(char player, char computer) {
                     }
                     break;
 
-        case 'p':   if(computer == 'r') {
+        case 'p':   if (computer == 'r') {
                         std::cout << "You win!\n";
                     }
-                    else if(computer == 'p') {
+                    else if (computer == 'p') {
                         std::cout << "Draw!\n";
                     }
                     else {
@@ -91,10 +91,10 @@ void chooseWinner(char player, char computer) {
                     }
                     break;
 
-        case 's':   if(computer == 'r') {
+        case 's':   if (computer == 'r') {
                         std::cout << "You lose!\n";
                     }
-                    else if(computer == 'p') {
+                    else if (computer == 'p') {
                         std::cout << "You win!\n";
                     }
                     else {
