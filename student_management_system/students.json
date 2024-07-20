@@ -1,0 +1,206 @@
+[
+    {
+        "name": "Leona Palmer",
+        "age": 20,
+        "gender": "Female",
+        "school": "Victoria Junior College",
+        "cca": "Badminton",
+        "marks": {
+            "English": 90,
+            "Mother Tongue": 82,
+            "Maths": 88,
+            "Pure Physics": 89,
+            "Pure Chemistry": 95,
+            "Geography/Social Studies": 87,
+            "Additional Mathematics": 76,
+            "Computing": 88
+        },
+        "phone_number": "86972149"
+    },
+    {
+        "name": "Bobby Gardner",
+        "age": 21,
+        "gender": "Male",
+        "school": "Millenia Institute",
+        "cca": "Infocomm",
+        "marks": {
+            "English": 67,
+            "Mother Tongue": 73,
+            "Maths": 75,
+            "Biology/Chemistry": 87,
+            "History/Social Studies": 66,
+            "Design and Technology": 76,
+            "Principles of Accounting": 78
+        },
+        "phone_number": "N/A"
+    },
+    {
+        "name": "Jack Goodwin",
+        "age": 22,
+        "gender": "Male",
+        "school": "Jurong Pioneers College",
+        "cca": "Hockey",
+        "marks": {
+            "English": 68,
+            "Mother Tongue": 45,
+            "Maths": 87,
+            "Physics/Chemistry": 89,
+            "Literature/Social Studies": 67,
+            "Nutrition and Food Science": 76,
+            "Principles of Accounting": 67
+        },
+        "phone_number": "91081566"
+    },
+    {
+        "name": "Carla Hicks",
+        "age": 23,
+        "gender": "Female",
+        "school": "Catholic Junior College",
+        "cca": "Volleyball",
+        "marks": {
+            "English": 65,
+            "Mother Tongue": 88,
+            "Maths": 77,
+            "Physics/Biology": 88,
+            "Pure History": 76,
+            "Art": 69,
+            "Design and Technology": 67
+        },
+        "phone_number": "99718770"
+    },
+    {
+        "name": "Arbor Boone",
+        "age": 21,
+        "gender": "F",
+        "school": "Victoria Junior College",
+        "cca": "Singapore Youth Flying Club",
+        "marks": {
+            "English": 95,
+            "Mother Tongue": 85,
+            "Maths": 83,
+            "Physics/Biology": 81,
+            "Literature/Social Studies": 74,
+            "Art": 87,
+            "Computing": 83
+        },
+        "phone_number": "95202629"
+    },
+    {
+        "name": "Cameron Kelly",
+        "age": 25,
+        "gender": "F",
+        "school": "Millenia Institute",
+        "cca": "Infocomm",
+        "marks": {
+            "English": 62,
+            "Mother Tongue": 92,
+            "Maths": 77,
+            "Physics/Chemistry": 71,
+            "History/Social Studies": 68,
+            "Design and Technology": 99
+        },
+        "phone_number": "71404756"
+    },
+    {
+        "name": "Robin Miller",
+        "age": 24,
+        "gender": "F",
+        "school": "River Valley High School",
+        "cca": "Infocomm",
+        "marks": {
+            "English": 64,
+            "Mother Tongue": 64,
+            "Maths": 84,
+            "Physics/Chemistry": 81,
+            "History/Social Studies": 67,
+            "Computing": 96,
+            "Additional Mathematics": 91
+        },
+        "phone_number": "65948219"
+    },
+    {
+        "name": "Dylan Sanders",
+        "age": 24,
+        "gender": "M",
+        "school": "Victoria Junior College",
+        "cca": "Chinese Orchestra",
+        "marks": {
+            "English": 62,
+            "Mother Tongue": 93,
+            "Maths": 76,
+            "Biology/Chemistry": 96,
+            "History/Social Studies": 77,
+            "Design and Technology": 64
+        },
+        "phone_number": "66761897"
+    },
+    {
+        "name": "Rowan Smith",
+        "age": 25,
+        "gender": "F",
+        "school": "Dunman High School",
+        "cca": "Table Tennis",
+        "marks": {
+            "English": 94,
+            "Mother Tongue": 77,
+            "Maths": 61,
+            "Pure Physics": 76,
+            "Pure Chemistry": 73,
+            "Literature/Social Studies": 69,
+            "Art": 90
+        },
+        "phone_number": "66285085"
+    },
+    {
+        "name": "Emery Hicks",
+        "age": 21,
+        "gender": "M",
+        "school": "Temasek Junior College",
+        "cca": "Malay Dance",
+        "marks": {
+            "English": 100,
+            "Mother Tongue": 70,
+            "Maths": 66,
+            "Pure Physics": 94,
+            "Pure Chemistry": 63,
+            "Pure History": 100,
+            "Additional Mathematics": 82,
+            "Principles of Accounting": 99
+        },
+        "phone_number": "61114523"
+    },
+    {
+        "name": "Riley Sanders",
+        "age": 21,
+        "gender": "F",
+        "school": "Raffles Institution",
+        "cca": "Media",
+        "marks": {
+            "English": 86,
+            "Mother Tongue": 98,
+            "Maths": 65,
+            "Pure Physics": 75,
+            "Pure Biology": 80,
+            "Pure Literature": 99,
+            "Principles of Accounting": 67
+        },
+        "phone_number": "91204106"
+    },
+    {
+        "name": "Monroe Gardner",
+        "age": 19,
+        "gender": "M",
+        "school": "Jurong Pioneers College",
+        "cca": "Modern Dance",
+        "marks": {
+            "English": 73,
+            "Mother Tongue": 88,
+            "Maths": 91,
+            "Pure Biology": 78,
+            "Pure Physics": 83,
+            "History/Social Studies": 100,
+            "Additional Mathematics": 98
+        },
+        "phone_number": "74928553"
+    }
+]
