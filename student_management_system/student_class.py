@@ -6,6 +6,8 @@ class Student:
     all_students = []
 
     def __init__(self, first_name, last_name, age, gender, school, cca, marks, phone_number):
+        self.first_name = first_name
+        self.last_name = last_name
         self.name = f"{first_name} {last_name}"
         self.age = age
         self.gender = gender
@@ -67,3 +69,30 @@ class Student:
         sorted_students = sorted(
             Student.all_students, key=lambda x: x.overall_marks, reverse=True)
         return sorted_students.index(self) + 1
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "age": self.age,
+            "gender": self.gender,
+            "school": self.school,
+            "cca": self.cca,
+            "marks": self.marks,
+            "phone_number": self.phone_number
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        full_name = data["name"].split(" ", 1)
+        first_name = full_name[0]
+        last_name = full_name[1]
+        return cls(
+            first_name=first_name,
+            last_name=last_name,
+            age=data["age"],
+            gender=data["gender"],
+            school=data["school"],
+            cca=data["cca"],
+            marks=data["marks"],
+            phone_number=data["phone_number"]
+        )
