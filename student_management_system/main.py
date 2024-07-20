@@ -3,7 +3,8 @@ import sys
 from student_class import Student
 from details_generator import generate_random_marks, generate_random_phone_number
 from editing import edit_name, edit_age, edit_gender, edit_phone_number, edit_marks, edit_school, edit_cca
-from utils import FIRST_NAMES, LAST_NAMES, SCHOOLS, CO_CURRICULAR_ACTIVITIES, validation_functions
+from utils import FIRST_NAMES, LAST_NAMES, SCHOOLS, CO_CURRICULAR_ACTIVITIES, validation_functions, filename
+from data_management import *
 
 
 def main():
@@ -11,6 +12,8 @@ def main():
         "1": add_student,
         "2": view_student_details
     }
+
+    load_students(filename)
 
     while True:
         print("Welcome to the Student Management System!",
@@ -23,6 +26,7 @@ def main():
         print("\n-------------------------------\n")
 
         if choice == "3":
+            save_students(filename)
             print("Thanks for using the Student Management System!")
             print("Exiting...")
             sys.exit()
@@ -256,12 +260,4 @@ def delete_student_details():
 
 
 if __name__ == "__main__":
-    s1 = Student("Leona", "Palmer", 20, "Female", "Victoria Junior College", "Badminton", {
-        "English": 90, "Mother Tongue": 82, "Maths": 88, "Pure Physics": 89, "Pure Chemistry": 95, "Geography/Social Studies": 87, "Additional Mathematics": 76, "Computing": 88}, "86972149")
-    s2 = Student("Bobby", "Gardner", 21, "Male", "Millenia Institute", "Infocomm", {
-        "English": 67, "Mother Tongue": 73, "Maths": 75, "Biology/Chemistry": 87, "History/Social Studies": 66, "Design and Technology": 76, "Principles of Accounting": 78}, "N/A")
-    s3 = Student("Jack", "Goodwin", 22, "Male", "Jurong Pioneers College", "Hockey", {
-        "English": 68, "Mother Tongue": 45, "Maths": 87, "Physics/Chemistry": 89, "Literature/Social Studies": 67, "Nutrition and Food Science": 76, "Principles of Accounting": 67}, "91081566")
-    s4 = Student("Carla", "Hicks", 23, "Female", "Catholic Junior College", "Volleyball", {
-        "English": 65, "Mother Tongue": 88, "Maths": 77, "Physics/Biology": 88, "Pure History": 76, "Art": 69, "Design and Technology": 67}, "99718770")
     main()
