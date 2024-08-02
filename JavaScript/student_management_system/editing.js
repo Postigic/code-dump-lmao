@@ -1,15 +1,7 @@
-import {
-    promptUser,
-    getValidString,
-    getValidAge,
-    getValidGender,
-    getValidPhoneNumber,
-    getValidMark,
-    getValidUniqueSubject,
-} from "./input_validation.js";
+import { validationFunctions } from "./utils.js";
 
 export async function editName(student) {
-    const newName = await getValidString("Enter new name: ");
+    const newName = await validationFunctions.string("Enter new name: ");
     student.name = newName;
     console.log("\n-------------------------------\n");
     console.log(
@@ -19,7 +11,7 @@ export async function editName(student) {
 }
 
 export async function editAge(student) {
-    const newAge = await getValidAge("Enter new age: ");
+    const newAge = await validationFunctions.age("Enter new age: ");
     student.age = newAge;
     console.log("\n-------------------------------\n");
     console.log(
@@ -29,7 +21,9 @@ export async function editAge(student) {
 }
 
 export async function editGender(student) {
-    const newGender = await getValidGender("Enter new gender (M or F): ");
+    const newGender = await validationFunctions.gender(
+        "Enter new gender (M or F): "
+    );
     student.gender = newGender;
     console.log("\n-------------------------------\n");
     console.log(
@@ -39,7 +33,7 @@ export async function editGender(student) {
 }
 
 export async function editSchool(student) {
-    const newSchool = await getValidString("Enter new school: ");
+    const newSchool = await validationFunctions.string("Enter new school: ");
     student.school = newSchool;
     console.log("\n-------------------------------\n");
     console.log(
@@ -49,7 +43,9 @@ export async function editSchool(student) {
 }
 
 export async function editCca(student) {
-    const newCca = await getValidString("Enter new co-curricular activity: ");
+    const newCca = await validationFunctions.string(
+        "Enter new co-curricular activity: "
+    );
     student.cca = newCca;
     console.log("\n-------------------------------\n");
     console.log(
@@ -79,8 +75,13 @@ export async function editSubject(student) {
         "Enter the subject you want to edit: "
     );
     if (subjectToEdit in student.marks) {
-        let newSubject = await getValidString("Enter the new subject name: ");
-        newSubject = await getValidUniqueSubject(student.marks, newSubject);
+        let newSubject = await validationFunctions.string(
+            "Enter the new subject name: "
+        );
+        newSubject = await validationFunctions.uniqueSubject(
+            student.marks,
+            newSubject
+        );
         student.marks[newSubject] = student.marks[subjectToEdit];
         delete student.marks[subjectToEdit];
         console.log("\n-------------------------------\n");
@@ -102,7 +103,7 @@ export async function editMark(student) {
         "Enter the subject for which you want to edit the mark: "
     );
     if (subjectToEdit in student.marks) {
-        const newMark = await getValidMark(
+        const newMark = await validationFunctions.mark(
             `Enter new mark for ${subjectToEdit}: `
         );
         student.marks[subjectToEdit] = newMark;
@@ -116,7 +117,7 @@ export async function editMark(student) {
 }
 
 export async function editPhoneNumber(student) {
-    const newPhoneNumber = await getValidPhoneNumber(
+    const newPhoneNumber = await validationFunctions.phoneNumber(
         "Enter new phone number (XXXXXXXX): "
     );
     student.phoneNumber = newPhoneNumber;
