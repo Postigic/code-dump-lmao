@@ -10,6 +10,16 @@ import {
     getValidStudentID,
 } from "./input_validation.js";
 
+import {
+    editName,
+    editAge,
+    editGender,
+    editPhoneNumber,
+    editMarks,
+    editSchool,
+    editCca,
+} from "./editing.js";
+
 export const FIRST_NAMES = [
     "Rowan",
     "Riley",
@@ -146,6 +156,16 @@ export const validationFunctions = {
     mark: getValidMark,
     phoneNumber: getValidPhoneNumber,
     studentID: getValidStudentID,
+};
+
+export const editingFunctions = {
+    name: editName,
+    age: editAge,
+    gender: editGender,
+    phoneNumber: editPhoneNumber,
+    marks: editMarks,
+    school: editSchool,
+    cca: editCca,
 };
 
 export const filename = String.raw`D:\vs code projects\JavaScript\student_management_system\students.json`;
