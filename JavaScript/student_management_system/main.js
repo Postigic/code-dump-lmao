@@ -4,20 +4,12 @@ import {
     generateRandomPhoneNumber,
 } from "./details_generator.js";
 import {
-    editName,
-    editAge,
-    editGender,
-    editPhoneNumber,
-    editMarks,
-    editSchool,
-    editCca,
-} from "./editing.js";
-import {
     FIRST_NAMES,
     LAST_NAMES,
     SCHOOLS,
     CO_CURRICULAR_ACTIVITIES,
     validationFunctions,
+    editingFunctions,
     filename,
 } from "./utils.js";
 import { loadStudents, saveStudents } from "./data_management.js";
@@ -251,13 +243,13 @@ async function editStudent(student) {
     student.printDetails();
 
     const options = {
-        1: editName,
-        2: editAge,
-        3: editGender,
-        4: editSchool,
-        5: editCca,
-        6: editMarks,
-        7: editPhoneNumber,
+        1: editingFunctions.name,
+        2: editingFunctions.age,
+        3: editingFunctions.gender,
+        4: editingFunctions.school,
+        5: editingFunctions.cca,
+        6: editingFunctions.marks,
+        7: editingFunctions.phoneNumber,
     };
 
     while (true) {
