@@ -1,0 +1,15 @@
+{
+    "name": "vs-code-projects",
+    "version": "1.0.0",
+    "description": "huuuhhhh",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Postigic",
+    "license": "ISC",
+    "dependencies": {
+        "readline-sync": "^1.4.10"
+    }
+}
