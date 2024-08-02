@@ -1,1 +1,137 @@
-[]
+[
+    {
+        "name": "Wren Potter",
+        "age": 17,
+        "gender": "F",
+        "school": "Catholic Junior College",
+        "cca": "Chinese Drama",
+        "marks": {
+            "English": 68,
+            "Mother Tongue": 65,
+            "Maths": 99,
+            "Pure Chemistry": 88,
+            "Pure Physics": 82,
+            "Pure Literature": 82,
+            "Principles of Accounting": 67,
+            "Nutrition and Food Science": 91
+        },
+        "phoneNumber": "70593295"
+    },
+    {
+        "name": "Phoenix Francis",
+        "age": 22,
+        "gender": "M",
+        "school": "Victoria Junior College",
+        "cca": "Singapore Youth Flying Club",
+        "marks": {
+            "English": 62,
+            "Mother Tongue": 93,
+            "Maths": 89,
+            "Biology/Chemistry": 81,
+            "Pure Literature": 79,
+            "Art": 81,
+            "Design and Technology": 75
+        },
+        "phoneNumber": "62248251"
+    },
+    {
+        "name": "Carter Miller",
+        "age": 21,
+        "gender": "M",
+        "school": "Dunman High School",
+        "cca": "Chinese Drama",
+        "marks": {
+            "English": 77,
+            "Mother Tongue": 88,
+            "Maths": 76,
+            "Pure Chemistry": 94,
+            "Pure Biology": 98,
+            "Literature/Social Studies": 72,
+            "Nutrition and Food Science": 79
+        },
+        "phoneNumber": "92689613"
+    },
+    {
+        "name": "Dylan Sanders",
+        "age": 22,
+        "gender": "M",
+        "school": "Millenia Institute",
+        "cca": "Choir",
+        "marks": {
+            "English": 89,
+            "Mother Tongue": 91,
+            "Maths": 69,
+            "Biology/Chemistry": 87,
+            "Geography/Social Studies": 65,
+            "Principles of Accounting": 86
+        },
+        "phoneNumber": "97144991"
+    },
+    {
+        "name": "Nova Vaughn",
+        "age": 23,
+        "gender": "F",
+        "school": "Victoria Junior College",
+        "cca": "Chinese Dance",
+        "marks": {
+            "English": 60,
+            "Mother Tongue": 62,
+            "Maths": 95,
+            "Physics/Biology": 91,
+            "History/Social Studies": 82,
+            "Art": 99
+        },
+        "phoneNumber": "95395188"
+    },
+    {
+        "name": "Dylan Johnson",
+        "age": 21,
+        "gender": "M",
+        "school": "Dunman High School",
+        "cca": "Choir",
+        "marks": {
+            "English": 65,
+            "Mother Tongue": 79,
+            "Maths": 95,
+            "Physics/Chemistry": 96,
+            "Pure History": 70,
+            "Design and Technology": 62,
+            "Nutrition and Food Science": 93
+        },
+        "phoneNumber": "76825649"
+    },
+    {
+        "name": "Ash Kelly",
+        "age": 23,
+        "gender": "M",
+        "school": "Millenia Institute",
+        "cca": "Malay Dance",
+        "marks": {
+            "English": 76,
+            "Mother Tongue": 90,
+            "Maths": 90,
+            "Pure Chemistry": 78,
+            "Pure Biology": 80,
+            "Pure History": 83,
+            "Principles of Accounting": 67,
+            "Computing": 64
+        },
+        "phoneNumber": "89113040"
+    },
+    {
+        "name": "Ezra Smith",
+        "age": 22,
+        "gender": "M",
+        "school": "Temasek Junior College",
+        "cca": "Badminton",
+        "marks": {
+            "English": 63,
+            "Mother Tongue": 76,
+            "Maths": 95,
+            "Biology/Chemistry": 69,
+            "Pure Literature": 60,
+            "Art": 86
+        },
+        "phoneNumber": "62068170"
+    }
+]
