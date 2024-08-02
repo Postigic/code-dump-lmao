@@ -70,7 +70,7 @@ export async function editMarks(student) {
     }
 }
 
-export async function editSubject(student) {
+async function editSubject(student) {
     const subjectToEdit = await promptUser(
         "Enter the subject you want to edit: "
     );
@@ -98,7 +98,7 @@ export async function editSubject(student) {
     }
 }
 
-export async function editMark(student) {
+async function editMark(student) {
     const subjectToEdit = await promptUser(
         "Enter the subject for which you want to edit the mark: "
     );
