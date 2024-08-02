@@ -15,7 +15,7 @@ export async function promptUser(question) {
 export async function getValidString(prompt) {
     while (true) {
         const userInput = await promptUser(prompt);
-        if (userInput.trim() === "" || !/^[a-zA-Z]+$/.test(userInput)) {
+        if (userInput.trim() === "" || !/^[a-zA-Z\s]+$/.test(userInput)) {
             console.log("Invalid input.");
             continue;
         }
