@@ -4,6 +4,7 @@ import syllapy
 import random
 from youtube_transcript_api import YouTubeTranscriptApi
 from song_downloader import download_song_as_mp3
+from pathlib import Path
 
 
 style = {
@@ -75,7 +76,9 @@ def print_lyrics(audio_file, transcript, colours, use_colours):
 
 
 if __name__ == '__main__':
-    output_path = r"D:\vs code projects\song_and_lyrics_player\mp3_files"
+    current_dir = Path(__file__).parent
+    output_path = current_dir / "mp3_files"
+    
     video_id = "F3cXxqgbx9Y"
     coloured_text = True
 
