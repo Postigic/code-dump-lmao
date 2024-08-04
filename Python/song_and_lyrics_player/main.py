@@ -36,6 +36,7 @@ def get_transcript(video_id):
 
     transcript = transcript_list.find_transcript(
         ["en-US", "en-GB", "en-AU", "en"])
+    
     return transcript
 
 
