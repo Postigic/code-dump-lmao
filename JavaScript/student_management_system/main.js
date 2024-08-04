@@ -1,8 +1,8 @@
-import Student from "./student_class.js";
+import Student from "./studentClass.js";
 import {
     generateRandomMarks,
     generateRandomPhoneNumber,
-} from "./details_generator.js";
+} from "./detailsGenerator.js";
 import {
     FIRST_NAMES,
     LAST_NAMES,
@@ -12,8 +12,8 @@ import {
     editingFunctions,
     filename,
 } from "./utils.js";
-import { loadStudents, saveStudents } from "./data_management.js";
-import { promptUser } from "./input_validation.js";
+import { loadStudents, saveStudents } from "./dataManagement.js";
+import { promptUser } from "./inputValidation.js";
 
 async function main() {
     const options = {

@@ -1,5 +1,5 @@
 import { writeFileSync, readFileSync } from "fs";
-import Student from "./student_class.js";
+import Student from "./studentClass.js";
 
 export function saveStudents(filename) {
     const uniqueStudentIds = new Set();

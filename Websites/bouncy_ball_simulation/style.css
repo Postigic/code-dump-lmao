@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+    font-family: "Noto Sans", sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: black;
+}
+
+canvas {
+    display: block;
+}
+
+#restartButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#restartButton:hover {
+    background-color: #004896;
+}

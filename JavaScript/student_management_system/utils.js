@@ -8,7 +8,7 @@ import {
     getValidMark,
     getValidPhoneNumber,
     getValidStudentID,
-} from "./input_validation.js";
+} from "./inputValidation.js";
 
 import {
     editName,
