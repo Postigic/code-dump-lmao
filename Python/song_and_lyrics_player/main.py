@@ -35,7 +35,7 @@ def get_transcript(video_id):
     transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
 
     transcript = transcript_list.find_transcript(
-        ['en', 'en-US', 'en-GB', 'en-AU'])
+        ["en-US", "en-GB", "en-AU", "en"])
     return transcript
 
 
