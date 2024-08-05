@@ -6,4 +6,4 @@ uses HTML, CSS (barely) and JS
 <br>
 an image of the thingymajig:
 <br>
-![image](https://github.com/user-attachments/assets/a5215101-e88a-4bf8-9bfd-07f0efc1d031)
+![image](https://github.com/user-attachments/assets/53673555-531a-42d0-9269-fa27f9913e35)
