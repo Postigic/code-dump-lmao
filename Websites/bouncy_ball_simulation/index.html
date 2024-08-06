@@ -7,9 +7,20 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <canvas id="canvas"></canvas>
-        <button id="restartButton">Restart Simulation</button>
+        <div class="container">
+            <canvas id="canvas" class="canvas"></canvas>
+            <div id="ballCount">Balls: 0</div>
+            <div class="controls">
+                <button id="restartButton" class="control-button">
+                    Restart Simulation
+                </button>
+                <button id="addBallButton" class="control-button">
+                    Add Ball
+                </button>
+            </div>
+        </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
         <script type="module" src="script.js"></script>
     </body>
 </html>

@@ -1,5 +1,5 @@
 # bouncy ball simulation
-yatta! balls! this code is so bad
+yatta! balls! yatta!
 <br>
 <br>
 uses HTML, CSS (barely) and JS
@@ -7,4 +7,4 @@ uses HTML, CSS (barely) and JS
 <br>
 an image of the thingymajig:
 <br>
-![image](https://github.com/user-attachments/assets/53673555-531a-42d0-9269-fa27f9913e35)
+[currently refactoring please hold :pray:]
