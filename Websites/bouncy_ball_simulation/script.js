@@ -9,7 +9,7 @@ canvas.height = window.innerHeight;
 
 const BALL_COUNT = 10;
 const GRAVITY = 0.15;
-const BOUNCE = 1.0;
+const BOUNCE = 0.95;
 const COEFFICIENT_OF_RESTITUTION = 0.7;
 
 let balls = createBalls();
