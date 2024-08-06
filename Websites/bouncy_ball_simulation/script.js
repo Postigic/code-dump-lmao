@@ -52,7 +52,7 @@ function createBoundary(x, y, width, height, options = {}) {
 }
 
 function createBoundaries(engine) {
-    const thickness = 500;
+    const thickness = 5000;
     const ground = createBoundary(
         canvas.width / 2,
         canvas.height + thickness / 2,
@@ -93,6 +93,23 @@ function updateBallCount() {
     ballCountElement.textContent = `Balls: ${balls.length}`;
 }
 
+function removeOutOfBoundsBalls() {
+    balls.forEach((ball) => {
+        const { x, y } = ball.body.position;
+        const radius = ball.radius;
+
+        if (
+            x + radius < 0 ||
+            x - radius > canvas.width ||
+            y + radius < 0 ||
+            y - radius > canvas.height
+        ) {
+            Matter.World.remove(engine.world, ball.body);
+            balls = balls.filter((b) => b !== ball);
+        }
+    });
+}
+
 function handleMouseEvents(event) {
     const mousePosition = {
         x: event.clientX,
@@ -123,6 +140,7 @@ addBallButton.addEventListener("click", () => {
 
 function update() {
     updateBallCount();
+    removeOutOfBoundsBalls();
 }
 
 function loop() {
