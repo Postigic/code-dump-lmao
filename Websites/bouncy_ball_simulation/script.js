@@ -2,8 +2,9 @@ import Ball from "./ballClass.js";
 import { BALL_COUNT } from "./constants.js";
 
 const canvas = document.getElementById("canvas");
-const resetButton = document.getElementById("restartButton");
 const ballCountElement = document.getElementById("ballCount");
+const resetButton = document.getElementById("restartButton");
+const addBallButton = document.getElementById("addBallButton");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -19,7 +20,19 @@ const render = Matter.Render.create({
     },
 });
 
-engine.gravity.y = 0.45;
+engine.gravity.y = 0.35;
+
+const mouse = Matter.Mouse.create(canvas);
+const mouseConstraint = Matter.MouseConstraint.create(engine, {
+    mouse: mouse,
+    constraint: {
+        stiffness: 0.2,
+        render: {
+            visible: false,
+        },
+    },
+});
+Matter.World.add(engine.world, mouseConstraint);
 
 let balls = createBalls(engine);
 createBoundaries(engine);
@@ -80,10 +93,33 @@ function updateBallCount() {
     ballCountElement.textContent = `Balls: ${balls.length}`;
 }
 
-Matter.Runner.run(engine);
-Matter.Render.run(render);
+function handleMouseEvents(event) {
+    const mousePosition = {
+        x: event.clientX,
+        y: event.clientY,
+    };
+
+    let isOverBall = balls.some((ball) => {
+        const distance = Math.sqrt(
+            (mousePosition.x - ball.body.position.x) ** 2 +
+                (mousePosition.y - ball.body.position.y) ** 2
+        );
+        return distance < ball.radius;
+    });
+
+    canvas.style.cursor = isOverBall ? "pointer" : "default";
+}
+
+canvas.addEventListener("click", handleMouseEvents);
+canvas.addEventListener("mousemove", handleMouseEvents);
 
 resetButton.addEventListener("click", restart);
+
+addBallButton.addEventListener("click", () => {
+    const newBall = new Ball(canvas.width, canvas.height, engine);
+    balls.push(newBall);
+    updateBallCount();
+});
 
 function update() {
     updateBallCount();
@@ -94,5 +130,8 @@ function loop() {
     update();
     requestAnimationFrame(loop);
 }
+
+Matter.Runner.run(engine);
+Matter.Render.run(render);
 
 loop();

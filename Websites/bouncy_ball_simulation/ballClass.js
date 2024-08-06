@@ -1,23 +1,24 @@
 import {
     COEFFICIENT_OF_RESTITUTION,
-    DEFAULT_DENSITY,
     MIN_RADIUS,
     MAX_RADIUS,
     VELOCITY_RANGE,
+    DENSITY,
 } from "./constants.js";
 
 class Ball {
     constructor(canvasWidth, canvasHeight, engine) {
         this.radius = this.getRandomRadius();
         this.x = this.getRandomPosition(canvasWidth, this.radius);
-        this.y = this.getRandomPosition(canvasHeight, this.radius);
+        this.y = this.radius;
         this.vx = this.getRandomVelocity();
         this.vy = this.getRandomVelocity(true);
         this.color = this.getRandomColor();
 
         this.body = Matter.Bodies.circle(this.x, this.y, this.radius, {
             restitution: COEFFICIENT_OF_RESTITUTION,
-            density: DEFAULT_DENSITY,
+            density: DENSITY,
+            mass: this.getMass(),
             render: {
                 fillStyle: this.color,
             },
@@ -29,6 +30,10 @@ class Ball {
         });
 
         Matter.World.add(engine.world, this.body);
+    }
+
+    getMass() {
+        return DENSITY * Math.PI * this.radius * this.radius;
     }
 
     getRandomRadius() {
