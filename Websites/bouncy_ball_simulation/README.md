@@ -7,4 +7,4 @@ uses HTML, CSS (barely) and JS
 <br>
 an image of the thingymajig:
 <br>
-[currently refactoring please hold :pray:]
+![image](https://github.com/user-attachments/assets/b73719ae-5e14-4bc2-a0f0-85ba2e47bd3a)
