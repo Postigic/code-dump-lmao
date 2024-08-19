@@ -105,7 +105,7 @@ if __name__ == "__main__":
                      colour_attributes, coloured_text, volume)
 
     if settings["video_id"] != video_id:
-        save_settings(video_id, coloured_text, volume, settings_path)
+        save_settings(video_id, settings["coloured_text"], settings["volume"], settings_path)
 
     if settings["coloured_text"] != coloured_text or settings["volume"] != volume:
         save_settings_input = input(
