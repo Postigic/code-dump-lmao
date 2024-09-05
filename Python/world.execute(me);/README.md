@@ -8,4 +8,4 @@ original idea by AlipDotPY
 video link: https://youtu.be/hNVqVtm_sKU
 <br>
 <br>
-![Untitled](https://github.com/Postigic/world.execute-me-but-in-python/assets/143212308/a1b21414-69a6-4c08-b882-ee92b5c802c6)
+![Untitled](https://github.com/user-attachments/assets/b6cf8922-5612-4b1c-a5c7-6deff65d972d)
