@@ -31,9 +31,18 @@ body {
     -webkit-backdrop-filter: blur(4px);
     background: rgba(255, 255, 255, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.34);
-    flex-basis: 400px;
-    height: 620px;
+    flex-basis: 800px;
+    height: auto;
     padding: 20px 35px;
+}
+
+.mode-display {
+    position: absolute;
+    top: 25px;
+    left: 45px;
+    font-size: 20px;
+    color: black;
+    z-index: 1000;
 }
 
 .screen {
@@ -48,13 +57,14 @@ body {
     overflow: auto;
     padding: 20px;
     text-align: right;
-    width: 326px;
+    height: 120px;
 }
 
 .calc_button_row {
     display: flex;
     justify-content: space-between;
     margin: 5% 0;
+    gap: 10px;
 }
 
 .calc_button {
@@ -65,7 +75,7 @@ body {
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1);
     color: #232323;
-    flex-basis: 20%;
+    flex-basis: calc(20% - 10px);
     font-family: inherit;
     font-size: 24px;
     height: 65px;
@@ -91,14 +101,15 @@ body {
     background-color: inherit;
 }
 
-.calc_button:active {
+.calc_button:active,
+.calc_button:last-child:active {
     background-color: #ffef78;
 }
 
 .double {
-    flex-basis: 47%;
+    flex-basis: calc(47% - 10px);
 }
 
 .triple {
-    flex-basis: 73%;
+    flex-basis: calc(73% - 10px);
 }

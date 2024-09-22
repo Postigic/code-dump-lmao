@@ -1,53 +1,29 @@
-// INPUT DETECTION
-
 const screen = document.querySelector(".screen");
-
-// VARIABLES
 
 let totalResults = 0;
 let currentInput = "0";
-let chosenOperator;
+let chosenOperator = null;
 let hasDecimal = false;
-
-// FUNCTIONS
+let isDegreeMode = true;
 
 function buttonClick(value) {
     if (isNaN(value)) {
-        // If it's not a number, it's a symbol
         handleSymbol(value);
     } else {
-        // Else, it's a number
         handleNumber(value);
     }
+
     screen.innerText = currentInput;
+    console.log("Current input before display:", currentInput);
 }
 
 function handleSymbol(symbol) {
     switch (symbol) {
-        case "C":
-            // Clear the calculator
-            currentInput = "0";
-            totalResults = 0;
-            hasDecimal = false;
+        case "AC":
+            clearCalculator();
             break;
         case "=":
-            if (chosenOperator === null) {
-                // If chosen operator was null return nothing
-                return;
-            }
-            if (chosenOperator === "x^") {
-                // If chosen operator was x^ calculate the exponent
-                const exponent = parseFloat(currentInput);
-                totalResults = Math.pow(totalResults, exponent); // Update total results with exponentiation
-            } else {
-                // Perform normal arithmetic operation
-                performArithmetic(parseFloat(currentInput));
-            }
-            // Reset calculator state
-            chosenOperator = null;
-            currentInput = totalResults.toString();
-            totalResults = 0;
-            hasDecimal = currentInput.includes(".");
+            calculateResult();
             break;
         case "√x":
             handleSquareRoot();
@@ -55,23 +31,41 @@ function handleSymbol(symbol) {
         case "x^":
             handleExponent();
             break;
+        case "x^2":
+            updateCurrentInput(Math.pow(parseFloat(currentInput), 2));
+            break;
+        case "x^3":
+            updateCurrentInput(Math.pow(parseFloat(currentInput), 3));
+            break;
         case "x!":
             handleFactorial();
+            break;
+        case "sin(x)":
+            handleTrigonometric(Math.sin);
+            break;
+        case "cos(x)":
+            handleTrigonometric(Math.cos);
+            break;
+        case "tan(x)":
+            handleTrigonometric(Math.tan);
+            break;
+        case "π":
+            updateCurrentInput(Math.PI);
+            break;
+        case "e":
+            updateCurrentInput(Math.E);
+            break;
+        case "ln":
+            handleLog(Math.log);
+            break;
+        case "log":
+            handleLog(Math.log10);
             break;
         case ".":
             handleDecimal();
             break;
         case "←":
-            if (currentInput.length === 1) {
-                // If current input has only 1 character
-                currentInput = "0";
-            } else {
-                // Remove one character from current input
-                currentInput = currentInput.substring(
-                    0,
-                    currentInput.length - 1
-                );
-            }
+            handleBackspace();
             break;
         case "+":
         case "−":
@@ -79,19 +73,62 @@ function handleSymbol(symbol) {
         case "÷":
             handleMath(symbol);
             break;
+        case "DEG/RAD":
+            toggleAngleUnit();
+            break;
+        case "+/-":
+            toggleSign();
+            break;
     }
+}
+
+function updateCurrentInput(value) {
+    currentInput = formatResult(value);
+    hasDecimal = currentInput.includes(".");
+}
+
+function clearCalculator() {
+    currentInput = "0";
+    totalResults = 0;
+    hasDecimal = false;
+}
+
+function calculateResult() {
+    if (chosenOperator === null) {
+        return;
+    }
+    if (chosenOperator === "x^") {
+        const exponent = parseFloat(currentInput);
+        totalResults = Math.pow(totalResults, exponent);
+    } else {
+        performArithmetic(parseFloat(currentInput));
+    }
+
+    chosenOperator = null;
+    currentInput = totalResults.toString();
+    hasDecimal = currentInput.includes(".");
+}
+
+function applyMathFunction(mathFunc, errorCheck = null) {
+    const value = parseFloat(currentInput);
+    if (errorCheck && errorCheck(value)) {
+        currentInput = "Math ERROR";
+        return;
+    }
+    updateCurrentInput(mathFunc(value));
+}
+
+function handleBackspace() {
+    currentInput = currentInput.length === 1 ? "0" : currentInput.slice(0, -1);
 }
 
 function handleMath(symbol) {
     if (currentInput === "0") {
-        // If input is 0 just return 0
         return;
     }
 
     const inCurrentInput = parseFloat(currentInput);
-    // Convert string to float
-
-    if (totalResults === 0) {
+    if (totalResults === 0 && chosenOperator === null) {
         totalResults = inCurrentInput;
     } else {
         performArithmetic(inCurrentInput);
@@ -103,13 +140,9 @@ function handleMath(symbol) {
 
 function handleNumber(numberString) {
     if (currentInput === "0") {
-        // If input is 0 just return 0
         currentInput = numberString;
     } else {
         currentInput += numberString;
-        if (numberString === ".") {
-            hasDecimal = true;
-        }
     }
 }
 
@@ -121,66 +154,100 @@ function handleDecimal() {
 }
 
 function handleSquareRoot() {
-    if (currentInput === "0") {
-        // If input is 0 just return 0
-        return;
-    }
-    currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+    applyMathFunction(Math.sqrt, (v) => v < 0);
+}
+
+function handleLog(func) {
+    applyMathFunction(func, (v) => v <= 0);
 }
 
 function handleExponent() {
-    if (currentInput === "0") {
-        // If input is 0 just return 0
-        return;
-    }
+    if (currentInput === "0") return;
 
-    const base = parseFloat(currentInput);
-    chosenOperator = "x^"; // Mark that exponentiation is in progress
-    totalResults = base;
+    totalResults = parseFloat(currentInput);
+    chosenOperator = "x^";
     currentInput = "0";
     hasDecimal = false;
 }
 
-function handleFactorial() {
-    if (currentInput === "0") {
-        // If input is 0 just return 0
-        return;
+function factorial(n) {
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+        result *= i;
     }
+    return result;
+}
 
-    const number = parseFloat(currentInput);
-    if (Number.isInteger(number) && number >= 0 && number <= 69) {
-        let result = 1;
-        for (let i = 2; i <= number; i++) {
-            result *= i;
-        }
-        currentInput = result.toString();
+function handleFactorial() {
+    const number = parseInt(currentInput, 10);
+    if (Number.isNaN(number) || number < 0 || number > 69) {
+        handleError("Math ERROR");
     } else {
-        // Handle invalid input, like infinity
-        currentInput = "Math ERROR";
+        updateCurrentInput(factorial(number));
     }
 }
 
+function toggleAngleUnit() {
+    isDegreeMode = !isDegreeMode;
+    document.querySelector(".mode-display").innerText = isDegreeMode
+        ? "DEG"
+        : "RAD";
+}
+
+function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+function handleTrigonometric(func) {
+    let angle = parseFloat(currentInput);
+    if (isDegreeMode) angle = toRadians(angle);
+
+    const result = func(angle);
+    updateCurrentInput(result);
+}
+
+function toggleSign() {
+    if (currentInput !== "0") {
+        currentInput = (-parseFloat(currentInput)).toString();
+    }
+}
+
+function formatResult(result) {
+    return Number(parseFloat(result).toFixed(10)).toString();
+}
+
+function handleError(message) {
+    currentInput = message;
+}
+
 function performArithmetic(inCurrentInput) {
-    if (chosenOperator === "+") {
-        totalResults += inCurrentInput;
-    } else if (chosenOperator === "−") {
-        totalResults -= inCurrentInput;
-    } else if (chosenOperator === "×") {
-        totalResults *= inCurrentInput;
-    } else if (chosenOperator === "÷") {
-        totalResults /= inCurrentInput;
+    switch (chosenOperator) {
+        case "+":
+            totalResults += inCurrentInput;
+            break;
+        case "−":
+            totalResults -= inCurrentInput;
+            break;
+        case "×":
+            totalResults *= inCurrentInput;
+            break;
+        case "÷":
+            if (inCurrentInput === 0) {
+                return handleError("Math ERROR");
+            }
+            totalResults /= inCurrentInput;
+            break;
     }
 }
 
 function init() {
-    // Event listener
     document
         .querySelector(".calc_buttons")
         .addEventListener("click", function (event) {
-            buttonClick(event.target.innerText);
+            if (event.target.tagName === "BUTTON") {
+                buttonClick(event.target.innerText);
+            }
         });
 }
-
-// haha the only non function
 
 init();
