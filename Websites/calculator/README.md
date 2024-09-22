@@ -10,4 +10,4 @@ https://www.youtube.com/watch?v=sBJmRD7kNTk
 <br>
 an image of the calculator:
 <br>
-![image](https://github.com/Postigic/code-dump-lmao/assets/143212308/dca2529e-c4fa-44e9-afac-1e3cd9dc27f8)
+![Uploading image.png…]()
