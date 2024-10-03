@@ -10,4 +10,4 @@ https://www.youtube.com/watch?v=sBJmRD7kNTk
 <br>
 an image of the calculator:
 <br>
-![image](https://github.com/user-attachments/assets/6e5b6b9d-8619-4be2-aad2-cdbd77093f9d)
+![image](https://github.com/user-attachments/assets/0315f9d8-1b1a-4ae0-b7a4-dbacf0689eef)
