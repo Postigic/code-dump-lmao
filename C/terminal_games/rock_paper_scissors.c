@@ -34,7 +34,7 @@ char getUserChoice() {
         printf("'r' for rock\n");
         printf("'p' for paper\n");
         printf("'s' for scissors\n");
-        scanf(" %c", &player);
+        scanf("%c", &player);
     } while (player != 'r' && player != 'p' && player != 's');
 
     return player;
