@@ -1,5 +1,6 @@
-#include <iostream>
-#include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 char getUserChoice();
 char getComputerChoice();
@@ -11,11 +12,11 @@ int main() {
     char computer;
 
     player = getUserChoice();
-    std::cout << "Your choice: ";
+    printf("Your choice: ");
     showChoice(player);
 
     computer = getComputerChoice();
-    std::cout << "Computer's Choice: ";
+    printf("Computer's choice: ");
     showChoice(computer);
 
     chooseWinner(player, computer);
@@ -25,15 +26,15 @@ int main() {
 
 char getUserChoice() {
     char player;
-    std::cout << "Rock-Paper-Scissors Game!\n";
+    printf("Rock-Paper-Scissors Game!\n");
 
     do {
-        std::cout << "*************************\n";
-        std::cout << "Choose one of the following:\n";
-        std::cout <<"'r' for rock\n";
-        std::cout <<"'p' for paper\n";
-        std::cout <<"'s' for scissors\n";
-        std::cin >> player;
+        printf("*************************\n");
+        printf("Choose one of the following:\n");
+        printf("'r' for rock\n");
+        printf("'p' for paper\n");
+        printf("'s' for scissors\n");
+        scanf(" %c", &player);
     } while (player != 'r' && player != 'p' && player != 's');
 
     return player;
@@ -51,51 +52,51 @@ char getComputerChoice() {
         case 3: return 's';
     }
 
-    return 0;
+    return '\0';
 }
 
 void showChoice(char choice) {
     switch (choice) {
-        case 'r': std::cout << "Rock\n"; break;
+        case 'r': printf("Rock\n"); break;
 
-        case 'p': std::cout << "Paper\n"; break;
+        case 'p': printf("Paper\n"); break;
 
-        case 's': std::cout << "Scissors\n"; break;
+        case 's': printf("Scissors\n"); break;
     }
 }
 
 void chooseWinner(char player, char computer) {
     switch (player) {
         case 'r':   if (computer == 'r') {
-                        std::cout << "Draw!\n";
+                        printf("Draw!\n");
                     }
                     else if (computer == 'p') {
-                        std::cout << "You lose!\n";
+                        printf("You lose!\n");
                     }
                     else {
-                        std::cout << "You win!\n";
+                        printf("You win!\n");
                     }
                     break;
 
         case 'p':   if (computer == 'r') {
-                        std::cout << "You win!\n";
+                        printf("You win!\n");
                     }
                     else if (computer == 'p') {
-                        std::cout << "Draw!\n";
+                        printf("Draw!\n");
                     }
                     else {
-                        std::cout << "You lose!\n";
+                        printf("You lose!\n");
                     }
                     break;
 
         case 's':   if (computer == 'r') {
-                        std::cout << "You lose!\n";
+                        printf("You lose!\n");
                     }
                     else if (computer == 'p') {
-                        std::cout << "You win!\n";
+                        printf("You win!\n");
                     }
                     else {
-                        std::cout << "Draw!\n";
+                        printf("Draw!\n");
                     }
                     break;
     }
