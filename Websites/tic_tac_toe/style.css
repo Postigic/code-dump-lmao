@@ -5,37 +5,112 @@
     color: #eee;
 }
 
+html,
 body {
-    background-color: #12181b;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.cell {
-    width: 75px;
-    height: 75px;
-    border: 2px solid;
-    box-shadow: 0 0 0 2px;
-    line-height: 75px;
-    font-size: 50px;
-    cursor: pointer;
+body {
+    background: linear-gradient(
+        320deg,
+        #f09433,
+        #e6683c,
+        #dc2743,
+        #cc2366,
+        #bc1888
+    );
+    /* background-color: #12181b; */
 }
 
-.button {
-    background-color: #ff3860;
-    padding: 8px;
-    border-radius: 8px;
-    border: none;
-    font-size: 15px;
-    margin-left: 1em;
-    cursor: pointer;
+h1 {
+    font-size: 65px;
+    font-weight: bold;
 }
 
 #gameContainer {
     text-align: center;
+    font-size: 25px;
 }
 
 #cellContainer {
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    width: 225px;
+    grid-template-columns: repeat(3, 0fr);
+    gap: 10px;
     margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell {
+    width: 150px;
+    height: 150px;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px;
+    line-height: 150px;
+    font-size: 90px;
+    cursor: pointer;
+    background-color: rgba(51, 46, 46, 0.45);
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cell:hover {
+    background-color: #333;
+    transform: scale(1.1);
+}
+
+.bounce {
+    animation: bounce 0.6s ease;
+}
+
+.winner {
+    background-color: #ffdc00;
+    animation: flash 1s infinite alternate;
+}
+
+.button {
+    background-color: #3a3939;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    font-size: 25px;
+    margin-left: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: 2px solid;
+}
+
+.button:hover {
+    background-color: #201e1e;
+}
+
+.button:disabled {
+    background-color: #aaaaaa;
+    cursor: not-allowed;
+}
+
+@keyframes flash {
+    from {
+        background-color: #ffdc00;
+    }
+    to {
+        background-color: #5638ff;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
