@@ -38,7 +38,7 @@ h1 {
 
 #cellContainer {
     display: grid;
-    grid-template-columns: repeat(3, 0fr);
+    grid-template-columns: repeat(3, auto);
     gap: 10px;
     margin: auto;
     justify-content: center;
