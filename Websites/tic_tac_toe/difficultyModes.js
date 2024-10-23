@@ -34,21 +34,27 @@ export function mediumMode(options, currentPlayer) {
         return 4;
     }
 
-    const corners = [0, 2, 6, 8];
-    for (let corner of corners) {
-        if (options[corner] === "") {
-            return corner;
+    const availableMoves = [];
+
+    const positions = {
+        sides: [1, 3, 5, 7],
+        corners: [0, 2, 6, 8],
+    };
+
+    for (let type in positions) {
+        for (let index of positions[type]) {
+            if (options[index] === "") {
+                availableMoves.push(index);
+            }
         }
     }
 
-    const sides = [1, 3, 5, 7];
-    for (let side of sides) {
-        if (options[side] === "") {
-            return side;
-        }
+    if (availableMoves.length === 0) {
+        return -1;
     }
 
-    return -1;
+    const randomIndex = Math.floor(Math.random() * availableMoves.length);
+    return availableMoves[randomIndex];
 }
 
 function findWinningMove(options, player) {
@@ -91,7 +97,7 @@ export function hardMode(options) {
 }
 
 function minimax(newOptions, depth, isMaximising) {
-    const result = predictWinner(newOptions, winConditions);
+    const result = checkWinner(newOptions, winConditions);
     if (result === "X") return -1;
     if (result === "O") return 1;
     if (result === "draw") return 0;
@@ -121,7 +127,7 @@ function minimax(newOptions, depth, isMaximising) {
     }
 }
 
-function predictWinner(options) {
+function checkWinner(options) {
     for (let i = 0; i < winConditions.length; i++) {
         const [a, b, c] = winConditions[i];
 
