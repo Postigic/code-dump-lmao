@@ -66,5 +66,4 @@ def move():
 def update_score(score, high_score):
     """Update the score display."""
     score_display.clear()
-    score_display.write(f"Score: {score}  High Score: {
-                        high_score}", align="center", font=("Courier", 24, "normal"))
+    score_display.write("Score: " + str(score) + "  High Score: " + str(high_score), align="center", font=("Courier", 24, "normal"))
