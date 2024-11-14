@@ -21,10 +21,17 @@ def go_right():
         head.direction = "right"
 
 
-def bind_keys(screen):
-    """Bind the keys to control the snake."""
+def bind_keys(screen, enable=True):
+    """Bind or unbind the keys to control the snake based on the 'enable' flag."""
     screen.listen()
-    screen.onkey(go_up, "w")
-    screen.onkey(go_down, "s")
-    screen.onkey(go_left, "a")
-    screen.onkey(go_right, "d")
+
+    if enable:
+        screen.onkey(go_up, "w")
+        screen.onkey(go_down, "s")
+        screen.onkey(go_left, "a")
+        screen.onkey(go_right, "d")
+    else:
+        screen.onkey(None, "w")
+        screen.onkey(None, "s")
+        screen.onkey(None, "a")
+        screen.onkey(None, "d")
