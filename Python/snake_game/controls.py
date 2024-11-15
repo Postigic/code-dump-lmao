@@ -1,23 +1,23 @@
-from game_elements import head
+from game_elements import head, segments
 
 
 def go_up():
-    if head.direction != "down":
+    if len(segments) == 0 or head.direction != "down":
         head.direction = "up"
 
 
 def go_down():
-    if head.direction != "up":
+    if len(segments) == 0 or head.direction != "up":
         head.direction = "down"
 
 
 def go_left():
-    if head.direction != "right":
+    if len(segments) == 0 or head.direction != "right":
         head.direction = "left"
 
 
 def go_right():
-    if head.direction != "left":
+    if len(segments) == 0 or head.direction != "left":
         head.direction = "right"
 
 
