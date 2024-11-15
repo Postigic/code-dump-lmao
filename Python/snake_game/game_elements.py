@@ -56,7 +56,7 @@ def setup_legend():
     legend.color("white")
     legend.penup()
     legend.hideturtle()
-    legend.goto(-750, -200)  # Positioning the legend on the left side
+    legend.goto(-800, -200)  # Positioning the legend on the left side
     legend.write("""
     CONTROLS:
     W - Move Up
@@ -75,19 +75,8 @@ def setup_legend():
 
     GAME MECHANICS:
     Speed increases with each food eaten
+    Golden Food disappears after 5 seconds
     """, align="left", font=("Courier", 14, "normal"))
-
-
-def move():
-    """Move the snake based on the current direction of the head."""
-    if head.direction == "up":
-        head.sety(head.ycor() + 20)
-    if head.direction == "down":
-        head.sety(head.ycor() - 20)
-    if head.direction == "left":
-        head.setx(head.xcor() - 20)
-    if head.direction == "right":
-        head.setx(head.xcor() + 20)
 
 
 def determine_coords():
