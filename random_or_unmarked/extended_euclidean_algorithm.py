@@ -1,5 +1,4 @@
 def extended_euclidean(a, b):
-    # Initialize variables
     old_r, r = a, b
     old_s, s = 1, 0
     old_t, t = 0, 1
@@ -15,11 +14,9 @@ def extended_euclidean(a, b):
     return old_s, old_t
 
 
-# Example: p = 26513, q = 32321
 p = 26513
 q = 32321
 
 u, v = extended_euclidean(p, q)
 
-# Print the result
 print(f"u = {u}, v = {v}")
