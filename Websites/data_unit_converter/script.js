@@ -36,14 +36,6 @@ const convertUnit = () => {
         dataInput.value = "";
         return;
     }
-    if (!units.hasOwnProperty(initialUnit)) {
-        initialInput.value = "";
-        return;
-    }
-    if (!units.hasOwnProperty(conversionUnit)) {
-        conversionInput.value = "";
-        return;
-    }
 
     const conversionResult =
         (dataSize * units[initialUnit]) / units[conversionUnit];

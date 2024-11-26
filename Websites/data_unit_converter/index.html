@@ -12,35 +12,6 @@
     </head>
     <body>
         <div class="container">
-            <h2>Accepted Units</h2>
-            <section class="wrapper">
-                <div class="units-box">
-                    <ul>
-                        <li>Byte (B)</li>
-                        <li>Kilobyte (KB)</li>
-                        <li>Kibibyte (KIB)</li>
-                        <li>Megabyte (MB)</li>
-                        <li>Mebibyte (MIB)</li>
-                        <li>Gigabyte (GB)</li>
-                        <li>Gibibyte (GIB)</li>
-                        <li>Terabyte (TB)</li>
-                        <li>Tebibyte (TIB)</li>
-                        <li>Petabyte (PB)</li>
-                        <li>Pebibyte (PIB)</li>
-                        <li>Exabyte (EB)</li>
-                        <li>Exbibyte (EIB)</li>
-                        <li>Zettabyte (ZB)</li>
-                        <li>Zebibyte (ZIB)</li>
-                        <li>Yottabyte (YB)</li>
-                        <li>Yobibyte (YIB)</li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-
-        <div class="spacer"></div>
-
-        <div class="container">
             <h2>Data Unit Converter</h2>
             <section class="wrapper">
                 <form id="data-converter-form">
@@ -50,18 +21,47 @@
                             type="number"
                             placeholder="Enter Data Size"
                         />
+                        <select id="initial-unit">
+                            <option value="">Select Initial Unit</option>
+                            <option value="B">Byte (B)</option>
+                            <option value="KB">Kilobyte (KB)</option>
+                            <option value="KIB">Kibibyte (KIB)</option>
+                            <option value="MB">Megabyte (MB)</option>
+                            <option value="MIB">Mebibyte (MIB)</option>
+                            <option value="GB">Gigabyte (GB)</option>
+                            <option value="GIB">Gibibyte (GIB)</option>
+                            <option value="TB">Terabyte (TB)</option>
+                            <option value="TIB">Tebibyte (TIB)</option>
+                            <option value="PB">Petabyte (PB)</option>
+                            <option value="PIB">Pebibyte (PIB)</option>
+                            <option value="EB">Exabyte (EB)</option>
+                            <option value="EIB">Exbibyte (EIB)</option>
+                            <option value="ZB">Zettabyte (ZB)</option>
+                            <option value="ZIB">Zebibyte (ZIB)</option>
+                            <option value="YB">Yottabyte (YB)</option>
+                            <option value="YIB">Yobibyte (YIB)</option>
+                        </select>
 
-                        <input
-                            id="initial-unit"
-                            type="text"
-                            placeholder="Enter Initial Unit"
-                        />
-
-                        <input
-                            id="conversion-unit"
-                            type="text"
-                            placeholder="Enter Conversion Unit"
-                        />
+                        <select id="conversion-unit">
+                            <option value="">Select Conversion Unit</option>
+                            <option value="B">Byte (B)</option>
+                            <option value="KB">Kilobyte (KB)</option>
+                            <option value="KIB">Kibibyte (KIB)</option>
+                            <option value="MB">Megabyte (MB)</option>
+                            <option value="MIB">Mebibyte (MIB)</option>
+                            <option value="GB">Gigabyte (GB)</option>
+                            <option value="GIB">Gibibyte (GIB)</option>
+                            <option value="TB">Terabyte (TB)</option>
+                            <option value="TIB">Tebibyte (TIB)</option>
+                            <option value="PB">Petabyte (PB)</option>
+                            <option value="PIB">Pebibyte (PIB)</option>
+                            <option value="EB">Exabyte (EB)</option>
+                            <option value="EIB">Exbibyte (EIB)</option>
+                            <option value="ZB">Zettabyte (ZB)</option>
+                            <option value="ZIB">Zebibyte (ZIB)</option>
+                            <option value="YB">Yottabyte (YB)</option>
+                            <option value="YIB">Yobibyte (YIB)</option>
+                        </select>
                     </div>
 
                     <button class="convert-btn" type="button">Convert</button>

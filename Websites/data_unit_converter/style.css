@@ -12,7 +12,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #2d385c;
+    background: linear-gradient(to bottom right, #2d385c, #4a5d77);
 }
 
 .container {
@@ -42,18 +42,36 @@ body {
     margin: 1.25rem 1.75rem;
 }
 
-.wrapper .input-boxes input {
+.wrapper .input-boxes input,
+.wrapper .input-boxes select {
     width: 100%;
     height: 53px;
-    color: #000;
     background: none;
+    color: #4b4b4b;
     font-size: 1.06rem;
     font-weight: 500;
     border-radius: 4px;
     letter-spacing: 0.7px;
     border: 1px solid #aaa;
-    padding: 0 2.85rem 0 1rem;
-    margin-bottom: 10px;
+    padding: 0 1rem;
+    margin-bottom: 15px;
+}
+
+.wrapper .input-boxes input::placeholder {
+    color: #4b4b4b;
+}
+
+.wrapper .input-boxes input:hover,
+.wrapper .input-boxes select:hover {
+    transition: all 0.3s ease;
+    background-color: #f0f0f0;
+    border-color: #666;
+}
+
+.wrapper .input-boxes input:focus,
+.wrapper .input-boxes select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .wrapper .convert-btn {
@@ -75,7 +93,7 @@ body {
 }
 
 .wrapper .convert-btn:hover {
-    background: #252525;
+    background: #43a047;
     transition: all 0.3s ease;
     transform: translateY(-3px);
     box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.2);
@@ -95,8 +113,8 @@ body {
     border-radius: 4px;
     letter-spacing: 0.7px;
     border: 1px solid #aaa;
-    padding: 0 2.85rem 0 1rem;
-    margin-bottom: 10px;
+    padding: 0 1rem;
+    margin-bottom: 15px;
 }
 
 .wrapper .output-boxes span {
