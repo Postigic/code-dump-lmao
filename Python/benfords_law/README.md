@@ -9,4 +9,5 @@ anyways i <strike>chatgpt'd</strike> totally legitimately wrote all of this code
 <br>
 <br>
 ![image](https://github.com/user-attachments/assets/9afac443-4822-4d04-a9f8-07642b5b2ef6)
+<br>
 wowowowowowow look at that GRAPH! it's so COOL! (not really)
