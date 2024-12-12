@@ -1,27 +1,22 @@
-from pytube import YouTube
-from pydub import AudioSegment
+from yt_dlp import YoutubeDL
 import os
 
 
 def download_song_as_mp3(video_id, output_path=''):
     url = f"https://www.youtube.com/watch?v={video_id}"
+    options = {
+        "format": "bestaudio/best",
+        "outtmpl": os.path.join(output_path, "%(title)s.%(ext)s"),
+        "postprocessors": [{
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3",
+            "preferredquality": "192",
+        }],
+    }
 
-    yt = YouTube(url)
-    video = yt.streams.filter(only_audio=True).first()
-    out_file = video.download(output_path=output_path)
-
-    base, ext = os.path.splitext(out_file)
-    new_file = base + '.mp3'
-
-    if os.path.exists(new_file):
-        print(f"File already exists: {new_file}")
-        os.remove(out_file)
-        return new_file
-
-    audio = AudioSegment.from_file(out_file)
-    audio.export(new_file, format='mp3')
-
-    os.remove(out_file)
-
-    print(f"Downloaded and converted to: {new_file}")
-    return new_file
+    with YoutubeDL(options) as ydl:
+        info = ydl.extract_info(url, download=True)
+        file_path = ydl.prepare_filename(info).replace(
+            ".webm", ".mp3").replace(".m4a", ".mp3")
+        print(f"Downloaded and converted to: {file_path}")
+        return file_path

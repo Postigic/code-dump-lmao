@@ -35,4 +35,5 @@ validation_functions = {
     "student_ID": get_valid_student_ID,
 }
 
-filename = r"D:\vs code projects\Python\student_management_system\students.json"
+current_dir = Path(__file__).parent
+filename = current_dir / "students.json"
