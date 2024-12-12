@@ -63,7 +63,8 @@ def handle_visuals(current_time):
 
 
 if __name__ == '__main__':
-    audio_file = r"D:\vs code projects\world.execute(me);\world-execute-me.mp3"
+    current_dir = Path(__file__).parent
+    audio_file = current_dir / "world-execute-me.mp3"
     styles = [style.RED] * len(transcript)
 
     for index, colour in indices_styles.items():
