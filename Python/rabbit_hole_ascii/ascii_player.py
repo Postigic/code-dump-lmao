@@ -1,5 +1,6 @@
 import cv2
 import time
+from pathlib import Path
 
 
 def frame_to_ascii(frame, width=84):
@@ -49,5 +50,6 @@ def video_to_ascii(video_path, width=84):
 
 
 if __name__ == "__main__":
-    video_path = r"D:\vs code projects\rabbit_hole_ascii\rabbit_hole.mp4"
+    current_dir = Path(__file__).parent
+    video_path = current_dir / "rabbit_hole.mp4"
     video_to_ascii(video_path)
