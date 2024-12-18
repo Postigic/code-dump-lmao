@@ -8,4 +8,4 @@ original idea by AlipDotPY
 video link: https://youtu.be/hNVqVtm_sKU
 <br>
 <br>
-![Untitled](https://github.com/user-attachments/assets/b6cf8922-5612-4b1c-a5c7-6deff65d972d)
+![image](https://github.com/user-attachments/assets/b6cf8922-5612-4b1c-a5c7-6deff65d972d)
