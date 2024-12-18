@@ -1,4 +1,4 @@
-# bouncy ball simulation
+# bouncy ball simulator
 yatta! balls! yatta!
 <br>
 <br>
