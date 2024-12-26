@@ -46,4 +46,5 @@ def main():
     plot_results(observed, expected)
 
 
-main()
+if __name__ == "__main__":
+        main()
