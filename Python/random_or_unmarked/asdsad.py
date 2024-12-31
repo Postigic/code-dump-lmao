@@ -136,3 +136,5 @@ def main2():
 if __name__ == "__main__":
     main()  # Start the madness
     main2()  # And again
+
+# chatgpt garbage alargahehghahahahalahahahgahrahajksrjka
