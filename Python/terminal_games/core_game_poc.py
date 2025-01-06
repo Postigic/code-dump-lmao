@@ -64,7 +64,7 @@ def manage_core(core):
         print("4. Decrease Energy Output")
         print("5. Quit\n" + style["RESET"])
 
-        choice = input("Enter choice (1-6): ")
+        choice = input("Enter choice (1-5): ")
         print()
 
         if choice == "1":
