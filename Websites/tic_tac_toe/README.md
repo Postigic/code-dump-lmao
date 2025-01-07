@@ -3,7 +3,7 @@
 tic tac toe game from tutorial, but it's pretty much unrecognisable now lmao
 </br>
 </br>
-made with HTML, CSS and JS
+made with HTML, CSS, and JS
 </br>
 </br>
 tutorial i used:
