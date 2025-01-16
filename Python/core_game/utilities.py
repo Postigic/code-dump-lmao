@@ -2,8 +2,8 @@ import pygame
 
 pygame.init()
 
-WIDTH, HEIGHT = 1000, 800
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+WIDTH, HEIGHT = pygame.display.get_surface().get_size()
 pygame.display.set_caption("Core Game")
 
 FONT = pygame.font.Font(pygame.font.match_font("Consolas"), 24)

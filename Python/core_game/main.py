@@ -13,7 +13,7 @@ def main():
     core = Core()
     input_text = ""
 
-    # boot_sequence() note: UNCOMMENT WHEN NOT DEBUGGING RAAAHHHH I HATE MY LIFE!!!!!!!
+    boot_sequence() # note: COMMENT WHEN DEBUGGING RAAAHHHH I HATE MY LIFE!!!!!!!
 
     update_interval = 1000
     last_update_time = pygame.time.get_ticks()
@@ -35,13 +35,19 @@ def main():
                 running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    input_text = input_text.lower()
+
                     if input_text == "inc_cooling":
+                        log_event("LOGS : Cooling level increased by 10%")
                         core.cooling_level = min(100, core.cooling_level + 10)
                     elif input_text == "dec_cooling":
+                        log_event("LOGS : Cooling level decreased by 10%")
                         core.cooling_level = max(0, core.cooling_level - 10)
                     elif input_text == "inc_energy":
+                        log_event("LOGS : Energy output increased by 10%")
                         core.energy_output = min(100, core.energy_output + 10)
                     elif input_text == "dec_energy":
+                        log_event("LOGS : Energy output decreased by 10%")
                         core.energy_output = max(0, core.energy_output - 10)
                     elif input_text == "exit":
                         running = False
