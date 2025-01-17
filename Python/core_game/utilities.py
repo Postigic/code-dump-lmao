@@ -2,9 +2,10 @@ import pygame
 
 pygame.init()
 
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-WIDTH, HEIGHT = pygame.display.get_surface().get_size()
-pygame.display.set_caption("Core Game")
+display_info = pygame.display.Info()
+WIDTH, HEIGHT = display_info.current_w, display_info.current_h
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME)
+pygame.display.set_caption("a generic core game")
 
 FONT = pygame.font.Font(pygame.font.match_font("Consolas"), 24)
 RED = (255, 97, 136)

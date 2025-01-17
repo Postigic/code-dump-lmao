@@ -1,6 +1,7 @@
 import pygame
 import time
 from utilities import *
+from commands import commands
 
 
 def boot_sequence():
@@ -57,6 +58,7 @@ def boot_sequence():
     for message, color in boot_messages:
         current_frame = 0
         while current_frame <= len(message):
+            pygame.event.get()
             screen.fill(BLACK)
             draw_scanlines()
 
@@ -71,7 +73,7 @@ def boot_sequence():
             time.sleep(0.01)
 
         y_offset += line_height
-        time.sleep(0.025)
+        time.sleep(0.2)
 
 
 def draw_text(surface, text, x, y, color=WHITE):
@@ -97,34 +99,35 @@ def animate_log_event(text, x, y, current_frame, char_width, color=WHITE):
 def draw_terminal_ui(core, input_text, y_offset):
     status = core.get_status()
 
-    status_area_height = 200
+    status_area_height = 400
     line_height = 30
-    padding = 10
+    padding = 50
 
     num_lines = len(status)
     max_lines = status_area_height // line_height
     lines_to_draw = status[:min(num_lines, max_lines)]
 
-    start_y = padding
+    start_y = 10
+
+    status_section_top = start_y
+    status_offset = status_section_top + 30
+
+    draw_text(screen, "--- Core Status ---", 10, status_section_top, YELLOW)
 
     for i, line in enumerate(lines_to_draw):
-        color = GREEN if "stable" in line else (RED if "WARNING" in line else CYAN)
-        draw_text(screen, line, 10, start_y + i * line_height, color)
+        color = GREEN if "stable" in line else (RED if "WARNING" in line or "ERROR" in line else CYAN)
+        draw_text(screen, f"  {line}", 10, status_offset + i * line_height, color)
+
+    # render energy quota here (gameplay loop, will implement at a later time)
 
     command_section_top = start_y + len(lines_to_draw) * line_height + padding
-    draw_text(screen, "Commands:", 10, command_section_top, YELLOW)
+    draw_text(screen, "--- Commands ---", 10, command_section_top, YELLOW)
     command_offset = command_section_top + 30
 
-    commands = [
-        ("inc_cooling", "Increase cooling"),
-        ("dec_cooling", "Decrease cooling"),
-        ("inc_energy", "Increase energy output"),
-        ("dec_energy", "Decrease energy output"),
-        ("exit", "Exit the control interface")
-    ]
+    command_list = [(info["display"], info["description"]) for info in commands.values()]
 
-    for i, (command, description) in enumerate(commands):
-        draw_text(screen, f"  {command} -- {description}", 10, command_offset + i * 30)
+    for i, (display_name, description) in enumerate(command_list):
+        draw_text(screen, f"  {display_name} : {description}", 10, command_offset + i * 30)
 
     log_area_top = HEIGHT - 400
     pygame.draw.rect(screen, GREY, (10, log_area_top, WIDTH - 20, 320), border_radius=5)
