@@ -5,7 +5,7 @@ pygame.init()
 display_info = pygame.display.Info()
 WIDTH, HEIGHT = display_info.current_w, display_info.current_h
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME)
-pygame.display.set_caption("a generic core game")
+pygame.display.set_caption("Core Game")
 
 FONT = pygame.font.Font(pygame.font.match_font("Consolas"), 24)
 RED = (255, 97, 136)
@@ -17,3 +17,7 @@ PURPLE = (171, 157, 242)
 WHITE = (255, 255, 255)
 BLACK = (10, 10, 10)
 GREY = (40, 40, 40)
+
+
+def clamp(value, minimum, maximum):
+    return max(minimum, min(value, maximum))

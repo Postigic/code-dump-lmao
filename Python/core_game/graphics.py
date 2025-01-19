@@ -37,12 +37,13 @@ def boot_sequence():
         ("$ verify-system --core-access", WHITE),
         ("[DEBUG] System access verified...", YELLOW),
         ("$ core-status --final-check", WHITE),
+        ("[WARN] Good luck.", ORANGE),
         ("[INFO] Core status: ALL SYSTEMS NOMINAL", CYAN),
         ("$ shutdown-protocol --execute", WHITE),
         ("[INFO] System shutting down for final preparation...", CYAN),
         ("$ restart-core --force", WHITE),
+        ("[WARN] I have a feeling you'll need it.", ORANGE),
         ("[SUCCESS] Core initialized. Initializing control interface...", CYAN),
-        ("[WARN] Good luck, you'll need it.", ORANGE)
     ]
 
     screen.fill(BLACK)
@@ -96,49 +97,63 @@ def animate_log_event(text, x, y, current_frame, char_width, color=WHITE):
         draw_text(screen, text[i], x + i * char_width, y, color)
 
 
-def draw_terminal_ui(core, input_text, y_offset):
-    status = core.get_status()
+def draw_section_header(title, y_offset, color=YELLOW):
+    draw_text(screen, f"--- {title} ---", 10, y_offset, color)
+    return y_offset + 30
 
-    status_area_height = 400
-    line_height = 30
-    padding = 50
 
-    num_lines = len(status)
-    max_lines = status_area_height // line_height
-    lines_to_draw = status[:min(num_lines, max_lines)]
+def draw_text_lines(lines, y_offset, line_height=30, color=CYAN):
+    for i, line in enumerate(lines):
+        draw_text(screen, f"  {line}", 10, y_offset + i * line_height, GREEN if "INFO" in line else (RED if "WARNING" in line or "ERROR" in line else color))
+    return y_offset + len(lines) * line_height
 
-    start_y = 10
 
-    status_section_top = start_y
-    status_offset = status_section_top + 30
+def draw_commands(commands, y_offset, line_height=30):
+    draw_text(screen, "--- Commands ---", 10, y_offset, YELLOW)
+    y_offset += 30
+    for display_name, description in commands:
+        draw_text(screen, f"  {display_name} : {description}", 10, y_offset)
+        y_offset += line_height
+    return y_offset
 
-    draw_text(screen, "--- Core Status ---", 10, status_section_top, YELLOW)
 
-    for i, line in enumerate(lines_to_draw):
-        color = GREEN if "stable" in line else (RED if "WARNING" in line or "ERROR" in line else CYAN)
-        draw_text(screen, f"  {line}", 10, status_offset + i * line_height, color)
-
-    # render energy quota here (gameplay loop, will implement at a later time)
-
-    command_section_top = start_y + len(lines_to_draw) * line_height + padding
-    draw_text(screen, "--- Commands ---", 10, command_section_top, YELLOW)
-    command_offset = command_section_top + 30
-
-    command_list = [(info["display"], info["description"]) for info in commands.values()]
-
-    for i, (display_name, description) in enumerate(command_list):
-        draw_text(screen, f"  {display_name} : {description}", 10, command_offset + i * 30)
-
-    log_area_top = HEIGHT - 400
-    pygame.draw.rect(screen, GREY, (10, log_area_top, WIDTH - 20, 320), border_radius=5)
-    
-    y_offset = log_area_top
+def draw_logs(log_messages, y_offset, line_height=30):
     from logger import log_messages
+    pygame.draw.rect(screen, GREY, (10, y_offset, WIDTH - 20, 320), border_radius=5)
+    
     for log in log_messages:
         draw_text(screen, log["message"], 20, y_offset + 10, log["color"])
         log["current_frame"] = min(log["current_frame"] + 2, len(log["message"]))
-        y_offset += 30
+        y_offset += line_height
+    return y_offset
 
+
+def draw_terminal_ui(core, input_text):
+    status = core.get_status()
+
+    line_height = 30
+    padding = 30
+
+    y_offset = 10
+
+    y_offset = draw_section_header("QTEC Status", y_offset, YELLOW)
+    y_offset = draw_text_lines(status, y_offset, line_height)
+
+    energy_quota = core.get_energy_quota()
+    y_offset += padding
+    y_offset = draw_section_header("Energy Quota", y_offset, YELLOW)
+    y_offset = draw_text_lines(energy_quota, y_offset, line_height, PURPLE)
+
+    command_list = [(info["display"], info["description"]) for info in commands.values()]
+    y_offset += padding
+    y_offset = draw_commands(command_list, y_offset)
+
+    # Draw Log Area
+    from logger import log_messages
+    log_area_top = HEIGHT - 400
+    y_offset = draw_logs(log_messages, log_area_top, line_height)
+
+    # Draw Input Field
     pygame.draw.rect(screen, GREY, (10, HEIGHT - 70, WIDTH - 20, 40), border_radius=5)
     draw_text(screen, f"> {input_text}", 20, HEIGHT - 61, CYAN)
     draw_cursor(20 + FONT.size(f"> {input_text}")[0], HEIGHT - 62)

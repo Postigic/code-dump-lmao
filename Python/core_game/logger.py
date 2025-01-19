@@ -1,4 +1,4 @@
-from graphics import WHITE
+from utilities import WHITE
 
 log_messages = []
 

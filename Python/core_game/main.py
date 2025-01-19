@@ -1,92 +1,124 @@
 import pygame
-import time
-import sys
 from difflib import get_close_matches
-from core import Core
+from pathlib import Path
+from core import QTEC
 from graphics import draw_scanlines, draw_terminal_ui, boot_sequence
 from utilities import *
 from commands import commands
 from logger import *
 
+current_dir = Path(__file__).parent
+pygame.mixer.set_num_channels(16)
+
+
+def input_events_manager(event, input_text, excluded_keys, last_pressed_keys, core):
+    current_time = pygame.time.get_ticks()
+    if event.type == pygame.QUIT:
+        return False, input_text
+    elif event.type == pygame.KEYDOWN:
+        if event.key in excluded_keys:
+            if event.key not in last_pressed_keys or current_time - last_pressed_keys[event.key] > 700:
+                last_pressed_keys[event.key] = current_time
+            else:
+                return True, input_text
+
+        if event.key == pygame.K_RETURN:
+            input_text = process_input(input_text, core)
+        elif event.key == pygame.K_TAB:
+            input_text = handle_tab_completion(input_text)
+        elif event.key == pygame.K_BACKSPACE:
+            input_text = input_text[:-1]
+        else:
+            input_text += event.unicode
+    return True, input_text
+
+
+def process_input(input_text, core):
+    input_text = input_text.lower()
+    parts = input_text.split()
+    command = parts[0] if len(parts) > 0 else None
+    arg = parse_argument(parts)
+
+    
+    execute_command(command, arg, core)
+
+    return ""
+
+def parse_argument(parts):
+    if len(parts) > 1:
+        if parts[1].isdigit():
+            return int(parts[1])
+        elif parts[1].replace(".", "", 1).isdigit():
+            return float(parts[1])
+        else:
+            return parts[1]
+    return None
+
+
+def execute_command(command, arg, core):
+    try:
+        command_info = commands[command]
+        message, color = command_info["handler"](core, arg)
+        log_event(message, color)
+    except KeyError:
+        log_event("[ERROR] Command not recognized.", RED)
+    except TypeError as e:
+        log_event(f"[ERROR] {str(e)}", RED)
+    except Exception as e:
+        log_event(f"[ERROR] Unexpected error: {str(e)}", RED)
+
+
+def handle_tab_completion(input_text):
+    closest_matches = get_close_matches(input_text, commands.keys(), n=1)
+    if closest_matches:
+        return closest_matches[0]
+    return input_text
+
+
+def sound_manager(sound):
+    if sound == "comp_amb":
+        comp_amb_sound = pygame.mixer.Sound(current_dir / r"sfx\comp_amb.ogg")
+        comp_amb_sound.play(loops=-1)
+        comp_amb_sound.set_volume(0.1)
+    if sound == "fan_amb":
+        fan_amb_sound = pygame.mixer.Sound(current_dir / r"sfx\fans_amb.ogg")
+        fan_amb_sound.play(loops=-1)
+        fan_amb_sound.set_volume(0.2)
+
 
 def main():
     clock = pygame.time.Clock()
-    core = Core()
+    core = QTEC()
     input_text = ""
-
-    # boot_sequence()  # note: COMMENT WHEN DEBUGGING RAAAHHHH I HATE MY LIFE!!!!!!!
-
-    update_interval = 1000
     last_update_time = pygame.time.get_ticks()
-
-    # beep_sound = pygame.mixer.Sound("beep.wav")
+    excluded_keys = {pygame.K_RETURN, pygame.K_TAB}
+    last_pressed_keys = {}
     running = True
 
     pygame.key.set_repeat(500, 50)
 
-    excluded_keys = {pygame.K_RETURN, pygame.K_TAB}
-    last_pressed_keys = {}
+    # boot_sequence()  # note: COMMENT WHEN DEBUGGING RAAAHHHH I HATE MY LIFE!!!!!!!
+
+    sound_manager("comp_amb")
+    sound_manager("fan_amb")
 
     while running:
         screen.fill(BLACK)
         draw_scanlines()
 
         current_time = pygame.time.get_ticks()
-        if current_time - last_update_time >= update_interval:
+        if current_time - last_update_time >= 1000:
             core.update_core()
             last_update_time = current_time
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key in excluded_keys:
-                    if event.key not in last_pressed_keys or current_time - last_pressed_keys[event.key] > 700:
-                        last_pressed_keys[event.key] = current_time
-                    else:
-                        continue
+            running, input_text = input_events_manager(event, input_text, excluded_keys, last_pressed_keys, core)
+            if not running:
+                break
 
-                if event.key == pygame.K_RETURN:
-                    input_text = input_text.lower()
-
-                    parts = input_text.split()
-                    command = parts[0] if len(parts) > 0 else None
-                    arg = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else float(parts[1]) if len(parts) > 1 and parts[1].replace(".", "", 1).isdigit() else parts[1] if len(parts) > 1 else None  # lmao what
-
-                    if command in commands:
-                        if command == "exit":
-                            running = False
-                        elif command == "clear":
-                            clear_logs()
-                        else:
-                            try:
-                                if isinstance(arg, int):
-                                    message, color = commands[command]["handler"](core, arg)
-                                    log_event(message, color)
-                                else:
-                                    log_event(f"[ERROR] Expected integer, but got {type(arg).__name__}.", RED)
-                            except TypeError:
-                                log_event("[ERROR] Invalid argument type.", RED)
-                    else:
-                        log_event("[ERROR] The term entered is not recognized as a valid command.", RED)
-                    core.update_core()
-                    time.sleep(0.5)
-                    input_text = ""
-                elif event.key == pygame.K_TAB:
-                    closest_matches = get_close_matches(input_text, commands.keys(), n=1)
-                    if closest_matches:
-                        input_text = closest_matches[0]
-                elif event.key == pygame.K_BACKSPACE:
-                    input_text = input_text[:-1]
-                else:
-                    input_text += event.unicode
-
-        draw_terminal_ui(core, input_text, 20)
+        draw_terminal_ui(core, input_text)
         pygame.display.flip()
         clock.tick(30)
-
-    pygame.quit()
-    sys.exit()
 
 
 if __name__ == "__main__":
