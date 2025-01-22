@@ -148,12 +148,10 @@ def draw_terminal_ui(core, input_text):
     y_offset += padding
     y_offset = draw_commands(command_list, y_offset)
 
-    # Draw Log Area
     from logger import log_messages
     log_area_top = HEIGHT - 400
     y_offset = draw_logs(log_messages, log_area_top, line_height)
 
-    # Draw Input Field
     pygame.draw.rect(screen, GREY, (10, HEIGHT - 70, WIDTH - 20, 40), border_radius=5)
     draw_text(screen, f"> {input_text}", 20, HEIGHT - 61, CYAN)
     draw_cursor(20 + FONT.size(f"> {input_text}")[0], HEIGHT - 62)

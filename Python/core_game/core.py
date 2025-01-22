@@ -3,7 +3,11 @@ from logger import log_event
 from utilities import *
 
 
-class QTEC:
+class Core:
+    pass
+
+
+class QTEC:  # scrapping this for now because it's too difficult to think of how it would work theoretically (sorry for being dumb sigh..... what can i say i'm just a chatgpt kinda guy y'know? nananananananana)
     TEMPERATURE_THRESHOLDS ={
         "critical": 8000,
         "danger": 7000,
