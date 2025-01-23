@@ -1,11 +1,222 @@
 import random
-from logger import log_event
+import sys
+from logger import log_event, clear_logs
 from utilities import *
 
 
-class Core:
-    pass
+def validate_int(arg):
+    if isinstance(arg, int):
+        return arg
+    raise TypeError(f"Expected an integer, but got {type(arg).__name__}.")
 
+
+class HFR:  # Hyperion Fusion Reactor
+    TEMPERATURE_THRESHOLDS = {
+        "critical": 37000,
+        "danger": 25000,
+        "stall": 10000,
+    }
+
+
+    PRESSURE_THRESHOLDS = {
+        "critical": 10.0,
+        "optimal": 5.0,
+        "stall": 1.0,
+    }
+
+
+    def __init__(self):
+        self.commands = self.generate_commands()
+        self.temperature = 15000
+        self.cooling_level = 50
+        self.energy_output = 50
+        self.pressure = 5.0
+        self.magnetic_field_strength = 100
+        self.structural_integrity = 100
+        self.radiation_level = 0.5
+        self.status_effects = []
+
+    
+    def generate_commands(self):
+        return {
+            "inc_cooling": {
+                "display": "inc_cooling [int]",
+                "description": "Increase cooling by specified amount",
+                "handler": lambda arg: self.adjust_property("cooling_level", validate_int(arg))
+            },
+            "dec_cooling": {
+                "display": "dec_cooling [int]",
+                "description": "Decrease cooling by specified amount",
+                "handler": lambda arg: self.adjust_property("cooling_level", validate_int(-arg))
+            },
+                "inc_energy": {
+                "display": "inc_energy [int]",
+                "description": "Increase energy output by specified amount",
+                "handler": lambda arg: self.adjust_property("energy_output", validate_int(arg))
+            },
+            "dec_energy": {
+                "display": "dec_energy [int]",
+                "description": "Decrease energy output by specified amount",
+                "handler": lambda arg: self.adjust_property("energy_output", validate_int(-arg))
+            },
+            "vent_pressure": {
+                "display": "vent_pressure",
+                "description": "Vent excess pressure from the core",
+                "handler": lambda _: self.vent_pressure()
+            },
+            "stabilize_field": {
+                "display": "stabilize_field",
+                "description": "Reinforce magnetic containment field",
+                "handler": lambda _: self.reinforce_magnetic_field()
+            },
+            "help": {
+                "display": "help [str]",
+                "description": "Briefly explains a status term",
+                "handler": lambda _: ("[INFO] Help placeholder.", WHITE)
+            },
+            "clear": {
+                "display": "clear",
+                "description": "Clears the terminal",
+                "handler": lambda _: ("[INFO] Logs cleared.", WHITE) if not clear_logs() else None
+            },
+            "exit": {
+                "display": "exit",
+                "description": "Exits the control interface",
+                "handler": lambda _: (pygame.quit(), sys.exit(), "")[2]
+            },
+        }
+    
+
+    def adjust_property(self, property_name, adjustment, max_value=100, min_value=0):
+        current_value = getattr(self, property_name, 0)
+        new_value = current_value + adjustment
+        clamped_value = clamp(new_value, min_value, max_value)
+
+        setattr(self, property_name, clamped_value)
+
+        if new_value > max_value:
+            return f"[WARN]: {property_name.replace('_', ' ').title()} cannot exceed {max_value}%, defaulting to max.", ORANGE
+        elif new_value < min_value:
+            return f"[WARN]: {property_name.replace('_', ' ').title()} cannot be less than {min_value}%, defaulting to min.", ORANGE
+        else:
+            return f"[LOGS] {property_name.replace('_', ' ').title()} adjusted by {adjustment}%.", WHITE
+
+
+    def vent_pressure(self):
+        vent_amount = random.uniform(0.5, 1.5)
+        self.pressure -= vent_amount
+        return f"[LOGS] Vented {vent_amount:.2f} bar of pressure", WHITE
+    
+
+    def reinforce_magnetic_field(self):
+        self.magnetic_field_strength = min(100, self.magnetic_field_strength + 10)
+        return f"[LOGS] Magnetic containment field reinforced by 10%.", WHITE
+
+
+    def update_core(self):
+        heat_generated = self.energy_output * 300
+        cooling_effect = self.cooling_level * random.uniform(0.9, 1.1)
+        heat_diff = heat_generated - cooling_effect
+
+        self.temperature += heat_diff * 0.1 + random.uniform(-50, 100)
+        self.pressure += (self.temperature / 10000) * 0.05 - cooling_effect * 0.0001
+
+        self.radiation_level += self.energy_output / 1000 + (100 - self.magnetic_field_strength) * 0.05
+
+        if self.temperature > HFR.TEMPERATURE_THRESHOLDS["danger"]:
+            self.magnetic_field_strength -= (self.temperature - HFR.TEMPERATURE_THRESHOLDS["danger"]) * 0.001
+
+        if self.pressure > HFR.PRESSURE_THRESHOLDS["critical"]:
+            self.structural_integrity -= (self.pressure - HFR.PRESSURE_THRESHOLDS["critical"]) * 0.5
+
+        if self.pressure < HFR.PRESSURE_THRESHOLDS["stall"] or self.temperature < HFR.TEMPERATURE_THRESHOLDS["stall"]:
+            self.energy_output = max(0, self.energy_output - 5)
+
+        if random.random() < 0.01:
+            self.random_event()
+
+        self.temperature = max(0, self.temperature)
+        self.pressure = max(0, self.pressure)
+        self.radiation_level = max(0, self.radiation_level)
+        self.magnetic_field_strength = max(0, self.magnetic_field_strength)
+        self.structural_integrity = max(0, self.structural_integrity)
+
+
+    def random_event(self):
+        events = [
+            {"name": "Plasma Disruption", "description": "Plasma instability detected. Temperature spike imminent.", "effect": lambda: setattr(self, "temperature", self.temperature + random.randint(2000, 5000))},
+            {"name": "Magnetic Field Failure", "description": "Magnetic containment weakening. Plasma escape imminent.", "effect": lambda: setattr(self, "magnetic_field_strength", max(0, self.magnetic_field_strength - 20))},
+            {"name": "Coolant Malfunction", "description": "Coolant system failure detected. Cooling efficiency compromised.", "effect": lambda: setattr(self, "cooling_level", max(0, self.cooling_level - 10))},
+            {"name": "Pressure Surge", "description": "Pressure surge detected. Reactor core under stress.", "effect": lambda: setattr(self, "pressure", self.pressure + random.uniform(1.0, 3.0))},
+            # System Overload: Fails to fetch core status for a random interval of time
+            # Power Grid Malfunction: Cuts screen off for a few seconds due to the need to switch to backup power (takes time)
+            # Connection Latency: Increases delay from command prompt to command execution
+            # Radiation: Blurs terminal screen and reduces integrity
+        ]
+        event = random.choice(events)
+        log_event(f"[WARN] {event['name']}: {event['description']}", ORANGE)
+        event["effect"]()
+
+
+    def increase_energy_output(self):
+        self.pressure += random.uniform(0.5, 1.5)
+        self.energy_output += random.randint(20, 50)
+
+
+    def process_status_effects(self):
+        for effect in list(self.status_effects):
+            effect["effect"](self)
+            effect["duration"] -= 1
+            if effect["duration"] <= 0:
+                # log_event(f"[INFO]: {effect['name']} effect has worn off.", WHITE)  # debug lol
+                self.status_effects.remove(effect)
+                
+
+    def get_status(self):
+        status = [
+            f"Core Temperature: {self.temperature:.2f} K",
+            f"Cooling Level: {self.cooling_level}%",
+            f"Pressure: {self.pressure:.2f} bar",
+            f"Magnetic Field Strength: {self.magnetic_field_strength:.2f}%",
+            f"Radiation Level: {self.radiation_level:.2f} mSv/h",
+            f"Energy Output: {self.energy_output}%",
+            f"Structural Integrity: {self.structural_integrity:.2f}%",
+        ]
+
+        if self.temperature >= HFR.TEMPERATURE_THRESHOLDS["critical"]:
+            status.append("WARNING: Core temperature critical! Immediate action required!")
+            # meltdown begins here
+        elif self.temperature >= HFR.TEMPERATURE_THRESHOLDS["danger"]:
+            status.append("WARNING: Core temperature dangerously high! Immediate action required!")
+        elif self.temperature <= HFR.TEMPERATURE_THRESHOLDS["stall"]:
+            status.append("WARNING: Core temperature too low! Immediate action required!")
+            # stall begins here
+
+        if self.pressure >= HFR.PRESSURE_THRESHOLDS["critical"]:
+            status.append("WARNING: Reactor pressure critical! Immediate action required!")
+        elif self.pressure <= HFR.PRESSURE_THRESHOLDS["stall"]:
+            status.append("WARNING: Reactor pressure too low! Immediate action required!")
+
+        if self.magnetic_field_strength <= 30:
+            status.append("WARNING: Magnetic containment field critically weak! Immediate action required!")
+
+        if self.structural_integrity <= 20:
+            status.append("WARNING: Structural Integrity is critically low! Immediate action required!")
+
+        else:
+            status.append("INFO: Core is stable.")
+
+        return status
+    
+
+    def get_energy_quota(self):
+        quota = [
+            "placeholder TW",
+            "placeholder%",
+        ]
+
+        return quota
+    
 
 class QTEC:  # scrapping this for now because it's too difficult to think of how it would work theoretically (sorry for being dumb sigh..... what can i say i'm just a chatgpt kinda guy y'know? nananananananana)
     TEMPERATURE_THRESHOLDS ={
@@ -16,6 +227,7 @@ class QTEC:  # scrapping this for now because it's too difficult to think of how
 
 
     def __init__(self):
+        self.commands = self.generate_commands()
         self.temperature = 4000
         self.cooling_level = 50
         self.energy_output = 50
@@ -29,6 +241,72 @@ class QTEC:  # scrapping this for now because it's too difficult to think of how
         self.quantum_coherence = 1.0
         self.quantum_state = "Stable"
         self.status_effects = []
+
+
+    def generate_commands(self):
+        return {
+            "inc_cooling": {
+                "display": "inc_cooling [int]",
+                "description": "Increase cooling by specified amount",
+                "handler": lambda arg: self.adjust_property("cooling_level", validate_int(arg))
+            },
+            "dec_cooling": {
+                "display": "dec_cooling [int]",
+                "description": "Decrease cooling by specified amount",
+                "handler": lambda arg: self.adjust_property("cooling_level", validate_int(-arg))
+            },
+                "inc_energy": {
+                "display": "inc_energy [int]",
+                "description": "Increase energy output by specified amount",
+                "handler": lambda arg: self.adjust_property("energy_output", validate_int(arg))
+            },
+            "dec_energy": {
+                "display": "dec_energy [int]",
+                "description": "Decrease energy output by specified amount",
+                "handler": lambda arg: self.adjust_property("energy_output", validate_int(-arg))
+            },
+            "vent_pressure": {
+                "display": "vent_pressure",
+                "description": "Vent excess pressure from the core",
+                "handler": lambda _: self.vent_pressure()
+            },
+            "help": {
+                "display": "help [str]",
+                "description": "Briefly explains a status term",
+                "handler": lambda _: ("[INFO] Help placeholder.", WHITE)
+            },
+            "clear": {
+                "display": "clear",
+                "description": "Clears the terminal",
+                "handler": lambda _: ("[INFO] Logs cleared.", WHITE) if not clear_logs() else None
+            },
+            "exit": {
+                "display": "exit",
+                "description": "Exits the control interface",
+                "handler": lambda _: (pygame.quit(), sys.exit(), "")[2]
+            },
+        }
+    
+
+    def adjust_property(self, property_name, adjustment, max_value=100, min_value=0):
+        current_value = getattr(self, property_name, 0)
+        new_value = current_value + adjustment
+        clamped_value = clamp(new_value, min_value, max_value)
+
+        setattr(self, property_name, clamped_value)
+
+        if new_value > max_value:
+            return f"[WARN]: {property_name.replace('_', ' ').title()} cannot exceed {max_value}%, defaulting to max.", ORANGE
+        elif new_value < min_value:
+            return f"[WARN]: {property_name.replace('_', ' ').title()} cannot be less than {min_value}%, defaulting to min.", ORANGE
+        else:
+            return f"[LOGS] {property_name.replace('_', ' ').title()} adjusted by {adjustment}%.", WHITE
+
+
+    def vent_pressure(self):
+        vent_amount = random.uniform(0.5, 1.5)
+        self.pressure -= vent_amount
+        return f"[LOGS] Vented {vent_amount:.2f} bar of pressure", WHITE
 
 
     def update_core(self):

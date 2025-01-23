@@ -1,7 +1,6 @@
 import pygame
 import time
 from utilities import *
-from commands import commands
 
 
 def boot_sequence():
@@ -136,7 +135,7 @@ def draw_terminal_ui(core, input_text):
 
     y_offset = 10
 
-    y_offset = draw_section_header("QTEC Status", y_offset, YELLOW)
+    y_offset = draw_section_header("Reactor Status", y_offset, YELLOW)
     y_offset = draw_text_lines(status, y_offset, line_height)
 
     energy_quota = core.get_energy_quota()
@@ -144,7 +143,7 @@ def draw_terminal_ui(core, input_text):
     y_offset = draw_section_header("Energy Quota", y_offset, YELLOW)
     y_offset = draw_text_lines(energy_quota, y_offset, line_height, PURPLE)
 
-    command_list = [(info["display"], info["description"]) for info in commands.values()]
+    command_list = [(info["display"], info["description"]) for info in core.commands.values()]
     y_offset += padding
     y_offset = draw_commands(command_list, y_offset)
 

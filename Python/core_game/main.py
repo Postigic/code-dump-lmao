@@ -1,10 +1,9 @@
 import pygame
 from difflib import get_close_matches
 from pathlib import Path
-from core import QTEC
+from core import QTEC, HFR
 from graphics import draw_scanlines, draw_terminal_ui, boot_sequence
 from utilities import *
-from commands import commands
 from logger import *
 
 current_dir = Path(__file__).parent
@@ -23,9 +22,9 @@ def input_events_manager(event, input_text, excluded_keys, last_pressed_keys, co
                 return True, input_text
 
         if event.key == pygame.K_RETURN:
-            input_text = process_input(input_text, core)
+            input_text = process_input(core, input_text)
         elif event.key == pygame.K_TAB:
-            input_text = handle_tab_completion(input_text)
+            input_text = handle_tab_completion(core, input_text)
         elif event.key == pygame.K_BACKSPACE:
             input_text = input_text[:-1]
         else:
@@ -33,14 +32,14 @@ def input_events_manager(event, input_text, excluded_keys, last_pressed_keys, co
     return True, input_text
 
 
-def process_input(input_text, core):
+def process_input(core, input_text):
     input_text = input_text.lower()
     parts = input_text.split()
     command = parts[0] if len(parts) > 0 else None
     arg = parse_argument(parts)
 
     
-    execute_command(command, arg, core)
+    execute_command(core, command, arg)
 
     return ""
 
@@ -55,21 +54,23 @@ def parse_argument(parts):
     return None
 
 
-def execute_command(command, arg, core):
-    try:
-        command_info = commands[command]
-        message, color = command_info["handler"](core, arg)
-        log_event(message, color)
-    except KeyError:
+def execute_command(core, command, arg):
+    commands = core.commands
+    if command in commands:
+        try:
+            command_info = commands[command]
+            message, color = command_info["handler"](arg)
+            log_event(message, color)
+        except TypeError as e:
+            log_event(f"[ERROR] {str(e)}", RED)
+        except Exception as e:
+            log_event(f"[ERROR] Unexpected error: {str(e)}", RED)
+    else:
         log_event("[ERROR] Command not recognized.", RED)
-    except TypeError as e:
-        log_event(f"[ERROR] {str(e)}", RED)
-    except Exception as e:
-        log_event(f"[ERROR] Unexpected error: {str(e)}", RED)
 
 
-def handle_tab_completion(input_text):
-    closest_matches = get_close_matches(input_text, commands.keys(), n=1)
+def handle_tab_completion(core, input_text):
+    closest_matches = get_close_matches(input_text, core.commands.keys(), n=1)
     if closest_matches:
         return closest_matches[0]
     return input_text
@@ -88,7 +89,7 @@ def sound_manager(sound):
 
 def main():
     clock = pygame.time.Clock()
-    core = QTEC()
+    core = HFR()
     input_text = ""
     last_update_time = pygame.time.get_ticks()
     excluded_keys = {pygame.K_RETURN, pygame.K_TAB}
