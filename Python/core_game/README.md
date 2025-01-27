@@ -1,9 +1,9 @@
 # core game
 
-this is my favourite project and yet it makes me want to give up
+this is my favourite project because i'm a stinky nerd or whatever lol
 </br>
 </br>
-i might revert it back to some fusion concept if i can't get the quantum one right (well, perhaps i'll keep it on the back burner)
+temporarily halting this project because... i'm dumb and don't have the time to dedicate to this
 </br>
 </br>
-sometimes i feel like scrapping this, but as they all say.... no fear....!!!
+~~sometimes i feel like scrapping this, but as they all say.... no fear....!!!~~ this aged like fine milk
