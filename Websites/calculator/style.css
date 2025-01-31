@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Trispace:wght@100..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
 html {
     box-sizing: border-box;
     height: 100%;
@@ -15,7 +17,7 @@ body {
     align-items: center;
     background: linear-gradient(320deg, #eb92be, #ffef78, #63c9b4);
     display: flex;
-    font-family: "Trispace Medium", sans-serif;
+    font-family: "Trispace", sans-serif;
     font-display: swap;
     height: inherit;
     justify-content: center;
