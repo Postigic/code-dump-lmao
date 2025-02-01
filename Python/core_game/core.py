@@ -12,28 +12,33 @@ def validate_int(arg):
 
 class HFR:  # Hyperion Fusion Reactor
     TEMPERATURE_THRESHOLDS = {
-        "critical": 37000,
-        "danger": 25000,
-        "stall": 10000,
+        "meltdown": 800_000_000,
+        "critical": 500_000_000,
+        "danger": 300_000_000,
+        "optimal": 100_000_000,
+        "stall": 50_000_000,
     }
 
 
     PRESSURE_THRESHOLDS = {
-        "critical": 10.0,
-        "optimal": 5.0,
-        "stall": 1.0,
+        "meltdown": 15000,
+        "critical": 5000,
+        "danger": 3000,
+        "optimal": 500,
+        "stall": 100,
     }
 
 
     def __init__(self):
         self.commands = self.generate_commands()
-        self.temperature = 15000
+        self.temperature = 150_000_000
         self.cooling_level = 50
         self.energy_output = 50
-        self.pressure = 5.0
+        self.pressure = 500.0
         self.magnetic_field_strength = 100
         self.structural_integrity = 100
         self.radiation_level = 0.5
+        self.energy_buffer = 0.0
         self.status_effects = []
 
     
@@ -103,7 +108,7 @@ class HFR:  # Hyperion Fusion Reactor
 
 
     def vent_pressure(self):
-        vent_amount = random.uniform(0.5, 1.5)
+        vent_amount = random.uniform(2, 5)
         self.pressure -= vent_amount
         return f"[LOGS] Vented {vent_amount:.2f} bar of pressure", WHITE
     
@@ -113,24 +118,55 @@ class HFR:  # Hyperion Fusion Reactor
         return f"[LOGS] Magnetic containment field reinforced by 10%.", WHITE
 
 
-    def update_core(self):
-        heat_generated = self.energy_output * 300
-        cooling_effect = self.cooling_level * random.uniform(0.9, 1.1)
-        heat_diff = heat_generated - cooling_effect
+    def update_energy_buffer(self):
+        generated = self.energy_output * random.uniform(0.8, 1.2)
+        self.energy_buffer += generated * 0.1
+        self.energy_buffer *= 0.99
 
-        self.temperature += heat_diff * 0.1 + random.uniform(-50, 100)
-        self.pressure += (self.temperature / 10000) * 0.05 - cooling_effect * 0.0001
 
-        self.radiation_level += self.energy_output / 1000 + (100 - self.magnetic_field_strength) * 0.05
+    def update_temperature(self):
+        heat_from_buffer = self.energy_buffer * 2
+        cooling_effect = ((self.cooling_level / 100) ** 1.5) * 2_000_000
+        fluctuation = random.uniform(-2_000_000, 5_000_000)
+        self.temperature += heat_from_buffer - cooling_effect + fluctuation
 
+
+    def update_pressure(self):
+        base_pressure = (self.temperature / 100_000_000) ** 1.1 * 300
+        pressure_drop = (self.cooling_level / 100) * 150
+        self.pressure += base_pressure - pressure_drop
+        self.pressure = max(0, self.pressure)
+
+
+    def update_radiation(self):
+        self.radiation_level += (self.energy_output / 1000)
+        if self.magnetic_field_strength < 80:
+            self.radiation_level += (80 - self.magnetic_field_strength) * 0.02
+
+
+    def update_magnetic_field(self):
         if self.temperature > HFR.TEMPERATURE_THRESHOLDS["danger"]:
-            self.magnetic_field_strength -= (self.temperature - HFR.TEMPERATURE_THRESHOLDS["danger"]) * 0.001
+            degradation = (self.temperature - HFR.TEMPERATURE_THRESHOLDS["danger"]) * 0.00005
+            self.magnetic_field_strength = max(0, self.magnetic_field_strength - degradation)
+        elif self.magnetic_field_strength < 100:
+            self.magnetic_field_strength = min(100, self.magnetic_field_strength + 0.5)
 
+
+    def update_structural_integrity(self):
         if self.pressure > HFR.PRESSURE_THRESHOLDS["critical"]:
-            self.structural_integrity -= (self.pressure - HFR.PRESSURE_THRESHOLDS["critical"]) * 0.5
+            self.structural_integrity -= (self.pressure - HFR.PRESSURE_THRESHOLDS["critical"]) * 0.01
+        if self.radiation_level > 1.0:
+            self.structural_integrity -= (self.radiation_level - 1.0) * 0.01
+        self.structural_integrity = max(0, self.structural_integrity)
 
-        if self.pressure < HFR.PRESSURE_THRESHOLDS["stall"] or self.temperature < HFR.TEMPERATURE_THRESHOLDS["stall"]:
-            self.energy_output = max(0, self.energy_output - 5)
+
+    def update_core(self):
+        self.update_energy_buffer()
+        self.update_temperature()
+        self.update_pressure()
+        self.update_radiation()
+        self.update_magnetic_field()
+        self.update_structural_integrity()
 
         if random.random() < 0.01:
             self.random_event()
@@ -181,15 +217,19 @@ class HFR:  # Hyperion Fusion Reactor
             f"Radiation Level: {self.radiation_level:.2f} mSv/h",
             f"Energy Output: {self.energy_output}%",
             f"Structural Integrity: {self.structural_integrity:.2f}%",
+            f"Energy Buffer: {self.energy_buffer:.2f}",
         ]
 
-        if self.temperature >= HFR.TEMPERATURE_THRESHOLDS["critical"]:
-            status.append("WARNING: Core temperature critical! Immediate action required!")
+        if self.temperature >= HFR.TEMPERATURE_THRESHOLDS["meltdown"]:
+            pass
             # meltdown begins here
+        elif self.temperature >= HFR.TEMPERATURE_THRESHOLDS["critical"]:
+            pass
+            # critical begins here
         elif self.temperature >= HFR.TEMPERATURE_THRESHOLDS["danger"]:
-            status.append("WARNING: Core temperature dangerously high! Immediate action required!")
+            pass
         elif self.temperature <= HFR.TEMPERATURE_THRESHOLDS["stall"]:
-            status.append("WARNING: Core temperature too low! Immediate action required!")
+            pass
             # stall begins here
 
         if self.pressure >= HFR.PRESSURE_THRESHOLDS["critical"]:
