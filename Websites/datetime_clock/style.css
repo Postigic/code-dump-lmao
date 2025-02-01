@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+* {
+    font-family: "JetBrains Mono", monospace;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("./background_image/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    text-align: center;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(2px);
+    height: 100vh;
+}
+
+#clock {
+    font-size: 10em;
+    font-weight: 700;
+    text-align: center;
+}
+
+#date {
+    font-size: 2em;
+    font-weight: 300;
+    text-align: center;
+}
+
+#settings-btn {
+    position: absolute;
+    bottom: 0px;
+    height: 7em;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#settings-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#settings-menu {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    transition: bottom 0.3s ease-in-out;
+    min-height: 350px;
+}
+
+.setting {
+    text-align: left;
+}
+
+.setting label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#settings-menu select {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+}
+
+#close-settings {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff5c5c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1em;
+}

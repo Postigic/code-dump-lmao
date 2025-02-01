@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Datetime Clock</title>
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="clock-container">
+                <div id="clock">00:00:00</div>
+            </div>
+
+            <div id="date-container">
+                <div id="date">00/00/0000</div>
+            </div>
+
+            <button id="settings-btn">Settings</button>
+        </div>
+
+        <div id="settings-menu">
+            <div class="setting">
+                <label for="time-format">Time Format:</label>
+                <select id="time-format">
+                    <option value="12-hour">12-hour</option>
+                    <option value="24-hour">24-hour</option>
+                </select>
+            </div>
+            <div class="setting">
+                <label for="date-format">Date Format:</label>
+                <select id="date-format">
+                    <option value="long">Full (e.g., January 1, 2025)</option>
+                    <option value="short">Short (e.g., 01/01/2025)</option>
+                </select>
+            </div>
+            <div class="setting">
+                <label for="show-day">Show Day:</label>
+                <select id="show-day">
+                    <option value="long">Full (e.g., Saturday)</option>
+                    <option value="short">Short (e.g., Sat)</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+
+            <button id="close-settings">Close</button>
+        </div>
+    </body>
+
+    <script src="script.js"></script>
+</html>
