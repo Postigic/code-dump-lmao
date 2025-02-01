@@ -13,4 +13,4 @@ tutorial used:
 </br>
 image of it:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

@@ -7,4 +7,4 @@ made with... do i gotta write this again...? HTML, CSS, and JS
 </br>
 </br>
 image here:
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

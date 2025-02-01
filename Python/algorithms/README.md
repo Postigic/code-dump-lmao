@@ -6,7 +6,7 @@ i dunno what to write lol, just find all of this neat so i steal the code and pu
 obligatory disclaimer that it's a joke
 </br>
 </br>
-![image](./project_image/bogosort.gif)
+![image](./__project_image__/bogosort.gif)
 </br>
 this is my favourite sort (it's so efficient amirite?)
 </br>

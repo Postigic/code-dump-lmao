@@ -8,4 +8,4 @@ made with HTML, CSS and JS
 </br>
 image of the data unit converter:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

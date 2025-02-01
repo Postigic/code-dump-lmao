@@ -9,6 +9,6 @@ basically in naturally occurring datasets, it is more likely for the beginning d
 anyways i ~~chatgpt'd~~ totally legitimately wrote all of this code myself!!!! :D
 </br>
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)
 </br>
 wowowowowowow look at that GRAPH! it's so COOL! (not really)

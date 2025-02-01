@@ -9,4 +9,4 @@ original idea by AlipDotPY
 video link: <https://youtu.be/hNVqVtm_sKU>
 </br>
 </br>
-![image](./project_image/image.jpg)
+![image](./__project_image__/image.jpg)

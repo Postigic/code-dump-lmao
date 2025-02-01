@@ -11,4 +11,4 @@ thanks chatgpt.... i suck at maths.... (for legal or otherwise reasons this is a
 </br>
 image of the yeah:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

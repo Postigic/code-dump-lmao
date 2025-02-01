@@ -12,4 +12,4 @@ tutorial i used:
 </br>
 image of the tic tac toe game:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

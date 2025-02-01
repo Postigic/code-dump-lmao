@@ -13,4 +13,4 @@ tutorial i used:
 </br>
 an image of the password generator:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

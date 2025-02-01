@@ -8,4 +8,4 @@ uses HTML, CSS (barely) and JS
 </br>
 an image of the thingymajig:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

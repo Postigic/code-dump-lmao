@@ -13,4 +13,4 @@ tutorial i used:
 </br>
 image of the chart generator:
 </br>
-![image](./project_image/image.png)
+![image](./__project_image__/image.png)

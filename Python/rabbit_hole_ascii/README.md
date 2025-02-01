@@ -9,4 +9,4 @@ this code is terrible, but i can't be bothered!!!!!!!
 video link: <https://youtu.be/ZSUgq9UNMd4>
 </br>
 </br>
-![image](./project_image/image.jpg)
+![image](./__project_image__/image.jpg)
