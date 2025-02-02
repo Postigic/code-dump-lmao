@@ -34,8 +34,8 @@ def test_sort(func):
     for idx, (input_list, expected) in enumerate(test_cases, start=1):
         result = func(input_list)
         if result == expected:
-            print(f"Test case {idx} ({input_list}): Pass ✅")
+            print(f"Test Case {idx} -> {input_list}: Pass ✅")
         else:
-            print(f"Test case {idx} ({input_list}): Fail ❌ (Got {result}, Expected {expected})")
+            print(f"Test Case {idx} -> {input_list}: Fail ❌ (Got {result}, Expected {expected})")
 
 # thank you chatgpt.... i mean what i totally wrote this all myself huh what do you mean i'm lying
