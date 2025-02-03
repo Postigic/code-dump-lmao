@@ -1,4 +1,5 @@
 let timeFormat = "12-hour";
+let showSeconds = true;
 let dateFormat = "long";
 let dayFormat = "long";
 
@@ -26,7 +27,9 @@ function updateClock() {
             ? "long"
             : "short";
 
-    const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
+    const timeString = `${hours}:${minutes}${
+        showSeconds ? `:${seconds}` : ""
+    } ${meridiem}`;
     let dateString = now.toLocaleDateString("en-SG", {
         weekday: weekdayOption,
         day: dateFormat === "long" ? "numeric" : "2-digit",
@@ -45,8 +48,9 @@ const settingsButton = document.getElementById("settings-btn");
 const settingsMenu = document.getElementById("settings-menu");
 const closeSettingsButton = document.getElementById("close-settings");
 const timeFormatSelect = document.getElementById("time-format");
+const showSecondsSelect = document.getElementById("show-seconds");
 const dateFormatSelect = document.getElementById("date-format");
-const showDaySelect = document.getElementById("show-day");
+const dayFormatSelect = document.getElementById("day-format");
 
 settingsButton.addEventListener("click", () => {
     settingsButton.style.opacity = "0";
@@ -63,12 +67,17 @@ timeFormatSelect.addEventListener("change", () => {
     updateClock();
 });
 
+showSecondsSelect.addEventListener("change", () => {
+    showSeconds = showSecondsSelect.value === "true";
+    updateClock();
+});
+
 dateFormatSelect.addEventListener("change", () => {
     dateFormat = dateFormatSelect.value;
     updateClock();
 });
 
-showDaySelect.addEventListener("change", () => {
-    dayFormat = showDaySelect.value;
+dayFormatSelect.addEventListener("change", () => {
+    dayFormat = dayFormatSelect.value;
     updateClock();
 });
