@@ -1,4 +1,4 @@
-def find_check_digit(isbn_chars):
+def find_check_digit(isbn_chars: str) -> str:
     c_isbn = isbn_chars.replace("-", "")
 
     isbn_list = list(c_isbn)
@@ -13,7 +13,7 @@ def find_check_digit(isbn_chars):
     return str((10 - (total % 10)) % 10)
 
 
-def validate_isbn(isbn):
+def validate_isbn(isbn: str) -> bool:
     c_isbn = isbn.replace("-", "")
 
     check_digit = find_check_digit(c_isbn[:12])

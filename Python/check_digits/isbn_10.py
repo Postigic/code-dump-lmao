@@ -1,4 +1,4 @@
-def find_check_digit(isbn_chars):
+def find_check_digit(isbn_chars: str) -> str:
     c_isbn = isbn_chars.replace('-', '')
 
     isbn_list = list(c_isbn)
@@ -18,7 +18,7 @@ def find_check_digit(isbn_chars):
         return str(check_digit)
     
 
-def validate_isbn(isbn):
+def validate_isbn(isbn: str) -> bool:
     c_isbn = isbn.replace('-', '')
 
     if len(c_isbn) != 10:
