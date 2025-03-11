@@ -85,10 +85,11 @@ def main() -> None:
 
         audio_file_path = download_song_as_mp3(video_id, output_path)
         song_transcript = get_transcript(video_id)
+        colour_attributes = {k: v for k, v in STYLE.items() if k != "RESET"}
 
         if song_transcript:
             print_lyrics(audio_file_path, song_transcript,
-                        STYLE, coloured_text, volume)
+                        colour_attributes, coloured_text, volume)
 
         if settings["video_id"] != video_id:
             save_settings(video_id, settings["coloured_text"], settings["volume"], settings_path)
