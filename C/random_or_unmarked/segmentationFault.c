@@ -12,7 +12,7 @@ int main() {
 
     int *p = NULL;
 
-    *p = 10;
+    *p = 10; // or int value = *p;
 
     return 0;
 }
