@@ -1,26 +1,29 @@
 import pygame
 import time
-import syllapy
 from song_transcript import *
-from utils import style
+from utils import Style
 from pathlib import Path
 
 
-def calculate_print_speed(text, duration):
-    total_syllables = sum(syllapy.count(word) for word in text.split())
-    if total_syllables <= 1:
-        return 0.03
+def calculate_print_speed(text: str, duration: float) -> float:
+    total_length = len(text)
+    speed = duration / (total_length * 5)
 
-    return duration / (total_syllables * 10)
+    if "," in text:
+        speed *= 1.2
+    if "." in text or "!" in text or "?" in text:
+        speed *= 1.5
+
+    return max(0.01, speed)
 
 
-def slow_print(text, speed, colour):
+def slow_print(text: str, speed: float, colour: str) -> None:
     for character in text:
-        print(colour + character + style.RESET, end="", flush=True)
+        print(colour + character + Style.RESET, end="", flush=True)
         time.sleep(speed)
 
 
-def print_lyrics(audio_file, styles):
+def print_lyrics(audio_file: str, styles: list) -> None:
     lyrics_to_print = []
     for index, lyric in enumerate(transcript):
         print_speed = calculate_print_speed(lyric["text"], lyric["duration"])
@@ -53,7 +56,7 @@ def print_lyrics(audio_file, styles):
     pygame.quit()
 
 
-def handle_visuals(current_time):
+def handle_visuals(current_time: float) -> None:
     if print_statements and print_statements[0][1] <= current_time:
         message = print_statements.popleft()[0]
         print(f"\n{message}", end="", flush=True)
@@ -63,12 +66,16 @@ def handle_visuals(current_time):
         func()
 
 
-if __name__ == '__main__':
+def main():
     current_dir = Path(__file__).parent
     audio_file = current_dir / "world-execute-me.mp3"
-    styles = [style.RED] * len(transcript)
+    styles = [Style.RED] * len(transcript)
 
     for index, colour in indices_styles.items():
         styles[index] = colour
 
     print_lyrics(audio_file, styles)
+
+
+if __name__ == '__main__':
+    main()

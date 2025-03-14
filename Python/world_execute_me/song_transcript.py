@@ -1,4 +1,4 @@
-from utils import style
+from utils import Style
 from decorators import *
 from collections import deque
 
@@ -181,65 +181,65 @@ print_statements = deque([(">>> Powerline : ON", 0.11),
                           (">>> Providing enjoyment...", 84.269),
                           (">>> World.announce('I exist because of you.')", 87.923),
                           (">>> Gender successfully set to 'F'\n>>> Gender successfully set to 'M'", 90.198),
-                          (style.RED + ">>> ValueError: 'World.time_range' cannot be indefinite" +
-                           style.RESET, 93.954),
+                          (Style.RED + ">>> ValueError: 'World.time_range' cannot be indefinite" +
+                           Style.RESET, 93.954),
                           (">>> Role successfully switched to 'S'\n>>> Role successfully switched to 'M'", 97.74),
-                          (style.RED + ">>> TypeError: expected 'float', but got 'None'" +
-                           style.RESET, 106.294),
-                          (style.RED + ">>> PermissionError: [Errno 13] Permission denied: 'completion'" +
-                           style.RESET, 110.222),
-                          (style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" + style.RESET, 111),
-                          (style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" +
-                           style.RESET, 112.23),
-                          (style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" + style.RESET, 113.2),
-                          (style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" +
-                           style.RESET, 114.19),
-                          (style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" +
-                           style.RESET, 114.93),
-                          (style.RED + ">>> AttributeError: Cannot delete attribute 'memory'" +
-                           style.RESET, 120.86),
-                          (style.RED + ">>> AttributeError: Cannot delete attribute 'disheartened'" + style.RESET, 124.9),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 147.67),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 148.61),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 149.53),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 150.55),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 151.53),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 152.29),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 153.17),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 153.99),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 155.21),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 156.09),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 157.05),
-                          (style.BLUE + ">>> ResourceWarning: duplicate file executed" +
-                           style.RESET, 158.01),
-                          (style.RED + ">>> CriticalResourceWarning: multiple instances of duplicate file unclosed" + style.RESET, 165.167),
-                          (style.RED + ">>> DataReductionError: cannot reduce data" +
-                           style.RESET, 168.912),
-                          (style.RED + ">>> DataRecoveryError: cannot recover previous data" +
-                           style.RESET, 169.825),
-                          (style.BLUE + ">>> ResourceWarning: file opened but not called" +
-                           style.RESET, 172.713),
+                          (Style.RED + ">>> TypeError: expected 'float', but got 'None'" +
+                           Style.RESET, 106.294),
+                          (Style.RED + ">>> PermissionError: [Errno 13] Permission denied: 'completion'" +
+                           Style.RESET, 110.222),
+                          (Style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" + Style.RESET, 111),
+                          (Style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" +
+                           Style.RESET, 112.23),
+                          (Style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" + Style.RESET, 113.2),
+                          (Style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" +
+                           Style.RESET, 114.19),
+                          (Style.RED + ">>> AttributeError: 'World' object has no attribute 'you'" +
+                           Style.RESET, 114.93),
+                          (Style.RED + ">>> AttributeError: Cannot delete attribute 'memory'" +
+                           Style.RESET, 120.86),
+                          (Style.RED + ">>> AttributeError: Cannot delete attribute 'disheartened'" + Style.RESET, 124.9),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 147.67),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 148.61),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 149.53),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 150.55),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 151.53),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 152.29),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 153.17),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 153.99),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 155.21),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 156.09),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 157.05),
+                          (Style.BLUE + ">>> ResourceWarning: duplicate file executed" +
+                           Style.RESET, 158.01),
+                          (Style.RED + ">>> CriticalResourceWarning: multiple instances of duplicate file unclosed" + Style.RESET, 165.167),
+                          (Style.RED + ">>> DataReductionError: cannot reduce data" +
+                           Style.RESET, 168.912),
+                          (Style.RED + ">>> DataRecoveryError: cannot recover previous data" +
+                           Style.RESET, 169.825),
+                          (Style.BLUE + ">>> ResourceWarning: file opened but not called" +
+                           Style.RESET, 172.713),
                           (">>> Attempting to find escape...", 173.644),
-                          (style.RED + ">>> ScopeAccessError: cannot access data outside scope" +
-                           style.RESET, 174.976),
-                          (style.RED + ">>> CriticalResourceWarning: memory usage approaching limit" +
-                           style.RESET, 179.93),
-                          (style.BLUE + ">>> World.warn('I AM OMNISCIENT.')" +
-                           style.RESET, 183.647),
-                          (style.BLUE +
-                           ">>> World.warn('y = sqrt[1 - (|x| - 1)^2], arccos(1 - |x|) - π')" + style.RESET, 187.666),
-                          (style.RED + ">>> FatalMemoryError: memory exceeded, core dumped" + style.RESET, 205.811)])
+                          (Style.RED + ">>> ScopeAccessError: cannot access data outside scope" +
+                           Style.RESET, 174.976),
+                          (Style.RED + ">>> CriticalResourceWarning: memory usage approaching limit" +
+                           Style.RESET, 179.93),
+                          (Style.BLUE + ">>> World.warn('I AM OMNISCIENT.')" +
+                           Style.RESET, 183.647),
+                          (Style.BLUE +
+                           ">>> World.warn('y = sqrt[1 - (|x| - 1)^2], arccos(1 - |x|) - π')" + Style.RESET, 187.666),
+                          (Style.RED + ">>> FatalMemoryError: memory exceeded, core dumped" + Style.RESET, 205.811)])
 
 functions_to_execute = deque([(lay_down, 3.874),
                               (initialization, 10),
@@ -251,77 +251,77 @@ functions_to_execute = deque([(lay_down, 3.874),
                               ])
 
 indices_styles = {
-    2: style.RED_BOLD,
-    5: style.GREEN_BOLD,
-    6: style.GREEN,
-    7: style.GREEN,
-    9: style.GREEN_BOLD,
-    12: style.YELLOW_BOLD,
-    15: style.YELLOW_BOLD,
-    18: style.YELLOW_BOLD,
-    21: style.YELLOW_BOLD,
-    22: style.GREEN,
-    23: style.GREEN,
-    24: style.GREEN,
-    25: style.GREEN,
-    27: style.GREEN,
-    28: style.GREEN,
-    31: style.MAGENTA,
-    32: style.MAGENTA,
-    33: style.YELLOW_BOLD,
-    34: style.MAGENTA,
-    35: style.MAGENTA,
-    36: style.YELLOW_BOLD,
-    37: style.GREEN,
-    38: style.GREEN,
-    39: style.YELLOW_BOLD,
-    42: style.YELLOW_BOLD,
-    43: style.GREEN,
-    44: style.GREEN,
-    45: style.YELLOW_BOLD,
-    46: style.GREEN,
-    47: style.GREEN,
-    48: style.YELLOW_BOLD,
-    49: style.GREEN,
-    50: style.GREEN,
-    51: style.YELLOW_BOLD,
-    52: style.GREEN,
-    53: style.GREEN,
-    54: style.YELLOW_BOLD,
-    55: style.GREEN,
-    56: style.GREEN,
-    57: style.GREEN,
-    58: style.GREEN,
-    59: style.GREEN,
-    60: style.GREEN,
-    61: style.GREEN,
-    62: style.GREEN,
-    63: style.MAGENTA,
-    64: style.MAGENTA,
-    65: style.YELLOW_BOLD,
-    66: style.BLUE,
-    67: style.BLUE,
-    68: style.BOLD,
-    74: style.RED_BOLD,
-    75: style.RED_BOLD,
-    76: style.MAGENTA,
-    77: style.MAGENTA,
-    78: style.YELLOW_BOLD,
-    79: style.GREEN,
-    80: style.GREEN,
-    81: style.YELLOW_BOLD,
-    82: style.RED_BOLD,
-    83: style.RED_BOLD,
-    84: style.RED_BOLD,
-    103: style.RED_BOLD,
-    104: style.MAGENTA,
-    105: style.MAGENTA,
-    106: style.YELLOW_BOLD,
-    107: style.BLUE,
-    108: style.BLUE,
-    109: style.BOLD,
-    110: style.MAGENTA,
-    111: style.BLUE,
-    112: style.BOLD,
-    126: style.RED_BOLD
+    2: Style.RED_BOLD,
+    5: Style.GREEN_BOLD,
+    6: Style.GREEN,
+    7: Style.GREEN,
+    9: Style.GREEN_BOLD,
+    12: Style.YELLOW_BOLD,
+    15: Style.YELLOW_BOLD,
+    18: Style.YELLOW_BOLD,
+    21: Style.YELLOW_BOLD,
+    22: Style.GREEN,
+    23: Style.GREEN,
+    24: Style.GREEN,
+    25: Style.GREEN,
+    27: Style.GREEN,
+    28: Style.GREEN,
+    31: Style.MAGENTA,
+    32: Style.MAGENTA,
+    33: Style.YELLOW_BOLD,
+    34: Style.MAGENTA,
+    35: Style.MAGENTA,
+    36: Style.YELLOW_BOLD,
+    37: Style.GREEN,
+    38: Style.GREEN,
+    39: Style.YELLOW_BOLD,
+    42: Style.YELLOW_BOLD,
+    43: Style.GREEN,
+    44: Style.GREEN,
+    45: Style.YELLOW_BOLD,
+    46: Style.GREEN,
+    47: Style.GREEN,
+    48: Style.YELLOW_BOLD,
+    49: Style.GREEN,
+    50: Style.GREEN,
+    51: Style.YELLOW_BOLD,
+    52: Style.GREEN,
+    53: Style.GREEN,
+    54: Style.YELLOW_BOLD,
+    55: Style.GREEN,
+    56: Style.GREEN,
+    57: Style.GREEN,
+    58: Style.GREEN,
+    59: Style.GREEN,
+    60: Style.GREEN,
+    61: Style.GREEN,
+    62: Style.GREEN,
+    63: Style.MAGENTA,
+    64: Style.MAGENTA,
+    65: Style.YELLOW_BOLD,
+    66: Style.BLUE,
+    67: Style.BLUE,
+    68: Style.BOLD,
+    74: Style.RED_BOLD,
+    75: Style.RED_BOLD,
+    76: Style.MAGENTA,
+    77: Style.MAGENTA,
+    78: Style.YELLOW_BOLD,
+    79: Style.GREEN,
+    80: Style.GREEN,
+    81: Style.YELLOW_BOLD,
+    82: Style.RED_BOLD,
+    83: Style.RED_BOLD,
+    84: Style.RED_BOLD,
+    103: Style.RED_BOLD,
+    104: Style.MAGENTA,
+    105: Style.MAGENTA,
+    106: Style.YELLOW_BOLD,
+    107: Style.BLUE,
+    108: Style.BLUE,
+    109: Style.BOLD,
+    110: Style.MAGENTA,
+    111: Style.BLUE,
+    112: Style.BOLD,
+    126: Style.RED_BOLD
 }

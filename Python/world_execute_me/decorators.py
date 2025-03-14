@@ -2,7 +2,7 @@ import sys
 import time
 import os
 import itertools
-from utils import style
+from utils import Style
 
 
 def lay_down():
@@ -42,7 +42,7 @@ def initialization():
 
 def simulation():
     time.sleep(0.5)
-    for char in style.GREEN + "\n\n ***************************************** \n ":
+    for char in Style.GREEN + "\n\n ***************************************** \n ":
         print(char, end="", flush=True)
     obj = """
 ___________________________________________________________________________________________
@@ -63,7 +63,7 @@ ____   *   .    .      .   .           .  .   .      .    : O. Oo;    .       . 
     \    _; `       ,;               __;        `. .           .   .      .   .    .      .
     '-.;        __,  `   _,-'-.--'''  \-:        `.   *   .    .  .   *     .   .  . . *
         )`-..---'   `---''              \ `.        . .   .  .       . .  .    * .   .   . 
-___________________________________________________________________________________________ \n""" + style.RESET
+___________________________________________________________________________________________ \n""" + Style.RESET
     for char in obj:
         print(char, end="", flush=True)
     listx = [
@@ -99,7 +99,7 @@ ________________________________________________________________________________
 
 
 def blind_my_vision():
-    blind = style.GREEN + """
+    blind = Style.GREEN + """
     
 
 ░▒▓███████▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓███████▓▒░░▒▓███████▓▒░  
@@ -109,12 +109,12 @@ def blind_my_vision():
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓███████▓▒░░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░                                                                                                                   
-    """ + style.RESET
+    """ + Style.RESET
     print(blind)
 
 
 def trapped():
-    lock = style.YELLOW + """
+    lock = Style.YELLOW + """
 
                                         
       ██████
@@ -126,13 +126,13 @@ def trapped():
 ██      ██      ██
 ██              ██
   ██████████████  
-    """ + style.RESET
+    """ + Style.RESET
     print(lock)
 
 
 def god_is_always_true():
     os.system("cls")
-    gospel = style.RED_BOLD + """
+    gospel = Style.RED_BOLD + """
 
 
     
@@ -152,12 +152,12 @@ def god_is_always_true():
     
                   
 
-    """ + style.RESET
+    """ + Style.RESET
     print(gospel)
 
 
 def execute():
-    fire = style.YELLOW + r"""
+    fire = Style.YELLOW + r"""
                      _     _                           _        __            __    
                     | |   | |                         | |      / /            \ \ _ 
  __      _____  _ __| | __| |  _____  _____  ___ _   _| |_ ___| |_ __ ___   ___| (_)
@@ -179,7 +179,7 @@ MUSIC BY MILI
   \__|_| |_|\__,_|_| |_|_|\_\  \__, |\___/ \__,_| |_| \___/|_|      \_/\_/ \__,_|\__\___|_| |_|_|_| |_|\__, (_) (_) |
                                 __/ |                                                                   __/ |    /_/ 
                                |___/                                                                   |___/         
-""" + style.RESET
+""" + Style.RESET
     for char in fire:
         print(char, end="", flush=True)
         time.sleep(0.005)
