@@ -1,7 +1,7 @@
 import pygame
 from difflib import get_close_matches
 from pathlib import Path
-from core import QTEC, HFR
+from cores.hfr import HFR
 from graphics import draw_scanlines, draw_terminal_ui, boot_sequence
 from utilities import *
 from logger import *
