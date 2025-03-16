@@ -1,3 +1,4 @@
+import re
 from utils import STYLE
 
 
@@ -8,7 +9,7 @@ def get_video_id(previous_id: str) -> str:
         if not video_id:
             return previous_id
         
-        if len(video_id) == 11:
+        if re.match(r"^[a-zA-Z0-9_-]{11}$", video_id):
             return video_id
         else:
             print(STYLE["YELLOW"] + "⚠️  Invalid video ID. Enter a valid video ID." + STYLE["RESET"])
