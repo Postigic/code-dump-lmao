@@ -29,16 +29,7 @@ def find_check_digit(nric_chars):
 
 
 def validate_nric(nric):
-    if nric[0] == "T":
-        total = 4
-    else:
-        total = 0
-
-    for i in range(1, len(nric) - 1):
-        total += int(nric[i]) * weights[i - 1]
-
-    index = 11 - (total % 11)
-    calculated = check_digits[index]
+    calculated = find_check_digit(nric[:-1])
 
     return nric[-1] == calculated
 
