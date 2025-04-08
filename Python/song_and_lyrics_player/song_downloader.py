@@ -12,7 +12,7 @@ def download_song_as_mp3(video_id, output_path=""):
         mp3_filename = os.path.join(output_path, f"{title}.mp3")
 
     if os.path.exists(mp3_filename):
-        print(STYLE["CYAN"] + f"⏩ Skipping download, file already exists: {mp3_filename}" + STYLE["RESET"])
+        print(STYLE["CYAN"] + f"⏩ Skipping download, file already exists: {mp3_filename}" + STYLE["RESET"]) # brah this don't work yo
         return mp3_filename
 
     options = {
@@ -29,7 +29,6 @@ def download_song_as_mp3(video_id, output_path=""):
 
     with YoutubeDL(options) as ydl:
         info = ydl.extract_info(url, download=True)
-        file_path = ydl.prepare_filename(info).replace(
-            ".webm", ".mp3").replace(".m4a", ".mp3")
+        file_path = os.path.splitext(ydl.prepare_filename(info))[0] + ".mp3"
         print(STYLE["GREEN"] + f"✅ Downloaded and converted to: {file_path}" + STYLE["RESET"])
         return file_path
