@@ -1,6 +1,6 @@
 # terminal games
 
-simple terminal games, but in C (so cool)₂
+simple terminal games, but in C (so cool)^2
 </br>
 </br>
 uuughhhh second line filler again!!!

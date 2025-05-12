@@ -1,6 +1,9 @@
 # interest calculator
 
-compound interest calculator from a tutorial, was thinking of adding simple interest calculation too but eh
+compound interest calculator from a tutorial
+</br>
+</br>
+was thinking of adding simple interest calculation too but eh
 </br>
 </br>
 made with HTML, CSS and JS

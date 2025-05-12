@@ -1,6 +1,9 @@
 # password generator
 
-a password generator with a few options, made from a tutorial with some error handling and minor adjustment to the length of the container thingy
+a password generator with a few options
+</br>
+</br>
+made from a tutorial with some error handling and minor adjustment to the length of the container thingy
 </br>
 </br>
 made with HTML, CSS and JS

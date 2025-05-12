@@ -1,6 +1,9 @@
 # linear system solver
 
-so like... i remembered hearing about this thing "linalg" in numpy and i was always thinking about making this since then
+so... whatchu think about simultaneous equations eh?
+</br>
+</br>
+i remembered hearing about this thing "linalg" in numpy and i was always thinking about making this since then
 </br>
 </br>
 doing input validation for this project made me so angry, it was so frustrating to do
