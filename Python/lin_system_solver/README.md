@@ -10,3 +10,6 @@ doing input validation for this project made me so angry, it was so frustrating 
 </br>
 </br>
 "i should touch pandas, numpy, matplotlib, and seaborn more often tbh..." - me, 8/5/2025
+</br>
+</br>
+![image](./__project_image__/image.png)

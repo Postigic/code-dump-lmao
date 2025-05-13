@@ -7,3 +7,8 @@ uhh what else can i write? it's less terrible and more so inconvenient and rude 
 </br>
 </br>
 okay i've thankfully reached the third line which is kinda like the minimum i need to end off so yeah hope you have a good day bye!!!
+</br>
+</br>
+![image](./__project_image__/Screenshot%202025-05-13%20010756.png)
+</br>
+i am graphik disignr
