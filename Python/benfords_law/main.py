@@ -4,21 +4,17 @@ import pandas as pd
 from collections import Counter
 from pathlib import Path
 
-
 def benford_distribution():
     return {d: math.log10(1 + 1/d) for d in range(1, 10)}
-
 
 def extract_first_digits(numbers):
     first_digits = [int(str(abs(num))[0]) for num in numbers if num != 0]
     return first_digits
 
-
 def calculate_frequencies(digits):
     counts = Counter(digits)
     total = sum(counts.values())
     return {d: counts[d] / total for d in range(1, 10)}
-
 
 def plot_results(observed, expected):
     digits = range(1, 10)
@@ -32,7 +28,6 @@ def plot_results(observed, expected):
     plt.legend()
     plt.show()
 
-
 def main():
     current_dir = Path(__file__).parent
 
@@ -44,7 +39,6 @@ def main():
     expected = benford_distribution()
 
     plot_results(observed, expected)
-
 
 if __name__ == "__main__":
         main()
