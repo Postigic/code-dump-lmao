@@ -1,9 +1,9 @@
 # algorithms
 
-i dunno what to write lol, just find all of this neat so i steal the code and put it here
+if an al goes and rhythms is it an algorithm or an rhythmic al going
 </br>
 </br>
-obligatory disclaimer that it's a joke
+whatever, go my algorithm
 </br>
 </br>
 ![image](./__project_image__/bogosort.gif)
