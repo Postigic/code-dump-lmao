@@ -12,5 +12,4 @@ def selection_sort(arr):
 
     return arr
 
-
 test_sort(selection_sort)

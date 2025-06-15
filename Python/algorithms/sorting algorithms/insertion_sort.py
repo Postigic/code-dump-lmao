@@ -11,5 +11,4 @@ def insertion_sort(arr):
 
     return arr
 
-
 test_sort(insertion_sort)

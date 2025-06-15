@@ -28,5 +28,4 @@ def count_sort(arr):
     sorted_arr = [num - shift for num in sorted_arr]
     return sorted_arr
 
-
 test_sort(count_sort)

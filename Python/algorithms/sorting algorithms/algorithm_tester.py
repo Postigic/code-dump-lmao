@@ -1,6 +1,5 @@
 import time
 
-
 STYLE = {
     "RED": "\033[31m",
     "GREEN": "\033[32m",
@@ -10,7 +9,6 @@ STYLE = {
     "CYAN": "\033[36m",
     "RESET": "\033[0m"
 }
-
 
 def test_sort(func):
     test_cases = [
@@ -47,6 +45,5 @@ def test_sort(func):
         print(f"Test Case {idx}: {input_list}")
         print(f"{status}" + STYLE["RESET"])
         print(STYLE["CYAN"] + f"Time taken: {time_taken} nanoseconds\n" + STYLE["RESET"])
-
         
 # thank you chatgpt.... i mean what i totally wrote this all myself huh what do you mean i'm lying

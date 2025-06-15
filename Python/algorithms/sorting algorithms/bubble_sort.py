@@ -10,5 +10,4 @@ def bubble_sort(arr):
 
     return arr
 
-
 test_sort(bubble_sort)

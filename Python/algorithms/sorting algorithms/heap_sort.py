@@ -15,7 +15,6 @@ def heapify(arr, n, i):
         arr[i], arr[largest] = arr[largest], arr[i]
         heapify(arr, n, largest)
 
-
 def heap_sort(arr):
     n = len(arr)
 
@@ -27,6 +26,5 @@ def heap_sort(arr):
         heapify(arr, i, 0)
 
     return arr
-
 
 test_sort(heap_sort)

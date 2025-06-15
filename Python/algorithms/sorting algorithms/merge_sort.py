@@ -1,6 +1,5 @@
 from algorithm_tester import test_sort
 
-
 def merge_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -23,6 +22,5 @@ def merge_sort(arr):
     sorted_arr.extend(right[j:])
 
     return sorted_arr
-
 
 test_sort(merge_sort)

@@ -1,6 +1,5 @@
 from algorithm_tester import test_sort
 
-
 def swap(arr, i, j):
     arr[i], arr[j] = arr[j], arr[i]
 
@@ -26,6 +25,5 @@ def quick_sort(arr, low=0, high=None):
         quick_sort(arr, partition_i + 1, high)
 
     return arr
-
 
 test_sort(quick_sort)
