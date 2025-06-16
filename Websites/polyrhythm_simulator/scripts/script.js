@@ -40,6 +40,7 @@ function initTracks() {
     balls.length = 0;
 
     const soundFrequencies = [];
+
     for (let i = 0; i < N; i++) {
         const octave = Math.floor(i / pentatonicRatios.length) + 4;
         const ratioIndex = i % pentatonicRatios.length;
@@ -49,6 +50,7 @@ function initTracks() {
             pentatonicRatios[ratioIndex];
         soundFrequencies.push(parseFloat(frequency.toFixed(2)));
     }
+
     soundFrequencies.reverse();
 
     for (let i = 0; i < N; i++) {
@@ -77,18 +79,25 @@ function initTracks() {
     }
 }
 
+const baseFreqSlider = document.getElementById("base-freq");
+const baseFreqInput = document.getElementById("freq-value");
+
+baseFreqSlider.addEventListener("input", (e) => {
+    baseFreqInput.value = e.target.value;
+});
+
+baseFreqInput.addEventListener("input", (e) => {
+    let val = parseFloat(e.target.value);
+    val = Math.max(100, Math.min(500, val));
+    baseFreqSlider.value = val;
+});
+
 document.getElementById("osc-type").value = settings.oscType;
-document.getElementById("base-freq").value = settings.baseFreq;
 document.getElementById("track-shape").value = settings.trackShape;
-document.getElementById("freq-value").textContent = `${settings.baseFreq} Hz`;
 
 document.getElementById("toggle-settings").addEventListener("click", () => {
     const panel = document.getElementById("settings-panel");
     panel.classList.toggle("visible");
-});
-
-document.getElementById("base-freq").addEventListener("input", (e) => {
-    document.getElementById("freq-value").textContent = `${e.target.value} Hz`;
 });
 
 document.getElementById("apply-btn").addEventListener("click", () => {
