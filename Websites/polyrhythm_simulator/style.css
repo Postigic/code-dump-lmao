@@ -12,10 +12,6 @@ body {
     overflow: hidden;
 }
 
-canvas {
-    padding-top: 5em;
-}
-
 h1 {
     font-size: 4em;
 }
