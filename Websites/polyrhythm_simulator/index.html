@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Polyrhythm Simulator</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="start-overlay">
+            <h1>Polyrhythm Simulator</h1>
+            <button id="start-btn">Click to Start</button>
+        </div>
+
+        <button id="toggle-settings">⚙️</button>
+
+        <div id="settings-panel">
+            <h3>Polyrhythm Settings</h3>
+
+            <label
+                >Oscillator Type:
+                <select id="osc-type">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="sawtooth">Sawtooth</option>
+                </select>
+            </label>
+
+            <label
+                >Base Frequency:
+                <input
+                    type="range"
+                    id="base-freq"
+                    min="100"
+                    max="500"
+                    step="10"
+                    value="293.66"
+                />
+                <span id="freq-value">293.66 Hz</span>
+            </label>
+
+            <label
+                >Track Shape:
+                <select id="track-shape">
+                    <option value="semicircle">Semicircle</option>
+                    <option value="circle">Full Circle</option>
+                </select>
+            </label>
+
+            <button id="apply-btn">Apply Changes</button>
+        </div>
+
+        <canvas id="canvas"></canvas>
+    </body>
+    <script src="scripts/sound.js"></script>
+    <script src="scripts/track.js"></script>
+    <script src="scripts/ball.js"></script>
+    <script src="scripts/script.js"></script>
+</html>

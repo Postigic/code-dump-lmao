@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+* {
+    font-family: "DM Sans", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(10, 10, 10);
+    overflow: hidden;
+}
+
+canvas {
+    padding-top: 5em;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+#start-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0, 0, 0);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+#start-btn {
+    padding: 1em 2em;
+    margin-top: 5em;
+    font-size: 1.2em;
+    background: #222;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#start-btn:hover {
+    transform: translateY(-3px);
+    background: #444;
+}
+
+#start-btn:active {
+    transform: translateY(1px);
+    background: #666;
+}
+
+#toggle-settings {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    border: 1px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 100;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#toggle-settings:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+#toggle-settings:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+#settings-panel {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    top: 80px;
+    right: 20px;
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(2px);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    z-index: 100;
+    max-width: 300px;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#settings-panel.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#settings-panel label {
+    display: block;
+    margin: 20px 0;
+}
+
+#settings-panel select,
+#settings-panel input {
+    width: 100%;
+    margin-top: 5px;
+}
+
+#settings-panel select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+#settings-panel button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#settings-panel button:hover {
+    transform: translateY(-3px);
+    background-color: #0056b3;
+}
+
+#settings-panel button:active {
+    transform: translateY(1px);
+    background-color: #00439a;
+}
