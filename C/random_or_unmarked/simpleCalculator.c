@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 void clear_input_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
