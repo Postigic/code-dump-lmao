@@ -1,13 +1,12 @@
 import pygame
 import time
 import random
-from youtube_transcript_api import YouTubeTranscriptApi, Transcript
+from youtube_transcript_api import YouTubeTranscriptApi, FetchedTranscript
 from song_downloader import download_song_as_mp3
 from settings_manager import *
 from input_validation import *
 from utils import STYLE
 from pathlib import Path
-
 
 def calculate_print_speed(text: str, duration: float) -> float:
     total_length = len(text)
@@ -20,14 +19,12 @@ def calculate_print_speed(text: str, duration: float) -> float:
 
     return max(0.01, speed)
 
-
 def slow_print(text: str, speed: float, colour: str=""):
     for character in text:
         print(colour + character + STYLE["RESET"], end="", flush=True)
         time.sleep(speed)
 
-
-def get_transcript(video_id: str) -> Transcript:
+def get_transcript(video_id: str) -> FetchedTranscript:
     try:
         transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
         
@@ -44,8 +41,7 @@ def get_transcript(video_id: str) -> Transcript:
         print(f"❌ No transcript available: {e}")
         return None
 
-
-def print_lyrics(audio_file: str, transcript: Transcript, colours: dict, use_colours: bool=True, volume: float=0.65) -> None:
+def print_lyrics(audio_file: str, transcript: FetchedTranscript, colours: dict, use_colours: bool=True, volume: float=0.65) -> None:
     pygame.mixer.init()
     pygame.mixer.music.load(audio_file)
     total_duration = pygame.mixer.Sound(audio_file).get_length()
@@ -60,16 +56,15 @@ def print_lyrics(audio_file: str, transcript: Transcript, colours: dict, use_col
         current_time = pygame.mixer.music.get_pos() / 1000
         current_lyric = lyrics[current_lyric_index]
 
-        if current_time >= current_lyric["start"]:
+        if current_time >= current_lyric.start:
             colour = random.choice(list(
                 colours.values())) if use_colours and current_lyric_index % random.randint(1, 5) == 0 else colour
             print_speed = calculate_print_speed(
-                current_lyric["text"], current_lyric["duration"])
-            slow_print(f"\n{current_lyric['text']}", print_speed, colour)
+                current_lyric.text, current_lyric.duration)
+            slow_print(f"\n{current_lyric.text}", print_speed, colour)
             current_lyric_index += 1
 
     time.sleep(max(0, total_duration - current_time))
-
 
 def main() -> None:
     try:
@@ -102,7 +97,6 @@ def main() -> None:
                 save_settings(video_id, coloured_text, volume, settings_path)
     finally:
         pygame.quit()
-
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,5 @@
 import json
 
-
 def save_settings(video_id: str, coloured_text: bool, volume: float, filename: str) -> None:
     settings = {
         "video_id": video_id,
@@ -9,7 +8,6 @@ def save_settings(video_id: str, coloured_text: bool, volume: float, filename: s
     }
     with open(filename, 'w') as f:
         json.dump(settings, f)
-
 
 def load_settings(filename: str) -> dict:
     if not filename.exists():
