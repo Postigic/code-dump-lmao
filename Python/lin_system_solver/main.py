@@ -27,7 +27,6 @@ def solve_linear_system(A, B, all_symbols):
         
         print(STYLE["RED"] + f"\n{msg}" + STYLE["RESET"])
 
-
 def main():
     print(STYLE["YELLOW"] + "Linear System Solver" + STYLE["RESET"])
 
