@@ -1,8 +1,12 @@
 from yt_dlp import YoutubeDL
 import os
+import re
 from utils import STYLE
 
 def download_song_as_mp3(video_id, output_path=""):
+    if output_path and not os.path.exists(output_path):
+        os.makedirs(output_path, exist_ok=True)
+
     url = f"https://www.youtube.com/watch?v={video_id}"
     options = {
         "quiet": True,
@@ -14,7 +18,7 @@ def download_song_as_mp3(video_id, output_path=""):
             info = ydl.extract_info(url, download=False)
             if not info:
                 raise ValueError("Empty video info received.")
-            title = info.get("title", f"{video_id}_fallback")
+            title = re.sub(r"[^a-zA-Z0-9 _-]", "", info.get("title", f"{video_id}_fallback"))
             mp3_filename = os.path.join(output_path, f"{title}.mp3")
     except Exception as e:
         print(STYLE["RED"] + f"❌ Failed to extract video info: {e}" + STYLE["RESET"])

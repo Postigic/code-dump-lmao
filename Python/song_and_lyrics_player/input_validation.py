@@ -5,13 +5,13 @@ def get_video_id(previous_id: str) -> str:
     while True:
         video_id = input(f"Enter the YouTube video ID [previous: {previous_id}]: ")
 
-        if not video_id:
+        if not video_id and previous_id:
             return previous_id
         
         if re.match(r"^[a-zA-Z0-9_-]{11}$", video_id):
             return video_id
-        else:
-            print(STYLE["YELLOW"] + "⚠️  Invalid video ID. Enter a valid video ID." + STYLE["RESET"])
+        
+        print(STYLE["YELLOW"] + "⚠️  Invalid video ID. Enter a valid video ID." + STYLE["RESET"])
 
 def get_coloured_text_preference(default_value: bool) -> bool:
     while True:
