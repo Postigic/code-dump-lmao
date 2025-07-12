@@ -1,9 +1,16 @@
 # check digits
 
 what do i even write lol
-</br>
-</br>
-it's pretty cool y'know? i find it cool at least...
-</br>
-</br>
-insert image here or something
+
+---
+
+## 🤔 what's here?
+
+- some check digit systems
+- mmm... yeah that's all
+
+---
+
+## 🚀 how to use
+
+i wonder that myself too (is this getting repetitive and old? i'm sorry)
