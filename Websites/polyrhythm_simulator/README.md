@@ -1,15 +1,22 @@
 # polyrhythm simulator
 
 so... you like polyrhythms...?
-</br>
-</br>
-yes, tutorial, sue me! i added other thinamabobs and doohingies to it though
-</br>
-</br>
-link here btw:
-</br>
-<https://www.youtube.com/watch?v=eX-ODcr3XJg>
-</br>
-</br>
-obligatory image (ooohhh so cool i know you like the funny colours):
-![image](./__project_image__/image.png)
+
+![image](./__project_image__/image.png)  
+ooohhh so cool i know you like the funny colours
+
+---
+
+## 💡 overview
+
+polyrhythms... we ALL love it (yes, WE)  
+yes, tutorial, sue me! i added other thinamabobs and doohingies to it though  
+link: <https://www.youtube.com/watch?v=eX-ODcr3XJg>
+
+---
+
+## ⚙️ features
+
+- yippee colours
+- wahoo sounds
+- settings to adjust stuff

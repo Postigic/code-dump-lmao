@@ -1,16 +1,21 @@
 # chart generator
 
-chart generator from tutorial, small bug where one bar in bar chart will not fade away
-</br>
-</br>
-made with HTML, CSS and JS
-</br>
-</br>
-tutorial i used:
-</br>
-<https://www.youtube.com/watch?v=1hgBrruTk1Y>
-</br>
-</br>
-image of the chart generator:
-</br>
+generates charts... because we all love them obviously
+
 ![image](./__project_image__/image.png)
+
+---
+
+## 💡 overview
+
+it makes... charts... um...... yeah!  
+tutorial... again  
+link: <https://www.youtube.com/watch?v=1hgBrruTk1Y>
+
+---
+
+## ⚙️ features
+
+- add data
+- bar, line, pie, donut, and radar charts
+- cool colours!!!!!!!!

@@ -1,11 +1,21 @@
 # data unit converter
 
-yup i decided to make it into a website, css style was (kinda no longer) ripped from something else
-</br>
-</br>
-made with HTML, CSS and JS
-</br>
-</br>
-image of the data unit converter:
-</br>
+converts data units (e.g. megabytes) into other ones
+
 ![image](./__project_image__/image.png)
+
+---
+
+## 💡 overview
+
+website to convert data units into other ones  
+originally a python script, but i decided to do this for fun  
+i am not really happy with the css but i can't be bothered
+
+---
+
+## ⚙️ features
+
+- converts data units
+- result in both conversion unit and bits
+- button to copy result

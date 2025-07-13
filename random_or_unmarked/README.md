@@ -1,3 +1,17 @@
 # random or unmarked
 
-this one is mostly things that don't really need its own folder or didn't really count as a project
+landfill in a landfill (m. c. escher reference???)
+
+---
+
+## 🤔 what's here?
+
+- things that didn't really need its own folder
+- doodads that didn't really count as a project
+- garbage
+
+---
+
+## 🚀 how to use
+
+run it i guess

@@ -1,15 +1,21 @@
 # tic tac toe
 
-tic tac toe game from tutorial, but it's pretty much unrecognisable now lmao
-</br>
-</br>
-made with HTML, CSS, and JS
-</br>
-</br>
-tutorial i used:
-<https://www.youtube.com/watch?v=AnmwHjpEhtA>
-</br>
-</br>
-image of the tic tac toe game:
-</br>
+tic tacs like the food
+
 ![image](./__project_image__/image.png)
+
+---
+
+## 💡 overview
+
+tic tac toe game... you know what it is right?  
+tutorial, but i bloated it with a bunch of stuff  
+link: <https://www.youtube.com/watch?v=AnmwHjpEhtA>
+
+---
+
+## ⚙️ features
+
+- tic tac toe
+- difficulties for computer
+- funky win animation i guess

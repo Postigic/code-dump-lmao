@@ -1,16 +1,21 @@
 # dice roller
 
-dice roller from tutorial, not much to say about it
-</br>
-</br>
-made with HTML, CSS and JS
-</br>
-</br>
-tutorial i used:
-</br>
-<https://www.youtube.com/watch?v=PXilNmL9U80>
-</br>
-</br>
-image of the dice roller:
-</br>
+i used to roollll the dice
+
 ![image](./__project_image__/image.png)
+
+---
+
+## 💡 overview
+
+rolls dice... six-sided dice... you can roll as many as you want! (amazing!)  
+tutorial again! i forgot if i changed anything though lol  
+link: <https://www.youtube.com/watch?v=PXilNmL9U80>
+
+---
+
+## ⚙️ features
+
+- roll dice
+- choose how many
+- displays in text and images

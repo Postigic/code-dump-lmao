@@ -1,9 +1,15 @@
 # terminal games
 
 simple terminal games, but in Lua (so 1-indexed)
-</br>
-</br>
-uuughhhh second line filler!!!
-</br>
-</br>
-roblox reference :scream:
+
+---
+
+## 🤔 what's here?
+
+- one game, yeah...
+
+---
+
+## 🚀 how to use
+
+so you go to roblox.com and you do that instead of this (i am so funny i know)
