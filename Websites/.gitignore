@@ -1,0 +1,71 @@
+# Node.js
+
+# Dependency directory
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# dotenv environment variable files
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Parcel-bundler cache (https://parceljs.org/)
+.cache/
+.parcel-cache/
+
+# Next.js build output
+.next/
+
+# Nuxt.js build / generate output
+.nuxt/
+dist/
+
+# Gatsby files
+.cache/
+public/
+
+# Vuepress build output
+.vuepress/dist/
+
+# SvelteKit build output
+.svelte-kit/
+build/
+
+# Storybook build outputs
+.out/
+storybook-static/
+
+# VS Code settings
+.vscode/
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional build output
+build/
+out/
+tmp/
+temp/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# ESLint and Prettier
+.eslintcache
+.prettiercache
+
+# Lock files (optional to ignore depending on your team setup)
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
