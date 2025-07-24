@@ -1,13 +1,5 @@
-from hexadecimal import hex_to_alpha
-from tiles import tiles_to_num
-from mathematics import letters_to_num
-from timing import string_to_colour
-from multi_buttons import numbers_to_sequence
-from binary import binary_to_num
-from colour_code import colours_to_num
-from keypad import keypad_to_sequence
+from logic import *
 from input_validation import *
-
 
 def main():
     options = {
