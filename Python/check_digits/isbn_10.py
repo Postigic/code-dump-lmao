@@ -1,12 +1,10 @@
 def find_check_digit(isbn_chars: str) -> str:
     c_isbn = isbn_chars.replace('-', '')
 
-    isbn_list = list(c_isbn)
-
     total = 0
     index = 0
 
-    for value in isbn_list:
+    for value in c_isbn:
         total += int(value) * (10 - index)
         index += 1
 
