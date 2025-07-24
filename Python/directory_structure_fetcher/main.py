@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-DEFAULT_EXCLUDES = {".git", ".github", "venv", "__pycache__"}
+DEFAULT_EXCLUDES = {".git", ".github", "venv", "__pycache__", "node_modules"}
 
 def is_hidden_or_unwanted(name: str, excluded: set[str]) -> bool:
     return name.startswith(".") or name in excluded
@@ -32,7 +32,7 @@ def fetch_tree_structure(root_dir: Path, output_file: Path, excludes: set[str]) 
 
 if __name__ == "__main__":
     root_input = input("Enter the root directory to scan (default: current folder): ").strip() or "."
-    exclude_input = input("Enter folders to exclude, separated by commas (default: .git,.github,venv,__pycache__): ").strip()
+    exclude_input = input(f"Enter folders to exclude, separated by commas (default: {', '.join(DEFAULT_EXCLUDES)}): ").strip()
 
     excludes = set(item.strip() for item in exclude_input.split(",")) if exclude_input else DEFAULT_EXCLUDES
 
