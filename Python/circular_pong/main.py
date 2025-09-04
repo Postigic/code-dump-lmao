@@ -1,5 +1,7 @@
 import pygame
 import math
+import numpy as np
+from random import randint
 from utils import WIDTH, HEIGHT, CENTER, ARENA_RADIUS
 from paddle import Paddle
 from ball import Ball
@@ -8,6 +10,10 @@ pygame.init()
 
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Circular Pong")
+pygame.mixer.init()
+
+font = pygame.font.SysFont(None, 48)
+clock = pygame.time.Clock()
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -31,10 +37,27 @@ paddles = [
 balls = [Ball()]
 
 scores = [0 for _ in paddles]
-ball_owners = [paddles[0] for _ in balls]
+ball_owners = [paddles[randint(0, len(paddles)-1)] for _ in balls]
 
-font = pygame.font.SysFont(None, 48)
-clock = pygame.time.Clock()
+def make_tone(frequency: float, duration: float = 0.1, volume: float = 0.3) -> pygame.mixer.Sound:
+    sample_rate = 44100
+    n_samples = int(sample_rate * duration)
+    t = np.linspace(0, duration, n_samples, endpoint=False)
+
+    wave = 0.5 * np.sign(np.sin(2 * np.pi * frequency * t))
+
+    decay = np.exp(-20 * t)
+    wave *= decay * volume
+
+    wave_int = np.int16(wave * 32767)
+
+    stereo_wave = np.column_stack([wave_int, wave_int])
+
+    return pygame.sndarray.make_sound(stereo_wave)
+
+ping_sound = make_tone(800, duration=0.15)
+pong_sound = make_tone(400, duration=0.15)
+
 running = True
 
 while running:
@@ -43,28 +66,29 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    for i, ball in enumerate(balls):
+    for ball in balls:
         ball.update()
-
-        for paddle in paddles:
-            paddle.update(ball.pos, ball_owners[i], ball)
 
         collided = False
         for paddle in paddles:
             if ball.resolve_collision(paddle):
+                ping_sound.play() if paddle.color == RED else pong_sound.play()
                 collided = True
-                ball_owners[i] = paddle
+                ball_owners[balls.index(ball)] = paddle
                 break
-
+        
         dx = ball.pos[0] - CENTER[0]
         dy = ball.pos[1] - CENTER[1]
         if not collided and math.hypot(dx, dy) + ball.radius >= ARENA_RADIUS:
-            owner_index = paddles.index(ball_owners[i])
+            owner_index = paddles.index(ball_owners[balls.index(ball)])
             for j in range(len(paddles)):
                 if j != owner_index:
                     scores[j] += 1
             ball.reset()
-            ball_owners[i] = paddles[owner_index]
+            ball_owners[balls.index(ball)] = paddles[owner_index]
+
+    for paddle in paddles:
+        paddle.update(balls, ball_owners)
 
     WINDOW.fill(BLACK)
     pygame.draw.circle(WINDOW, WHITE, CENTER, ARENA_RADIUS, 2)
