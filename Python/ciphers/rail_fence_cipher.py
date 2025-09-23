@@ -40,7 +40,7 @@ def decrypt(cipher_text, key=3):
         rails.append(cipher_text[start:start + length])
         start += length
 
-    result = [''] * n
+    result = [""] * n
     for rail, indices in zip(rails, rail_pattern):
         for i, idx in enumerate(indices):
             result[idx] = rail[i]
