@@ -5,6 +5,9 @@ from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor
 from ascii_processor import frame_to_ascii_image, CHAR_WIDTH, CHAR_HEIGHT
 
+def process_frame(frame_tuple):
+    return frame_to_ascii_image(frame_tuple, CHAR_WIDTH, CHAR_HEIGHT)
+
 def compress_video(input_path, output_path, crf=23):
     subprocess.run([
         "ffmpeg", "-y", 
@@ -71,8 +74,7 @@ def video_to_ascii_video(video_path, output_path, width=120, max_workers=None, b
                 first_frame = False
 
             if len(batch) == batch_size:
-                results = [executor.submit(frame_to_ascii_image, f, CHAR_WIDTH, CHAR_HEIGHT) for f in batch]
-                batch_results = [f.result() for f in results]
+                batch_results = list(executor.map(process_frame, batch, chunksize=30))
                 batch_results.sort(key=lambda x: x[0])
 
                 for _, ascii_frame in batch_results:
@@ -82,8 +84,7 @@ def video_to_ascii_video(video_path, output_path, width=120, max_workers=None, b
                 batch = []
 
         if batch:
-            results = [executor.submit(frame_to_ascii_image, f, CHAR_WIDTH, CHAR_HEIGHT) for f in batch]
-            batch_results = [f.result() for f in results]
+            batch_results = list(executor.map(process_frame, batch, chunksize=30))
             batch_results.sort(key=lambda x: x[0])
 
             for _, ascii_frame in batch_results:
