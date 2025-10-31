@@ -17,7 +17,7 @@ def compress_video(input_path, output_path, crf=23):
         "-preset", "fast", 
         str(output_path)
     ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    print(f"⬇️ Saved compressed ASCII video to: {output_path}")
+    print(f"🗜️ Saved compressed ASCII video to: {output_path}")
 
 def merge_audio(original_video, ascii_video, output_path):
     temp_audio = ascii_video.parent / "temp_audio.aac"
@@ -54,11 +54,11 @@ def video_to_ascii(video_path, output_path, width=120, max_workers=None, batch_s
     first_frame = True
     writer = None
 
+    frame_index = 0
+    batch = []
+
     # i am aware that this is awful, i just don't care yet
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
-        frame_index = 0
-        batch = []
-
         while True:
             ret, frame = cap.read()
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
             break
 
     if file_path is None:
-        raise FileNotFoundError("No video file found in the directory.")
+        raise FileNotFoundError("❌ No video file found in the directory.")
 
     if file_path.suffix.lower() in [".mp4", ".mov"]:
         output_path = output_dir / f"{file_path.stem}_ascii.mp4"
