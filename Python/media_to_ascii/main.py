@@ -8,15 +8,21 @@ from ascii_processor import frame_to_ascii_image, CHAR_WIDTH, CHAR_HEIGHT
 def process_frame(frame_tuple):
     return frame_to_ascii_image(frame_tuple, CHAR_WIDTH, CHAR_HEIGHT)
 
-def compress_video(input_path, output_path, crf=23):
-    subprocess.run([
-        "ffmpeg", "-y", 
+def compress_video(input_path, output_path, crf=23, fps=None):
+    cmd = [
+        "ffmpeg", "-y",
         "-i", str(input_path),
-        "-vcodec", "libx264", 
+        "-vcodec", "libx264",
         "-crf", str(crf),
-        "-preset", "fast", 
-        str(output_path)
-    ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        "-preset", "fast"
+    ]
+
+    if fps is not None:
+        cmd += ["-vf", f"fps={fps}"]
+        
+    cmd.append(str(output_path))
+
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     print(f"🗜️ Saved compressed ASCII video to: {output_path}")
 
 def merge_audio(original_video, ascii_video, output_path):
@@ -44,7 +50,7 @@ def merge_audio(original_video, ascii_video, output_path):
     temp_audio.unlink(missing_ok=True)
     print(f"🎧 Added audio back to: {output_path}")
 
-def video_to_ascii(video_path, output_path, width=120, max_workers=None, batch_size=100):
+def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_size=100):
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
         raise ValueError(f"❌ Failed to open video: {video_path}")
@@ -97,14 +103,14 @@ def video_to_ascii(video_path, output_path, width=120, max_workers=None, batch_s
     print(f"💾 Saved raw ASCII video to: {output_path}")
 
     compressed_path = output_path.parent / f"{output_path.stem}_compressed.mp4"
-    compress_video(output_path, compressed_path)
+    compress_video(output_path, compressed_path, fps=fps)
 
     final_path = output_path.parent / f"{output_path.stem}_final.mp4"
     merge_audio(video_path, compressed_path, final_path)
 
     print(f"✅ Saved final ASCII video to: {final_path}")
 
-def image_to_ascii(image_path, output_path, width=120):
+def image_to_ascii(image_path, output_path, width=200):
     image = cv2.imread(str(image_path))
     
     if image is None:
@@ -130,7 +136,7 @@ if __name__ == "__main__":
 
     if file_path.suffix.lower() in [".mp4", ".mov"]:
         output_path = output_dir / f"{file_path.stem}_ascii.mp4"
-        video_to_ascii(file_path, output_path, width=120, max_workers=os.cpu_count(), batch_size=2000)
+        video_to_ascii(file_path, output_path, width=200, max_workers=os.cpu_count(), batch_size=2000)
     else:
         output_path = output_dir / f"{file_path.stem}_ascii.png"
-        image_to_ascii(file_path, output_path, width=120)
+        image_to_ascii(file_path, output_path, width=200)
