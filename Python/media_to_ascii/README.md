@@ -10,7 +10,7 @@ bad apple, a classic rite of passage
 
 ## 💡 overview
 
-converts any `.mp4`, `.mov`, `.jpg` or `.png` to ascii  
+converts any `.mp4`, `.mov`, `.jpg` or `.png` to ascii (added very patchwork `.gif` support, may or may not improve in the future if i feel like it)  
 a sort of improvement over the rabbit hole ascii i made way back when  
 maybe writing it in python wasn't the best idea for processing time but whatever i'll optimise when i feel like it
 

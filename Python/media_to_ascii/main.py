@@ -50,7 +50,7 @@ def merge_audio(original_video, ascii_video, output_path):
     temp_audio.unlink(missing_ok=True)
     print(f"🎧 Added audio back to: {output_path}")
 
-def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_size=100):
+def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_size=100, skip_compression=False, has_audio=True):
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
         raise ValueError(f"❌ Failed to open video: {video_path}")
@@ -102,13 +102,14 @@ def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_s
     writer.release()
     print(f"💾 Saved raw ASCII video to: {output_path}")
 
-    compressed_path = output_path.parent / f"{output_path.stem}_compressed.mp4"
-    compress_video(output_path, compressed_path, fps=fps)
+    if not skip_compression:
+        compressed_path = output_path.parent / f"{output_path.stem}_compressed.mp4"
+        compress_video(output_path, compressed_path, fps=fps)
 
-    final_path = output_path.parent / f"{output_path.stem}_final.mp4"
-    merge_audio(video_path, compressed_path, final_path)
-
-    print(f"✅ Saved final ASCII video to: {final_path}")
+    if has_audio: # i'm too lazy lol
+        final_path = output_path.parent / f"{output_path.stem}_final.mp4"
+        merge_audio(video_path, compressed_path, final_path)
+        print(f"✅ Saved final ASCII video to: {final_path}")
 
 def image_to_ascii(image_path, output_path, width=200):
     image = cv2.imread(str(image_path))
@@ -126,7 +127,7 @@ if __name__ == "__main__":
     output_dir.mkdir(exist_ok=True)
 
     file_path = None
-    for ext in ["*.mp4", "*.mov", "*.jpg", "*.png"]:
+    for ext in ["*.mp4", "*.mov", "*.jpg", "*.png", "*.gif"]:
         file_path = next(current_dir.glob(ext), None)
         if file_path:
             break
@@ -137,6 +138,27 @@ if __name__ == "__main__":
     if file_path.suffix.lower() in [".mp4", ".mov"]:
         output_path = output_dir / f"{file_path.stem}_ascii.mp4"
         video_to_ascii(file_path, output_path, width=200, max_workers=os.cpu_count(), batch_size=2000)
+    elif file_path.suffix.lower() == ".gif":
+        # i'm lazy, a gif is just an audio-less mp4 right? should work fine... 
+        # this is very patchwork though, may or may not improve in the future or something lol
+        temp_mp4 = output_dir / f"{file_path.stem}_temp.mp4"
+        final_gif = output_dir / f"{file_path.stem}_ascii.gif"
+
+        subprocess.run([
+            "ffmpeg", "-y", 
+            "-i", str(file_path), 
+            str(temp_mp4)
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        ascii_mp4 = output_dir / f"{file_path.stem}_ascii.mp4"
+        video_to_ascii(temp_mp4, ascii_mp4, width=200, max_workers=os.cpu_count(), batch_size=2000, skip_compression=True, has_audio=False)
+        temp_mp4.unlink()
+
+        subprocess.run([
+            "ffmpeg", "-y", 
+            "-i", str(ascii_mp4), 
+            str(final_gif)
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     else:
         output_path = output_dir / f"{file_path.stem}_ascii.png"
         image_to_ascii(file_path, output_path, width=200)
