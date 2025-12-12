@@ -1,9 +1,20 @@
 import os
 import cv2
 import subprocess
+import time
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor
 from ascii_processor import frame_to_ascii_image, CHAR_WIDTH, CHAR_HEIGHT
+
+STYLE = {
+    "RED": "\033[31m",
+    "GREEN": "\033[32m",
+    "YELLOW": "\033[33m",
+    "BLUE": "\033[34m",
+    "MAGENTA": "\033[35m",
+    "CYAN": "\033[36m",
+    "RESET": "\033[0m"
+}
 
 def process_frame(frame_tuple):
     return frame_to_ascii_image(frame_tuple, CHAR_WIDTH, CHAR_HEIGHT)
@@ -23,7 +34,7 @@ def compress_video(input_path, output_path, crf=23, fps=None):
     cmd.append(str(output_path))
 
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    print(f"🗜️ Saved compressed ASCII video to: {output_path}")
+    print(f"{STYLE['GREEN']}🗜️ Saved compressed ASCII video to: {output_path}{STYLE['RESET']}")
 
 def merge_audio(original_video, ascii_video, output_path):
     temp_audio = ascii_video.parent / "temp_audio.aac"
@@ -48,12 +59,14 @@ def merge_audio(original_video, ascii_video, output_path):
     ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     temp_audio.unlink(missing_ok=True)
-    print(f"🎧 Added audio back to: {output_path}")
+    print(f"{STYLE['GREEN']}🎧 Added audio back to: {output_path}{STYLE['RESET']}")
 
 def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_size=100, skip_compression=False, has_audio=True):
+    start_time = time.time()
+
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
-        raise ValueError(f"❌ Failed to open video: {video_path}")
+        raise ValueError(f"{STYLE['RED']}❌ Failed to open video: {video_path}{STYLE['RESET']}")
 
     fps = cap.get(cv2.CAP_PROP_FPS)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -86,7 +99,7 @@ def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_s
                 for _, ascii_frame in batch_results:
                     writer.write(cv2.cvtColor(ascii_frame, cv2.COLOR_RGB2BGR))
 
-                print(f"Processed {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%)")
+                print(f"{STYLE['YELLOW']}[Progress] {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%) {STYLE['RESET']}")
                 batch = []
 
         if batch:
@@ -96,30 +109,38 @@ def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_s
             for _, ascii_frame in batch_results:
                 writer.write(cv2.cvtColor(ascii_frame, cv2.COLOR_RGB2BGR))
 
-            print(f"Processed {frame_index}/{total_frames} frames (100.00%)")
+            print(f"{STYLE['YELLOW']}[Progress] {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%) {STYLE['RESET']}")
 
     cap.release()
     writer.release()
-    print(f"💾 Saved raw ASCII video to: {output_path}")
+    print(f"\n{STYLE['GREEN']}💾 Saved raw ASCII video to: {output_path}{STYLE['RESET']}")
 
     if not skip_compression:
         compressed_path = output_path.parent / f"{output_path.stem}_compressed.mp4"
+        print(f"\n{STYLE['MAGENTA']}🗜️ Compressing video...{STYLE['RESET']}")
         compress_video(output_path, compressed_path, fps=fps)
 
     if has_audio: # i'm too lazy lol
         final_path = output_path.parent / f"{output_path.stem}_final.mp4"
+        print(f"\n{STYLE['MAGENTA']}🎧 Merging audio...{STYLE['RESET']}")
         merge_audio(video_path, compressed_path, final_path)
-        print(f"✅ Saved final ASCII video to: {final_path}")
+        print(f"\n{STYLE['GREEN']}✅ Saved final ASCII video to: {final_path}{STYLE['RESET']}")
+
+    elapsed = time.time() - start_time
+    m, s = divmod(elapsed, 60)
+    h, m = divmod(m, 60)
+
+    print(f"\n{STYLE['CYAN']}⏱ Total time: {int(h)}h {int(m)}m {s:.2f}s{STYLE['RESET']}")
 
 def image_to_ascii(image_path, output_path, width=200):
     image = cv2.imread(str(image_path))
     
     if image is None:
-        raise ValueError(f"❌ Failed to load image: {image_path}")
+        raise ValueError(f"{STYLE['RED']}❌ Failed to load image: {image_path}{STYLE['RESET']}")
 
     _, ascii_image = frame_to_ascii_image((0, image, width), CHAR_WIDTH, CHAR_HEIGHT)
     cv2.imwrite(str(output_path), cv2.cvtColor(ascii_image, cv2.COLOR_RGB2BGR))
-    print(f"✅ Saved ASCII image to: {output_path}")
+    print(f"{STYLE['GREEN']}✅ Saved ASCII image to: {output_path}{STYLE['RESET']}")
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
@@ -133,7 +154,9 @@ if __name__ == "__main__":
             break
 
     if file_path is None:
-        raise FileNotFoundError("❌ No video file found in the directory.")
+        raise FileNotFoundError(f"{STYLE['RED']}❌ No video file found in the directory.{STYLE['RESET']}")
+
+    print(f"{STYLE['CYAN']}{'-'*40}\n🚀 Starting ASCII conversion: {file_path.name}\n{'-'*40}{STYLE['RESET']}")
 
     if file_path.suffix.lower() in [".mp4", ".mov"]:
         output_path = output_dir / f"{file_path.stem}_ascii.mp4"
@@ -162,3 +185,5 @@ if __name__ == "__main__":
     else:
         output_path = output_dir / f"{file_path.stem}_ascii.png"
         image_to_ascii(file_path, output_path, width=200)
+
+    print(f"{STYLE['GREEN']}{'-'*40}\n✅ Finished processing {file_path.name}\n{'-'*40}{STYLE['RESET']}")
