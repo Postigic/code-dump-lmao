@@ -5,11 +5,12 @@ letter_mapping = {
     "D": 9
 }
 
-def string_to_colour(timing_string):
+def string_to_colour(timing_string: str) -> str:
     pair1, pair2 = timing_string[:2], timing_string[2:]
     sum1 = sum(int(num) for num in pair1)
     sum2 = sum(letter_mapping[letter] for letter in pair2)
     result = sum1 * sum2
+    
     if 0 <= result <= 59:
         return "White"
     elif 60 <= result <= 99:

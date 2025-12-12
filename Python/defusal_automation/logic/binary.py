@@ -1,4 +1,4 @@
-def binary_to_num(binary_string):
+def binary_to_num(binary_string: str) -> int:
     if all(digit == "0" for digit in binary_string):
         return 1
     elif binary_string[1] == "1" and binary_string[6] == "0":

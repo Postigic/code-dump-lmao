@@ -14,8 +14,10 @@ display_mapping = {
     "W": 4
 }
 
-def colours_to_num(light_colours, display_colours):
+def colours_to_num(light_colours: str, display_colours: str) -> int:
     display_sum = sum(display_mapping[colour] for colour in display_colours)
     light_sum = sum(light_mapping[colour] for colour in light_colours)
+    
     result = display_sum - light_sum
+
     return result if result > 0 else 0

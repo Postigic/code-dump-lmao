@@ -1,4 +1,4 @@
-def keypad_to_sequence(keypad_string):
+def keypad_to_sequence(keypad_string: str) -> str:
     num1, num2, num3, num4 = map(int, keypad_string.split())
     x = 0
     y = (sum(int(number) for number in keypad_string.split()))/2

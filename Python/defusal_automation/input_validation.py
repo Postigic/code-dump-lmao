@@ -1,4 +1,4 @@
-def get_valid_hex_string():
+def get_valid_hex_string() -> str:
     while True:
         hex_string = input("Enter hex string (e.g. 62 6F 6F 70): ").upper()
         stripped_hex_string = hex_string.replace(" ", "")
@@ -7,8 +7,7 @@ def get_valid_hex_string():
         else:
             print("Invalid hex string. Please enter a valid hex string.")
 
-
-def get_valid_tiles_string():
+def get_valid_tiles_string() -> str:
     while True:
         tiles_string = input(
             "Enter tiles string (e.g. R G): ").upper().replace(" ", "")
@@ -17,8 +16,7 @@ def get_valid_tiles_string():
         else:
             print("Invalid tiles string. Please enter a valid tiles string.")
 
-
-def get_valid_mathematics_string():
+def get_valid_mathematics_string() -> str:
     while True:
         math_string = input(
             "Enter math string (e.g. AB DH): ").upper().replace(" ", "")
@@ -27,8 +25,7 @@ def get_valid_mathematics_string():
         else:
             print("Invalid math string. Please enter a valid math string.")
 
-
-def get_valid_timing_string():
+def get_valid_timing_string() -> str:
     while True:
         timing_string = input(
             "Enter timing string (e.g. 16 BC): ").upper().replace(" ", "")
@@ -38,8 +35,7 @@ def get_valid_timing_string():
         else:
             print("Invalid timing string. Please enter a valid timing string.")
 
-
-def get_valid_multi_buttons_string():
+def get_valid_multi_buttons_string() -> str:
     while True:
         multi_buttons_string = input(
             "Enter multi buttons string (e.g. 128587): ")
@@ -49,8 +45,7 @@ def get_valid_multi_buttons_string():
             print(
                 "Invalid multi buttons string. Please enter a valid multi buttons string.")
 
-
-def get_valid_binary_string():
+def get_valid_binary_string() -> str:
     while True:
         binary_string = input("Enter binary string (e.g. 1001110): ")
         if all(char in "01" for char in binary_string) and len(binary_string) == 7:
@@ -58,8 +53,7 @@ def get_valid_binary_string():
         else:
             print("Invalid binary string. Please enter a valid binary string.")
 
-
-def get_valid_light_colours():
+def get_valid_light_colours() -> str:
     while True:
         light_colours = input("Enter light colours (e.g. RGBYW): ").upper()
         if len(light_colours) == 5 and all(char in "RGBYW" for char in light_colours):
@@ -67,8 +61,7 @@ def get_valid_light_colours():
         else:
             print("Invalid light colours. Please enter valid light colours.")
 
-
-def get_valid_display_colours():
+def get_valid_display_colours() -> str:
     while True:
         display_colours = input("Enter display colours (e.g. GGWYB): ").upper()
         if len(display_colours) == 5 and all(char in "RGBYW" for char in display_colours):
@@ -76,8 +69,7 @@ def get_valid_display_colours():
         else:
             print("Invalid display colours. Please enter valid display colours.")
 
-
-def get_valid_keypad_string():
+def get_valid_keypad_string() -> str:
     while True:
         keypad_string = input(
             "Enter keypad string (e.g. 12 85 87 0): ").upper()

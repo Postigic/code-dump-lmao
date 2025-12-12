@@ -7,5 +7,5 @@ colour_mapping = {
     "W": 5
 }
 
-def tiles_to_num(colour_string):
+def tiles_to_num(colour_string: str) -> int:
     return sum(colour_mapping[colour] for colour in colour_string)
