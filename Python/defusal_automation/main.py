@@ -1,4 +1,3 @@
-from time import sleep
 from logic import *
 from input_validation import *
 
