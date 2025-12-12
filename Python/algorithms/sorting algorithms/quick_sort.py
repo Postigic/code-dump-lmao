@@ -3,7 +3,6 @@ from algorithm_tester import test_sort
 def swap(arr, i, j):
     arr[i], arr[j] = arr[j], arr[i]
 
-
 def quick_sort(arr, low=0, high=None):
     if high is None:
         high = len(arr) - 1
