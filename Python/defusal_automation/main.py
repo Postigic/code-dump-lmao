@@ -47,10 +47,16 @@ def get_keypad_string() -> None:
     keypad_string = get_valid_keypad_string()
     display_result(f"Sequence: {keypad_to_sequence(keypad_string)}")
 
+def get_divisibility_string() -> None:
+    for _ in range(3):
+        divisibility_string = get_valid_divisibility_string()
+        display_result(f"Number: {number_to_button(divisibility_string)}")
+
 def show_modules() -> None:
     print("Available modules:")
     for key in ["hexadecimal", "tiles", "mathematics", "timing",
-                "multi_buttons", "binary", "colour_code", "keypad"]:
+                "multi_buttons", "binary", "colour_code", "keypad", 
+                "divisibility"]:
         print(f"- {key}")
     print("\n-------------------------------\n")
 
@@ -62,7 +68,8 @@ options = {
     "multi_buttons": get_multi_buttons_string,
     "binary": get_binary_string,
     "colour_code": get_colour_code_string,
-    "keypad": get_keypad_string
+    "keypad": get_keypad_string,
+    "divisibility": get_divisibility_string
 }
 
 def main() -> None:

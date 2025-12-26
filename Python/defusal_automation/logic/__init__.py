@@ -7,3 +7,4 @@ from .mathematics import letters_to_num
 from .multi_buttons import numbers_to_sequence
 from .tiles import tiles_to_num
 from .timing import string_to_colour
+from .divisibility import number_to_button
