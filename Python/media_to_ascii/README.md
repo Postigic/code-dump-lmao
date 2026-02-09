@@ -1,46 +1,40 @@
 # media to ascii
 
-converts a video or image into ascii
+Converts videos and images into ASCII art.
 
 ![image](./__project_image__/image.png)
 
-bad apple, a classic rite of passage
+> Bad Apple rendered in ASCII, a classic rite of passage
 
----
+## Overview
 
-## 💡 overview
+Converts `.mp4`, `.mov`, `.jpg`, `.png`, or `.gif` files to coloured ASCII art. Original audio from source videos is merged with the output.
 
-converts any `.mp4`, `.mov`, `.jpg` or `.png` to ascii (added very patchwork `.gif` support, may or may not improve in the future if i feel like it)  
-a sort of improvement over the rabbit hole ascii i made way back when  
-maybe writing it in python wasn't the best idea for processing time but whatever i'll optimise when i feel like it
+`.gif` support is patchwork. It suffices for converting but I cannot comment on the maintainability.
 
----
+Processing time is agreeably awful, no guarantee I will optimise it though.
 
-## ⚙️ features
+## Features
 
-- converts video frames or images into coloured ascii
-- merges audio from original video to ascii video (if applicable)
-- outputs videos as `.mp4` and images as `.jpg` or `.png` (depends on original extension)
+- Converts video frames and images into coloured ASCII
+- Merges audio from source videos
+- Outputs videos as `.mp4` and images matching original format (`.jpg` or `.png`)
 
----
-
-## 🧰 requirements
-
-install with:
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+## Usage
 
-## 🚀 how to use
+Windows:
 
 ```bash
 start.bat
 ```
 
-or alternatively:
+Cross-platform:
 
 ```bash
 python -u main.py

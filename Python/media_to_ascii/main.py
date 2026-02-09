@@ -89,7 +89,7 @@ def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_s
 
             if first_frame and batch:
                 h, w, _ = frame_to_ascii_image(batch[0], CHAR_WIDTH, CHAR_HEIGHT)[1].shape
-                writer = cv2.VideoWriter(str(output_path), cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
+                writer = cv2.VideoWriter(str(output_path), cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
                 first_frame = False
 
             if len(batch) == batch_size:
