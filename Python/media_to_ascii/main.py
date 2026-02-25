@@ -1,3 +1,4 @@
+import math
 import os
 import cv2
 import subprocess
@@ -16,10 +17,32 @@ STYLE = {
     "RESET": "\033[0m"
 }
 
-def process_frame(frame_tuple):
+TARGET_CELLS = 35000
+
+# higher = finer, lower = coarser
+#
+# default is 35000, heuristically derived
+#
+# optimal widths from default target cells:
+# 720x720 optimal -> 138 width
+# 720x1280 optimal -> 104 width
+# 1920x810 optimal -> 213 width
+# 1920x1080 optimal -> 184 width
+#
+# acceptable enough that i can't be bothered to touch it anymore...
+#
+# my PC crashed once during this heuristic testing so like that's a bad omen or something lol
+
+def optimal_width(frame_width: int, frame_height: int, target_cells: int=TARGET_CELLS) -> int:
+    aspect = (frame_height / frame_width) * (CHAR_HEIGHT / CHAR_WIDTH)
+    width = math.sqrt(target_cells / aspect)
+
+    return max(40, min(300, round(width)))
+
+def process_frame(frame_tuple: tuple) -> tuple:
     return frame_to_ascii_image(frame_tuple, CHAR_WIDTH, CHAR_HEIGHT)
 
-def compress_video(input_path, output_path, crf=23, fps=None):
+def compress_video(input_path: Path, output_path: Path, crf: int=23, fps: int=None) -> None:
     cmd = [
         "ffmpeg", "-y",
         "-i", str(input_path),
@@ -36,7 +59,7 @@ def compress_video(input_path, output_path, crf=23, fps=None):
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     print(f"{STYLE['GREEN']}🗜️ Saved compressed ASCII video to: {output_path}{STYLE['RESET']}")
 
-def merge_audio(original_video, ascii_video, output_path):
+def merge_audio(original_video: Path, ascii_video: Path, output_path: Path) -> None:
     temp_audio = ascii_video.parent / "temp_audio.aac"
 
     # incantation to extract audio from original video
@@ -61,7 +84,8 @@ def merge_audio(original_video, ascii_video, output_path):
     temp_audio.unlink(missing_ok=True)
     print(f"{STYLE['GREEN']}🎧 Added audio back to: {output_path}{STYLE['RESET']}")
 
-def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_size=100, skip_compression=False, has_audio=True):
+# handle aspect ratio for width maybe (e.g. landscape 200, portrait 120/150?)
+def video_to_ascii(video_path: Path, output_path: Path, width: int=None, max_workers: int=None, batch_size: int=100, skip_compression: bool=False, has_audio: bool=True) -> None:
     start_time = time.time()
 
     cap = cv2.VideoCapture(str(video_path))
@@ -70,9 +94,17 @@ def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_s
 
     fps = cap.get(cv2.CAP_PROP_FPS)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+    if width is None:
+        width = optimal_width(frame_width, frame_height)
+        orientation = "landscape" if frame_width >= frame_height else "portrait"
+        print(f"{STYLE['CYAN']}🎯 Optimal width: {width} (orientation: {orientation} {frame_width}x{frame_height}){STYLE['RESET']}\n")
+
     first_frame = True
     writer = None
-
     frame_index = 0
     batch = []
 
@@ -132,11 +164,17 @@ def video_to_ascii(video_path, output_path, width=200, max_workers=None, batch_s
 
     print(f"\n{STYLE['CYAN']}⏱ Total time: {int(h)}h {int(m)}m {s:.2f}s{STYLE['RESET']}")
 
-def image_to_ascii(image_path, output_path, width=200):
+def image_to_ascii(image_path: Path, output_path: Path, width: int=None) -> None:
     image = cv2.imread(str(image_path))
     
     if image is None:
         raise ValueError(f"{STYLE['RED']}❌ Failed to load image: {image_path}{STYLE['RESET']}")
+    
+    if width is None:
+        h, w = image.shape[:2]
+        width = optimal_width(w, h)
+        orientation = "landscape" if w >= h else "portrait"
+        print(f"{STYLE['CYAN']}🎯 Optimal width: {width} (orientation: {orientation} {w}x{h}){STYLE['RESET']}\n")
 
     _, ascii_image = frame_to_ascii_image((0, image, width), CHAR_WIDTH, CHAR_HEIGHT)
     cv2.imwrite(str(output_path), cv2.cvtColor(ascii_image, cv2.COLOR_RGB2BGR))
@@ -160,7 +198,7 @@ if __name__ == "__main__":
 
     if file_path.suffix.lower() in [".mp4", ".mov"]:
         output_path = output_dir / f"{file_path.stem}_ascii.mp4"
-        video_to_ascii(file_path, output_path, width=200, max_workers=os.cpu_count(), batch_size=2000)
+        video_to_ascii(file_path, output_path, max_workers=os.cpu_count(), batch_size=2000)
     elif file_path.suffix.lower() == ".gif":
         # i'm lazy, a gif is just an audio-less mp4 right? should work fine... 
         # this is very patchwork though, may or may not improve in the future or something lol
@@ -174,7 +212,7 @@ if __name__ == "__main__":
         ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         ascii_mp4 = output_dir / f"{file_path.stem}_ascii.mp4"
-        video_to_ascii(temp_mp4, ascii_mp4, width=200, max_workers=os.cpu_count(), batch_size=2000, skip_compression=True, has_audio=False)
+        video_to_ascii(temp_mp4, ascii_mp4, max_workers=os.cpu_count(), batch_size=2000, skip_compression=True, has_audio=False)
         temp_mp4.unlink()
 
         subprocess.run([
@@ -184,6 +222,6 @@ if __name__ == "__main__":
         ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     else:
         output_path = output_dir / f"{file_path.stem}_ascii.png"
-        image_to_ascii(file_path, output_path, width=200)
+        image_to_ascii(file_path, output_path)
 
     print(f"{STYLE['GREEN']}{'-'*40}\n✅ Finished processing {file_path.name}\n{'-'*40}{STYLE['RESET']}")

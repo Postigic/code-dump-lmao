@@ -5,10 +5,12 @@ from PIL import ImageFont
 ASCII_CHARS = r"@@@@@@@@%%##88WWMMBBOOZZ00QQLLCCJJUUYYXXzcvunxrjft/\|(){}[]?-_+~<>i!lI;:,\"^`'."
 
 FONT = ImageFont.truetype("C:/Windows/Fonts/consola.ttf", 10)
-CHAR_WIDTH, CHAR_HEIGHT = FONT.getmask("A").size
+ascent, descent = FONT.getmetrics()
+CHAR_WIDTH, _ = FONT.getmask("A").size
+CHAR_HEIGHT = ascent + descent
 CHAR_RATIO = CHAR_HEIGHT / CHAR_WIDTH
 
-def build_glyph_cache(font, ascii_chars):
+def build_glyph_cache(font: ImageFont, ascii_chars: str) -> tuple:
     unique_chars = list(dict.fromkeys(ascii_chars))
     char_to_idx = {c: i for i, c in enumerate(unique_chars)}
 
@@ -31,13 +33,13 @@ def build_glyph_cache(font, ascii_chars):
 
 GLYPH_MASKS, CHAR_LOOKUP = build_glyph_cache(FONT, ASCII_CHARS)
 
-def rgb_to_lightness(r, g, b):
+def rgb_to_lightness(r: np.ndarray, g: np.ndarray, b: np.ndarray) -> np.ndarray:
     return (np.maximum(np.maximum(r, g), b).astype(np.int32) + np.minimum(np.minimum(r, g), b).astype(np.int32)) // 2
 
-def frame_to_ascii_image(frame_tuple, char_width, char_height):
+def frame_to_ascii_image(frame_tuple: tuple, char_width: int, char_height: int) -> tuple:
     frame_index, frame, width = frame_tuple
     aspect = frame.shape[1] / frame.shape[0]
-    height = int(width / aspect * CHAR_RATIO)
+    height = int(width / aspect / CHAR_RATIO)
 
     small = cv2.resize(frame, (width, height), interpolation=cv2.INTER_AREA)
 
