@@ -17,19 +17,20 @@ STYLE = {
     "RESET": "\033[0m"
 }
 
-TARGET_CELLS = 35000
+TARGET_CELLS = 45000
 
 # higher = finer, lower = coarser
 #
-# default is 35000, heuristically derived
+# default is 45000, heuristically derived
 #
 # optimal widths from default target cells:
-# 720x720 optimal -> 138 width
-# 720x1280 optimal -> 104 width
-# 1920x810 optimal -> 213 width
-# 1920x1080 optimal -> 184 width
+# 720x720 optimal -> 157 width
+# 720x1280 optimal -> 118 width
+# 1920x810 optimal -> 241 width
+# 1920x1080 optimal -> 209 width
 #
 # acceptable enough that i can't be bothered to touch it anymore...
+# i lied i touched the value again
 #
 # my PC crashed once during this heuristic testing so like that's a bad omen or something lol
 
@@ -135,7 +136,7 @@ def video_to_ascii(video_path: Path, output_path: Path, width: int=None, max_wor
                 for _, ascii_frame in batch_results:
                     writer.write(cv2.cvtColor(ascii_frame, cv2.COLOR_RGB2BGR))
 
-                print(f"{STYLE['YELLOW']}[Progress] {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%) {STYLE['RESET']}")
+                print(f"[Progress] {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%)")
                 batch = []
 
         if batch:
@@ -145,7 +146,7 @@ def video_to_ascii(video_path: Path, output_path: Path, width: int=None, max_wor
             for _, ascii_frame in batch_results:
                 writer.write(cv2.cvtColor(ascii_frame, cv2.COLOR_RGB2BGR))
 
-            print(f"{STYLE['YELLOW']}[Progress] {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%) {STYLE['RESET']}")
+            print(f"[Progress] {frame_index}/{total_frames} frames ({frame_index / total_frames * 100:.2f}%)")
 
     cap.release()
     writer.release()
@@ -153,12 +154,12 @@ def video_to_ascii(video_path: Path, output_path: Path, width: int=None, max_wor
 
     if not skip_compression:
         compressed_path = output_path.parent / f"{output_path.stem}_compressed.mp4"
-        print(f"\n{STYLE['MAGENTA']}🗜️ Compressing video...{STYLE['RESET']}")
+        print(f"\n{STYLE['CYAN']}🗜️ Compressing video...{STYLE['RESET']}")
         compress_video(output_path, compressed_path, fps=fps)
 
     if has_audio: # i'm too lazy lol
         final_path = output_path.parent / f"{output_path.stem}_final.mp4"
-        print(f"\n{STYLE['MAGENTA']}🎧 Merging audio...{STYLE['RESET']}")
+        print(f"\n{STYLE['CYAN']}🎧 Merging audio...{STYLE['RESET']}")
         merge_audio(video_path, compressed_path, final_path)
         print(f"\n{STYLE['GREEN']}✅ Saved final ASCII video to: {final_path}{STYLE['RESET']}")
 
