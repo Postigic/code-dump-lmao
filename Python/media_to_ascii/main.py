@@ -34,10 +34,14 @@ TARGET_CELLS = 35000
 # my PC crashed once during this heuristic testing so like that's a bad omen or something lol
 
 def optimal_width(frame_width: int, frame_height: int, target_cells: int=TARGET_CELLS) -> int:
+    if target_cells <= 0:
+        raise ValueError(f"{STYLE['RED']}❌ Target cells must be a positive integer.{STYLE['RESET']}")
+
     aspect = (frame_height / frame_width) * (CHAR_HEIGHT / CHAR_WIDTH)
     width = math.sqrt(target_cells / aspect)
 
-    return max(40, min(300, round(width)))
+    # i change my mind, no more arbitrary clamping!
+    return round(width)
 
 def process_frame(frame_tuple: tuple) -> tuple:
     return frame_to_ascii_image(frame_tuple, CHAR_WIDTH, CHAR_HEIGHT)
