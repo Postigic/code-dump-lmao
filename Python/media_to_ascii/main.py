@@ -185,7 +185,7 @@ def image_to_ascii(image_path: Path, output_path: Path, width: int=None) -> None
     cv2.imwrite(str(output_path), cv2.cvtColor(ascii_image, cv2.COLOR_RGB2BGR))
     print(f"{STYLE['GREEN']}✅ Saved ASCII image to: {output_path}{STYLE['RESET']}")
 
-if __name__ == "__main__":
+def main():
     current_dir = Path(__file__).parent
     output_dir = current_dir / "output"
     output_dir.mkdir(exist_ok=True)
@@ -230,3 +230,6 @@ if __name__ == "__main__":
         image_to_ascii(file_path, output_path)
 
     print(f"{STYLE['GREEN']}{'-'*40}\n✅ Finished processing {file_path.name}\n{'-'*40}{STYLE['RESET']}")
+
+if __name__ == "__main__":
+    main()
