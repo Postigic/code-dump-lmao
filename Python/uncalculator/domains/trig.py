@@ -1,0 +1,1 @@
+# i don't know if i'll implement trig to be honest X_X
