@@ -1,22 +1,17 @@
 # polyrhythm simulator
 
-so... you like polyrhythms...?
+A polyrhythm simulator with adjustable base frequency, oscillator, and track shape.
 
 ![image](./__project_image__/image.png)  
-ooohhh so cool i know you like the funny colours
 
----
+## Overview
 
-## 💡 overview
+The foundation came from [this tutorial](https://www.youtube.com/watch?v=eX-ODcr3XJg), though I added additional settings on top.
 
-polyrhythms... we ALL love it (yes, WE)  
-yes, tutorial, sue me! i added other thinamabobs and doohingies to it though  
-link: <https://www.youtube.com/watch?v=eX-ODcr3XJg>
+Supports semi-circle and full circle track shapes (though I can't tell if the full circle actually works as intended), adjustable base frequency, and oscillator options.
 
----
+## Features
 
-## ⚙️ features
-
-- yippee colours
-- wahoo sounds
-- settings to adjust stuff
+- Adjustable base frequency
+- Oscillator options
+- Track shape selection (semi-circle, full circle)
