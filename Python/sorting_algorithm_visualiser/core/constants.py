@@ -509,7 +509,7 @@ ALGOS = [
         "aux": "O(log n)",
         "stable": False,
         "inplace": True,
-        "desc": "Quick sort that partitions into three regions: less than, equal to, and greater than the pivot using Dijkstra's Dutch National Flag algorithm. The equal region is settled in a single pass and never recurse into again, making it optimal on inputs with many duplicate keys where standard quick sort degrades toward O(n²). Best case O(n) occurs when all elements are equal."
+        "desc": "Quick sort that partitions into three regions: less than, equal to, and greater than the pivot using Dijkstra's Dutch National Flag algorithm. The equal region is settled in a single pass and never recursed on again, making it optimal on inputs with many duplicate keys where standard quick sort degrades toward O(n²). Best case O(n) occurs when all elements are equal."
     },
     {
         "name": "Dual-Pivot Quick Sort",
