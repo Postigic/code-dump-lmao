@@ -44,8 +44,8 @@ def setup_info_panel(parent):
             dpg.add_text("In-place:", color=(150, 150, 150))
             dpg.add_text("", tag="info_inplace")
 
-        with dpg.group(horizontal=True):
-            dpg.add_text("Comparisons")
+        # with dpg.group(horizontal=True):
+        #     dpg.add_text("Comparisons")
 
 def update_info_panel():
     info = ALGO_INFO.get(engine.algo_name)
