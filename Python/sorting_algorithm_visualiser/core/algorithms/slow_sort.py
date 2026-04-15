@@ -21,5 +21,6 @@ def _slow(state, arr, lo, hi):
 
     if arr[mid] > arr[hi]:
         arr[mid], arr[hi] = arr[hi], arr[mid]
+        yield
     
     yield from _slow(state, arr, lo, hi - 1)

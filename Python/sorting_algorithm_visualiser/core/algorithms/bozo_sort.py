@@ -12,7 +12,5 @@ def bozo_sort(state):
 
         arr[i], arr[j] = arr[j], arr[i]
 
-        yield
-
     for i in range(n):
         state.sorted_.add(i)

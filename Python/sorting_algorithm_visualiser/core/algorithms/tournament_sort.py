@@ -19,7 +19,7 @@ def tournament_sort(state):
         state.active = {l for l in {tree[2*i], tree[2*i+1]} if l < n}
         yield
 
-        tree[i] = l if leaves[l] < leaves[r] else r
+        tree[i] = l if leaves[l] <= leaves[r] else r
 
     state.active.clear()
     yield
@@ -42,3 +42,6 @@ def tournament_sort(state):
 
             tree[i] = l if leaves[l] <= leaves[r] else r
             i //= 2
+
+        state.active.clear()
+        yield

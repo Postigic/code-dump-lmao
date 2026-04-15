@@ -41,6 +41,9 @@ def _partition(state, arr, lo, hi, randomised, median):
         
         arr[rand_idx], arr[hi] = arr[hi], arr[rand_idx]
 
+        state.active = {rand_idx, hi}
+        yield
+
         state.pivot = {hi}
         state.active = {rand_idx}
         yield
@@ -52,14 +55,22 @@ def _partition(state, arr, lo, hi, randomised, median):
 
         if arr[lo] > arr[mid]:
             arr[lo], arr[mid] = arr[mid], arr[lo]
+
+            yield
         
         if arr[lo] > arr[hi]:
             arr[lo], arr[hi] = arr[hi], arr[lo]
+
+            yield
         
         if arr[mid] > arr[hi]:
             arr[mid], arr[hi] = arr[hi], arr[mid]
+
+            yield
         
         arr[mid], arr[hi] = arr[hi], arr[mid]
+
+        yield
 
         state.pivot = {hi}
         state.active = {mid}
@@ -77,10 +88,16 @@ def _partition(state, arr, lo, hi, randomised, median):
             i += 1
             arr[i], arr[j] = arr[j], arr[i]
 
+            state.active = {i, j}
+            yield
+
     state.active = {i + 1, hi}
     yield
 
     arr[i + 1], arr[hi] = arr[hi], arr[i + 1]
+
+    yield
+
     state.pivot = {i + 1}
 
 def _qs_3way(state, arr, lo, hi):
@@ -111,10 +128,18 @@ def _partition_3way(state, arr, lo, hi):
  
         if arr[i] < pivot:
             arr[i], arr[lt] = arr[lt], arr[i]
+
+            state.active = {i, lt}
+            yield
+
             lt += 1
             i += 1
         elif arr[i] > pivot:
             arr[i], arr[gt] = arr[gt], arr[i]
+
+            state.active = {i, gt}
+            yield
+
             gt -= 1
         else:
             i += 1
@@ -139,8 +164,13 @@ def _qs_dual(state, arr, lo, hi):
     yield from _qs_dual(state, arr, gt + 1, hi)
  
 def _partition_dual(state, arr, lo, hi):
+    state.active = {lo, hi}
+    yield
+
     if arr[lo] > arr[hi]:
         arr[lo], arr[hi] = arr[hi], arr[lo]
+
+        yield
  
     p1 = arr[lo]
     p2 = arr[hi]
@@ -156,10 +186,18 @@ def _partition_dual(state, arr, lo, hi):
  
         if arr[k] < p1:
             arr[k], arr[lt] = arr[lt], arr[k]
+
+            state.active = {k, lt}
+            yield
+
             lt += 1
             k += 1
         elif arr[k] > p2:
             arr[k], arr[gt] = arr[gt], arr[k]
+
+            state.active = {k, gt}
+            yield
+
             gt -= 1
         else:
             k += 1
@@ -169,6 +207,9 @@ def _partition_dual(state, arr, lo, hi):
  
     arr[lo], arr[lt] = arr[lt], arr[lo]
     arr[hi], arr[gt] = arr[gt], arr[hi]
+
+    state.active = {lo, lt, hi, gt}
+    yield
  
     state.active = set()
     state.pivot.clear()

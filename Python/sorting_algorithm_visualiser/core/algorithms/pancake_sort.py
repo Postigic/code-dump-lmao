@@ -14,6 +14,8 @@ def pancake_sort(state):
                 yield
 
                 arr[:max_idx+1] = arr[:max_idx+1][::-1]
+
+                state.active = {0, size - 1}
                 yield
             
             arr[:size] = arr[:size][::-1]

@@ -6,7 +6,7 @@ def gnome_sort(state):
 
     while i < n:
         if i == 0 or arr[i] >= arr[i - 1]:
-            state.active = {i} if i + 1 >= n else {i, i + 1}
+            state.active = {i - 1, i} if i > 0 else {i}
             yield
 
             i += 1

@@ -33,6 +33,10 @@ def _envelope(length):
         ]
     )
 
+def _loudness_comp(freq):
+    ref = 400
+    return (ref / freq) ** 0.5
+
 def _make_note(freq, speed):
     duration = max(0.03, SUSTAIN / speed)
     length = int(SAMPLE_RATE * duration)
@@ -41,7 +45,7 @@ def _make_note(freq, speed):
     phase = (freq * t) % 1.0
     wave = np.where(phase < 0.5, 4 * phase - 1, 3 - 4 * phase)
 
-    return (wave * _envelope(length) * VOLUME * 32767).astype(np.int16)
+    return (wave * _envelope(length) * VOLUME * _loudness_comp(freq) * 32767).astype(np.int16)
 
 def play_tone(freq, speed, muted):
     if muted:

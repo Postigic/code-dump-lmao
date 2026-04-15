@@ -14,4 +14,7 @@ def selection_sort(state):
 
         arr[i], arr[min_index] = arr[min_index], arr[i]
 
+        state.active = {i, min_index}
+        yield
+
         state.sorted_.add(i)

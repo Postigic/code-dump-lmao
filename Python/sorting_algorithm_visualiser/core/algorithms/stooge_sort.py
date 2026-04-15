@@ -13,6 +13,7 @@ def _stooge(state, arr, lo, hi):
         yield
         
         arr[lo], arr[hi] = arr[hi], arr[lo]
+        yield
     
     if hi - lo + 1 > 2:
         third = (hi - lo + 1) // 3

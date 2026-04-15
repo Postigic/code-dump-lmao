@@ -5,10 +5,7 @@ def shell_sort(state):
     gap = n // 2
 
     while gap > 0:
-        # for the stupid visuals
-        start = 0 if gap == 1 else gap
-
-        for i in range(start, n):
+        for i in range(gap, n):
             key = arr[i]
             j = i
 
@@ -17,14 +14,15 @@ def shell_sort(state):
                 yield
 
                 arr[j] = arr[j - gap]
+
                 j -= gap
-            
-            state.active = {j, i}
-            yield
 
             arr[j] = key
-        
-            if gap == 1:
-                state.sorted_.add(i)
+
+            state.active = {i, j}
+            yield
 
         gap //= 2
+
+    for i in range(n):
+        state.sorted_.add(i)

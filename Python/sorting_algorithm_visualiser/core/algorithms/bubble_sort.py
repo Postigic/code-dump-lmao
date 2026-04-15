@@ -12,8 +12,6 @@ def bubble_sort(state):
 
         state.sorted_.add(n - 1 - i)
 
-    state.sorted_.add(0)
-
 def optimised_bubble_sort(state):
     arr = state.arr
     n = len(arr)
@@ -35,5 +33,3 @@ def optimised_bubble_sort(state):
             for k in range(n):
                 state.sorted_.add(k)
             break
-
-    state.sorted_.add(0)

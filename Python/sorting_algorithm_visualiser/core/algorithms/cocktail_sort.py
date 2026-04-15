@@ -21,8 +21,6 @@ def cocktail_sort(state):
 
         state.sorted_.add(i)
 
-    state.sorted_.add(0)
-
 def optimised_cocktail_sort(state):
     arr = state.arr
     n = len(arr)
@@ -54,5 +52,3 @@ def optimised_cocktail_sort(state):
             for k in range(n):
                 state.sorted_.add(k)
             break
-    
-    state.sorted_.add(0)
