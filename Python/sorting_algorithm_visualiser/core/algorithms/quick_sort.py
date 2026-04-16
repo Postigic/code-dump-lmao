@@ -28,7 +28,7 @@ def _qs(state, arr, lo, hi, randomised, median):
 
     yield from _partition(state, arr, lo, hi, randomised, median)
 
-    pivot_idx, = state.pivot
+    pivot_idx = next(iter(state.pivot))
     state.sorted_.add(pivot_idx)
     state.pivot.clear()
 
@@ -45,7 +45,7 @@ def _partition(state, arr, lo, hi, randomised, median):
         yield
 
         state.pivot = {hi}
-        state.active = {rand_idx}
+        state.active.clear()
         yield
     elif median and hi - lo >= 2:
         mid = (lo + hi) // 2
@@ -73,7 +73,7 @@ def _partition(state, arr, lo, hi, randomised, median):
         yield
 
         state.pivot = {hi}
-        state.active = {mid}
+        state.active.clear()
         yield
 
     pivot = arr[hi]
@@ -96,9 +96,9 @@ def _partition(state, arr, lo, hi, randomised, median):
 
     arr[i + 1], arr[hi] = arr[hi], arr[i + 1]
 
-    yield
-
     state.pivot = {i + 1}
+    state.active.clear()
+    yield
 
 def _qs_3way(state, arr, lo, hi):
     if lo >= hi:
@@ -116,7 +116,6 @@ def _qs_3way(state, arr, lo, hi):
  
 def _partition_3way(state, arr, lo, hi):
     pivot = arr[lo]
-    state.pivot = {lo}
  
     lt = lo
     gt = hi
@@ -143,9 +142,10 @@ def _partition_3way(state, arr, lo, hi):
             gt -= 1
         else:
             i += 1
- 
-    state.active = set()
-    state.pivot.clear()
+
+    state.active.clear()
+    yield
+    
     return lt, gt
 
 def _qs_dual(state, arr, lo, hi):
@@ -208,7 +208,8 @@ def _partition_dual(state, arr, lo, hi):
     arr[lo], arr[lt] = arr[lt], arr[lo]
     arr[hi], arr[gt] = arr[gt], arr[hi]
 
-    state.active = {lo, lt, hi, gt}
+    state.pivot = {lt, gt}
+    state.active = {lt, gt}
     yield
  
     state.active = set()
