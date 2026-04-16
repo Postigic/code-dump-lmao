@@ -98,7 +98,10 @@ def _merge_collapse(state, arr, runs):
             C = runs[-1][1]
 
             if A <= B + C:
-                yield from _merge_at(state, arr, runs, -3)
+                if A < C:
+                    yield from _merge_at(state, arr, runs, -3)
+                else:
+                    yield from _merge_at(state, arr, runs, -2)
                 continue
         
         if n >= 2:
