@@ -55,7 +55,7 @@ class Ball:
             in_arc = (start_angle <= ball_angle <= end_angle) if start_angle < end_angle else (ball_angle >= start_angle or ball_angle <= end_angle)
 
             if abs(dist - paddle.radius) <= self.radius + 2 and in_arc:
-                new_vel = reflect_with_curve((interp_x, interp_y), self.vel, paddle.angle)
+                new_vel = reflect_with_curve((interp_x, interp_y), self.vel, paddle)
                 new_speed = math.hypot(*new_vel) * 1.05
                 self.vel = [component * (new_speed / math.hypot(*new_vel)) for component in new_vel]
 

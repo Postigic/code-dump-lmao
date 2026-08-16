@@ -1,11 +1,10 @@
-import random
 import math
 
 WIDTH, HEIGHT = 800, 800
 CENTER = (WIDTH // 2, HEIGHT // 2)
 ARENA_RADIUS = 250
 
-def reflect_with_curve(ball_pos: tuple, ball_vel: tuple, reference_angle: float, curve_strength: float = 0.3, max_entropy: float = 0.2) -> list[float]:
+def reflect_with_curve(ball_pos: tuple, ball_vel: tuple, paddle, curve_strength: float = 0.3) -> list[float]:
     dx = ball_pos[0] - CENTER[0]
     dy = ball_pos[1] - CENTER[1]
     dist = math.hypot(dx, dy)
@@ -27,11 +26,9 @@ def reflect_with_curve(ball_pos: tuple, ball_vel: tuple, reference_angle: float,
     ry = v_norm[1] - 2 * dot * ny
 
     ball_angle = math.atan2(dy, dx)
-    offset = ((ball_angle - reference_angle + math.pi) % (2*math.pi)) - math.pi
-    curve = math.sin(offset) * curve_strength
-
-    tangent_entropy = random.uniform(-max_entropy, max_entropy)
-    total_rotation = curve + tangent_entropy
+    offset = ((ball_angle - paddle.angle + math.pi) % (2*math.pi)) - math.pi
+    normalized = offset / (paddle.width / 2)
+    curve = (normalized ** 3) * curve_strength
 
     rx, ry = (
         rx * math.cos(curve) - ry * math.sin(curve),

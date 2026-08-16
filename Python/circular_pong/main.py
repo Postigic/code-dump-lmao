@@ -24,6 +24,8 @@ GREEN = (50, 255, 50)
 BLUE = (50, 50, 255)
 PURPLE = (255, 50, 255)
 
+play_ping = True
+
 # paddle_1 = Paddle(angle=math.pi/2, color=RED, keys=(pygame.K_d, pygame.K_a))
 paddles = [
     Paddle(angle=math.pi/2, color=RED, is_ai=True),
@@ -72,8 +74,9 @@ while running:
         collided = False
         for paddle in paddles:
             if ball.resolve_collision(paddle):
-                ping_sound.play() if paddle.color == RED else pong_sound.play()
+                ping_sound.play() if play_ping else pong_sound.play()
                 collided = True
+                play_ping = not play_ping
                 ball_owners[balls.index(ball)] = paddle
                 break
         
@@ -88,7 +91,7 @@ while running:
             ball_owners[balls.index(ball)] = paddles[owner_index]
 
     for paddle in paddles:
-        paddle.update(balls, ball_owners)
+        paddle.update(paddles, balls, ball_owners)
 
     WINDOW.fill(BLACK)
     pygame.draw.circle(WINDOW, WHITE, CENTER, ARENA_RADIUS, 2)

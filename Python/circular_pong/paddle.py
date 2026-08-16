@@ -1,8 +1,7 @@
 import math
-import random
 import pygame
 from ball import Ball
-from utils import CENTER, ARENA_RADIUS, reflect_with_curve
+from utils import CENTER, ARENA_RADIUS
 
 class Paddle:
     def __init__(self, angle: float, color: tuple, keys: tuple = None, is_ai: bool = False):
@@ -33,9 +32,9 @@ class Paddle:
         
         pygame.draw.lines(surface, self.color, False, arc_points, 5)
 
-    def update(self, balls: list, owners: list) -> None:
+    def update(self, paddles: list, balls: list, owners: list) -> None:
         if self.is_ai:
-            target = self.choose_target(balls, owners)
+            target = self.choose_target(paddles, balls, owners)
             if target:
                 self.track_ball(target)
         elif self.keys:
@@ -45,7 +44,7 @@ class Paddle:
             if keys[self.keys[1]]:
                 self.angle += self.speed
 
-    def choose_target(self, balls: list, owners: list) -> Ball | None:
+    def choose_target(self, paddles: list, balls: list, owners: list) -> Ball | None:
         best_time = float("inf")
         best_ball = None
 
@@ -58,7 +57,7 @@ class Paddle:
                 best_time, best_ball = tti, ball
 
         return best_ball
-    
+
     @staticmethod
     def intercept_times(px: float, py: float, vx: float, vy: float, radius: float) -> list[float]:
         dx, dy = px - CENTER[0], py - CENTER[1]
@@ -81,7 +80,10 @@ class Paddle:
         times = self.intercept_times(*ball.pos, *ball.vel, ARENA_RADIUS)
         return min(times, default=None)
 
-    def predict_intercept(self, ball: Ball, max_steps=500, dt=1.0) -> float | None:
+    # this could honestly be replaced with intercept_times, i forgot why i wrote this?
+    # probably used to be curved path or something, iunno.
+    # doesn't seem to be causing any issues so might as well keep it around (i'm lazy)
+    def predict_intercept(self, ball: Ball, max_steps: int = 500, dt: float = 1.0) -> float | None:
         sim_pos = ball.pos[:]
         sim_vel = ball.vel[:]
 
