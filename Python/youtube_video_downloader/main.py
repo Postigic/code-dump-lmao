@@ -6,9 +6,12 @@ def download_youtube_video(url, output_dir):
     output_dir.mkdir(exist_ok=True)
 
     ydl_opts = {
-        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4",
+        "format": "bestvideo[height<=1080]+bestaudio/best[height<=1080]",
         "outtmpl": str(output_dir / "%(title)s.%(ext)s"),
-        "merge_output_format": "mp4"
+        "merge_output_format": "mp4",
+        "quiet": True,
+        "no_playlist": True,
+        "js_runtimes": {"node": {}},
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
