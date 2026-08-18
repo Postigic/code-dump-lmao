@@ -1,6 +1,6 @@
 # media to ascii
 
-Converts videos and images into ASCII art.
+Converts videos and images into ASCII art, optionally with bitcrushed audio.
 
 ![image](./__project_image__/image.png)
 
@@ -8,7 +8,7 @@ Converts videos and images into ASCII art.
 
 ## Overview
 
-Converts `.mp4`, `.mov`, `.jpg`, `.png`, or `.gif` files to coloured ASCII art. Original audio from source videos is merged with the output.
+Converts `.mp4`, `.mov`, `.jpg`, `.png`, or `.gif` files to coloured ASCII art. Original audio (or bitcrushed audio) from source videos is merged with the output.
 
 `.gif` support is patchwork. It suffices for converting but I cannot comment on the maintainability.
 
@@ -24,6 +24,7 @@ Converts `.mp4`, `.mov`, `.jpg`, `.png`, or `.gif` files to coloured ASCII art. 
 
 - Converts video frames and images into coloured ASCII
 - Merges audio from source videos
+- Optional flag to bitcrush audio (also optional fields to tweak bit depth, downsample, drive, dither, and gain)
 - Outputs videos as `.mp4` and images matching original format (`.jpg` or `.png`)
 
 ## Installation
