@@ -10,6 +10,8 @@ simulates human number selection with common biases for analysis
 
 simulates human number selection with common biases and analyses which numbers are "safe" (>= 5 from the mean). i got the idea randomly one day and for some reason decided to simulate instead of just using real-world data, so results may not reflect reality as biases are honestly kind of arbitrary... regardless, it was a fun experiment that i did out of pure curiosity, and i learned new things :)
 
+**28/9/2026:** In hindsight, this analysis (if you can even call it that) really sucks for a lack of better terms, but as much as it pains me to do I will not delete it for archival's sake (and because the commit history exists but whatever okay?)
+
 ---
 
 ## ⚙️ features
