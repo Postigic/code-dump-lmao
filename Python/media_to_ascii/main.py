@@ -27,6 +27,9 @@ TARGET_CELLS = 45000
 # i lied i touched the value again
 #
 # my PC crashed once during this heuristic testing so like that's a bad omen or something lol
+#
+# NOTE: if using UNICODE_CHARS, don't use 45000 on size 32 (it will crash), use 5000
+# UNICODE doesn't look that good anyway (at least the char set used here) so don't bother, just use ASCII
 
 def optimal_width(frame_width: int, frame_height: int, target_cells: int=TARGET_CELLS) -> int:
     if target_cells <= 0:
