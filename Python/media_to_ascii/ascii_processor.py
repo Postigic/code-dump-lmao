@@ -3,7 +3,7 @@ import numpy as np
 from PIL import ImageFont
 from fontTools.ttLib import TTFont
 
-ASCII_CHARS = r"@@@@@@@@%%##88WWMMBBOOZZ00QQLLCCJJUUYYXXzcvunxrjft/\|(){}[]?-_+~<>i!lI;:,\"^`'."
+ASCII_CHARS = "@@@@@@@@%%##88WWMMBBOOZZ00QQLLCCJJUUYYXXzcvunxrjft/\\|(){}[]?-_+~<>i!lI;:,\"^`'."
 # UNICODE_CHARS = "齉驫龘✺鬱畫♞☯嘉ꙮ❂⚛✤✹௵目✣♣回⣿☣☸❖田⍟⎈ⵣ☘⡷⠿⌬王⊕◉⠟ᚠ中⊛◎⁙ᛟꘜ※⠋⁂人二丁⸫ᛃ∴∵⋮⠁一⛬丶‧˙·"
 
 CHARS = ASCII_CHARS
